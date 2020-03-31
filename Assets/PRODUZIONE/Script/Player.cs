@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         movePlayer();
-        jumpPlayer();
         calcolaPunteggio();
         StartCoroutine(shotPlayer());
         //shotPlayer();
@@ -135,21 +134,6 @@ public class Player : MonoBehaviour
         }
         */
 
-    }
-
-    public void jumpPlayer()
-    {
-        if (Input.GetKeyDown("space") && salto == false)
-        {
-            salto = true;
-            jump.SetBool("Salto", salto);
-        }
-
-        if (this.gameObject.transform.position.y < 0.2f && salto && jump.GetCurrentAnimatorStateInfo(0).IsName("Salto"))
-        {
-            salto = false;
-            jump.SetBool("Salto", salto);
-        }
     }
 
     IEnumerator shotPlayer()
