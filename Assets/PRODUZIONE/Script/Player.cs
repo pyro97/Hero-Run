@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     bool mask;
     Vector2 startTouch, endTouch;
     GameObject gun;
+    float punteggio;
+
 
     // Start is called before the first frame update
 
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        punteggio = 0;
         mask = false;
         paper = false;
         increment = 0f;
@@ -180,10 +183,9 @@ public class Player : MonoBehaviour
     public void calcolaPunteggio()
     {
         if (Time.timeScale == 1)
-        {
-            float val = this.gameObject.transform.position.z;
-            int p = Score.punteggio;
-            Score.punteggio = p + (int)val;
+        {   
+            punteggio = punteggio + 0.5f + increment;
+            Score.punteggio = (int)punteggio;
             Text t = GameObject.Find("Punti").GetComponent<Text>();
             t.text = "" + Score.punteggio;
         }
