@@ -163,6 +163,8 @@ public class Player : MonoBehaviour
     
     IEnumerator animationPerdente()
     {
+        animator.SetBool("Run", false);
+        yield return new WaitForSeconds(0.2f);
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
         cam.transform.position = new Vector3(this.transform.position.x, 4f, this.transform.position.z+5f);
@@ -170,8 +172,7 @@ public class Player : MonoBehaviour
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
-        animator.SetBool("Run", false);
-        yield return new WaitForSeconds(0.2f);
+       
         animator.SetBool("Morto", true);
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Tosse", true);
