@@ -6,9 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody rigid;
-    Animator jump;
+    Animator animator;
     private EnemiesGenerator enemies;
-    bool salto,sparo;
     [Range(-3.1f, 3.1f)] float value;
     public float increment;
     bool paper;
@@ -33,14 +32,12 @@ public class Player : MonoBehaviour
         mask = false;
         paper = false;
         increment = 0f;
-        salto = false;
-        sparo = false;
         rigid=GetComponent<Rigidbody>();
-        jump = gameObject.GetComponent<Animator>();
-        jump.SetBool("Salto", salto);
-        jump.SetBool("Shot", sparo);
-        jump.SetBool("Morto", false);
-        jump.SetBool("Cade", false);
+        animator = gameObject.GetComponent<Animator>();
+        animator.SetBool("Shot", false);
+        animator.SetBool("Morto", false);
+        animator.SetBool("Tosse", false);
+        animator.SetBool("Run", true);
 
         gun = GameObject.Find("GunMedico");
         gun.SetActive(false);
@@ -136,14 +133,17 @@ public class Player : MonoBehaviour
                 endTouch = Input.GetTouch(0).position;
                 if (startTouch == endTouch)
                 {
-                    sparo = true;
-                    jump.SetBool("Shot", sparo);
-                    yield return new WaitForSeconds(8 * Time.deltaTime);
+                    animator.SetBool("Shot", true);
+                    yield return new WaitForSeconds(0.6f);
+                    //yield return new WaitForSeconds(8 * Time.deltaTime);
                     gun.SetActive(true);
-                    yield return new WaitForSeconds(6* Time.deltaTime);
-                    sparo = false;
-                    jump.SetBool("Shot", sparo);
-                    yield return new WaitForSeconds(5 * Time.deltaTime);
+                    yield return new WaitForSeconds(0.5f);
+
+                    //yield return new WaitForSeconds(6* Time.deltaTime);
+                    animator.SetBool("Shot", false);
+                    yield return new WaitForSeconds(0.5f);
+
+                    //yield return new WaitForSeconds(5 * Time.deltaTime);
                     gun.SetActive(false);
                 }
             }
@@ -165,16 +165,18 @@ public class Player : MonoBehaviour
     {
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
-        cam.transform.position = new Vector3(this.transform.position.x, 2.5f, this.transform.position.z+5f);
+        cam.transform.position = new Vector3(this.transform.position.x, 4f, this.transform.position.z+5f);
         Score.animazioneFine = true;
-        //this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        //rigid.AddForce(5*new Vector3(0.0f, 0.0f, 25.0f));
-        jump.SetBool("Morto", true);
-        yield return new WaitForSeconds(0.5f);
-        jump.SetBool("Cade", true);
+        this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
-        yield return new WaitForSeconds(3);
+        animator.SetBool("Run", false);
+        yield return new WaitForSeconds(0.2f);
+        animator.SetBool("Morto", true);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("Tosse", true);
+       
+        yield return new WaitForSeconds(4.5f);
         Score.fine = true;
 
 

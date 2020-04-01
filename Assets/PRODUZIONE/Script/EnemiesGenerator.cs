@@ -107,7 +107,8 @@ public class EnemiesGenerator : MonoBehaviour
         bool flag = true;
         while (flag)
         {
-            if (enemyCount>0 && ((enemies[0].transform.position.z + 20) < player.transform.position.z) && ((enemies[1].transform.position.z + 20) < player.transform.position.z))
+            if (enemyCount>0 && ((enemies[0].transform.position.z + 20) < player.transform.position.z) && ((enemies[1].transform.position.z + 20) < player.transform.position.z)
+                &&  ((enemies[2].transform.position.z + 20) < player.transform.position.z))
             {
                 Destroy(enemies[0]);
                 enemies.RemoveAt(0);
@@ -118,6 +119,7 @@ public class EnemiesGenerator : MonoBehaviour
             }
             else
                 flag = false;
+
         }
 
     }
