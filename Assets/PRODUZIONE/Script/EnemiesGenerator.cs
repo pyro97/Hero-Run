@@ -9,11 +9,14 @@ public class EnemiesGenerator : MonoBehaviour
     public GameObject person;
     public List<GameObject> enemies;
     public GameObject player;
-    float xPos;
+    public GameObject police;
+    float xPosAlien;
     float xPosPerson;
-    int zPos;
+    float xPosPoliceMan;
+    int zPosAlien;
     float count;
     int zPosPerson;
+    int zPosPolice;
     int enemyCount;
     float startWait;
 
@@ -33,41 +36,62 @@ public class EnemiesGenerator : MonoBehaviour
         while (enemyCount < 7)
         {
             UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
-            xPos = Random.Range(-4.1f, 5.1f);
+            xPosAlien = Random.Range(-4.1f, 5.1f);
             count = Random.Range(0.0f, 2.0f);
-            if (xPos < -1)
+            if (xPosAlien < -1)
             {
-                xPos = -3;
+                xPosAlien = -3;
                 if (count < 1.01)
+                {
                     xPosPerson = 3;
+                    xPosPoliceMan = 0;
+                }
                 else
+                {
                     xPosPerson = 0;
+                    xPosPoliceMan = 3;
+                }
             }
-            else if (xPos > 1)
+            else if (xPosAlien > 1)
             {
-                xPos = 3;
+                xPosAlien = 3;
                 if (count < 1.01)
+                {
                     xPosPerson = 0;
+                    xPosPoliceMan = -3;
+                }
                 else
+                {
                     xPosPerson = -3;
+                    xPosPoliceMan = 0;
+                }
             }
             else
             {
-                xPos = 0;
+                xPosAlien = 0;
                 if (count < 1.01)
+                {
                     xPosPerson = -3;
+                    xPosPoliceMan = 3;
+                }
                 else
+                {
                     xPosPerson = 3;
+                    xPosPoliceMan = -3;
+                }
             }
-            zPos = Random.Range(80, 100);
-            zPosPerson = Random.Range(90, 110);
+            zPosAlien = Random.Range(80, 90);
+            zPosPerson = Random.Range(90, 100);
+            zPosPolice = Random.Range(110, 120);
             GameObject go;
-            go = Instantiate(theEnemy, new Vector3(xPos, 0.1f, zPos + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+            go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
             go = Instantiate(person, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
+            go = Instantiate(police, new Vector3(xPosPoliceMan, 0.1f, zPosPolice + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+            enemies.Add(go);
             yield return new WaitForSecondsRealtime(startWait);
-            enemyCount += 2;
+            enemyCount += 3;
         }
 
     }
@@ -101,39 +125,60 @@ public class EnemiesGenerator : MonoBehaviour
     void CreateEnemies()
     {
         UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
-        xPos = Random.Range(-4.1f, 5.1f);
+        xPosAlien = Random.Range(-4.1f, 5.1f);
         count = Random.Range(0.0f, 2.0f);
-        if (xPos < -1)
+        if (xPosAlien < -1)
         {
-            xPos = -3;
+            xPosAlien = -3;
             if (count < 1.01)
+            {
                 xPosPerson = 3;
+                xPosPoliceMan = 0;
+            }
             else
+            {
                 xPosPerson = 0;
+                xPosPoliceMan = 3;
+            }
         }
-        else if (xPos > 1)
+        else if (xPosAlien > 1)
         {
-            xPos = 3;
+            xPosAlien = 3;
             if (count < 1.01)
+            {
                 xPosPerson = 0;
+                xPosPoliceMan = -3;
+            }
             else
+            {
                 xPosPerson = -3;
+                xPosPoliceMan = 0;
+            }
         }
         else
         {
-            xPos = 0;
+            xPosAlien = 0;
             if (count < 1.01)
+            {
                 xPosPerson = -3;
+                xPosPoliceMan = 3;
+            }
             else
+            {
                 xPosPerson = 3;
+                xPosPoliceMan = -3;
+            }
         }
-        zPos = Random.Range(80, 100);
-        zPosPerson = Random.Range(90, 110);
+        zPosAlien = Random.Range(80, 90);
+        zPosPerson = Random.Range(90, 100);
+        zPosPolice = Random.Range(100, 110);
         GameObject go;
-        go = Instantiate(theEnemy, new Vector3(xPos, 0.1f, zPos + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+        go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
         enemies.Add(go);
         go = Instantiate(person, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
         enemies.Add(go);
-        enemyCount += 2;
+        go = Instantiate(police, new Vector3(xPosPoliceMan, 0.1f, zPosPolice + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+        enemies.Add(go);
+        enemyCount += 3;
     }
 }

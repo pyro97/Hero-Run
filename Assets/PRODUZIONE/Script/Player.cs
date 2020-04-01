@@ -79,7 +79,8 @@ public class Player : MonoBehaviour
         
         increment += 0.01f;
         //increment uguale a 50 potrebbe bastare perchè se no si andrebbe a distruggere la dinamica del gioco 
-        rigid.AddForce((10 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
+        if(!end)
+            rigid.AddForce((10 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
 
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f,0.0f,0.0f);
 
@@ -166,14 +167,14 @@ public class Player : MonoBehaviour
         cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
         cam.transform.position = new Vector3(this.transform.position.x, 2.5f, this.transform.position.z+5f);
         Score.animazioneFine = true;
-        this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        rigid.AddForce(5*new Vector3(0.0f, 0.0f, 25.0f));
-       jump.SetBool("Morto", true);
-        yield return new WaitForSeconds(5 * Time.deltaTime);
+        //this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        //rigid.AddForce(5*new Vector3(0.0f, 0.0f, 25.0f));
+        jump.SetBool("Morto", true);
+        yield return new WaitForSeconds(0.5f);
         jump.SetBool("Cade", true);
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
-        yield return new WaitForSeconds(50 * Time.deltaTime);
+        yield return new WaitForSeconds(3);
         Score.fine = true;
 
 
