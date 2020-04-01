@@ -33,7 +33,7 @@ public class EnemiesGenerator : MonoBehaviour
     IEnumerator EnemyDrop()
     {
 
-        while (enemyCount < 7)
+        while (enemyCount < 7 )
         {
             UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
             xPosAlien = Random.Range(-4.1f, 5.1f);

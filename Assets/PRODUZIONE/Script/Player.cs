@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-
+        //GameObject.Find("ImageMask").SetActive(false);
         end = false;
         punteggio = 0;
         mask = false;
@@ -52,9 +52,17 @@ public class Player : MonoBehaviour
     {
         if (!end)
         {
-            movePlayer();
-            calcolaPunteggio();
-            StartCoroutine(shotPlayer());
+            if (Time.timeScale == 1)
+            {
+                movePlayer();
+                calcolaPunteggio();
+                StartCoroutine(shotPlayer());
+            }
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                startTouch = Input.GetTouch(0).position;
+            }
+
         }
         else
         {
@@ -70,17 +78,10 @@ public class Player : MonoBehaviour
 
     public void movePlayer()
     {
-        //muove avanti in automatico
-        //rigid.AddForce(10 * new Vector3(0.0f, 0.0f, 25.0f));
-
-        
         increment += 0.01f;
-        //increment uguale a 50 potrebbe bastare perchè se no si andrebbe a distruggere la dinamica del gioco 
         if(!end)
             rigid.AddForce((10 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
-
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f,0.0f,0.0f);
-
         if (this.gameObject.transform.position.y < 0.1)
         {
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,0.1f, this.gameObject.transform.position.z);
@@ -93,8 +94,7 @@ public class Player : MonoBehaviour
                 startTouch = Input.GetTouch(0).position;
             }
 
-        if (Time.timeScale == 1)
-        {
+
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 endTouch = Input.GetTouch(0).position;
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
                 }
 
             }
-        }
+        
           
 
     }
@@ -135,15 +135,10 @@ public class Player : MonoBehaviour
                 {
                     animator.SetBool("Shot", true);
                     yield return new WaitForSeconds(0.6f);
-                    //yield return new WaitForSeconds(8 * Time.deltaTime);
                     gun.SetActive(true);
                     yield return new WaitForSeconds(0.5f);
-
-                    //yield return new WaitForSeconds(6* Time.deltaTime);
                     animator.SetBool("Shot", false);
                     yield return new WaitForSeconds(0.5f);
-
-                    //yield return new WaitForSeconds(5 * Time.deltaTime);
                     gun.SetActive(false);
                 }
             }
@@ -152,13 +147,12 @@ public class Player : MonoBehaviour
 
     public void calcolaPunteggio()
     {
-        if (Time.timeScale == 1)
-        {   
+         
             punteggio = punteggio + 0.5f + increment;
             Score.punteggio = (int)punteggio;
             Text t = GameObject.Find("Punti").GetComponent<Text>();
             t.text = "" + Score.punteggio;
-        }
+        
     }
     
     IEnumerator animationPerdente()
@@ -190,7 +184,6 @@ public class Player : MonoBehaviour
         {
             if (!mask)
             {
-                //Score.fine = true;
                 Destroy(collision.gameObject);
                 enemies.enemies.Remove(collision.gameObject);
                 end = true;
