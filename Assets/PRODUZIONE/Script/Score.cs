@@ -8,6 +8,8 @@ public static class Score
 
    public static int punteggio{get;set;}
    public static bool fine{get;set;}
+   public static bool animazioneFine{ get; set; }
+
 
 
 }

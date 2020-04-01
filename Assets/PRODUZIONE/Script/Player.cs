@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     Vector2 startTouch, endTouch;
     GameObject gun;
     float punteggio;
+    bool end;
 
 
     // Start is called before the first frame update
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+
+        end = false;
         punteggio = 0;
         mask = false;
         paper = false;
@@ -36,8 +39,13 @@ public class Player : MonoBehaviour
         jump = gameObject.GetComponent<Animator>();
         jump.SetBool("Salto", salto);
         jump.SetBool("Shot", sparo);
-        gun=GameObject.Find("GunMedico");
+        jump.SetBool("Morto", false);
+        jump.SetBool("Cade", false);
+
+        gun = GameObject.Find("GunMedico");
         gun.SetActive(false);
+        Score.animazioneFine = false;
+
 
 
     }
@@ -45,12 +53,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer();
-        calcolaPunteggio();
-        StartCoroutine(shotPlayer());
-        //shotPlayer();
+        if (!end)
+        {
+            movePlayer();
+            calcolaPunteggio();
+            StartCoroutine(shotPlayer());
+        }
+        else
+        {
+            StartCoroutine(animationPerdente());
+        }
 
-        //test fine gioco
+
        
         
 
@@ -103,36 +117,7 @@ public class Player : MonoBehaviour
 
             }
         }
-           
-
-
-            /*sx e dx con freccette
-                        if (Input.GetButtonDown("Right"))
-                        {
-                            if (value == 3.1f)
-                                return;
-                            value += 3.1f;
-                        }
-                        if (Input.GetButtonDown("Left"))
-                        {
-                            if (value == -3.1f)
-                                return;
-                            value -= 3.1f;
-                        }
-                        */
-        
-
-
-
-        //muovi a sx e dx con frecce
-        /*
-        float h = Input.GetAxis("Horizontal") * 10f;
-        
-        if((rigid.position.x + h * Time.deltaTime) >-3.3 && (rigid.position.x + h * Time.deltaTime) < 3.3)
-        {
-            this.transform.Translate(h * Time.deltaTime, 0, 0);
-        }
-        */
+          
 
     }
 
@@ -174,6 +159,25 @@ public class Player : MonoBehaviour
             t.text = "" + Score.punteggio;
         }
     }
+    
+    IEnumerator animationPerdente()
+    {
+        GameObject cam = GameObject.Find("Main Camera");
+        cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
+        cam.transform.position = new Vector3(this.transform.position.x, 2.5f, this.transform.position.z+5f);
+        Score.animazioneFine = true;
+        this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        rigid.AddForce(5*new Vector3(0.0f, 0.0f, 25.0f));
+       jump.SetBool("Morto", true);
+        yield return new WaitForSeconds(5 * Time.deltaTime);
+        jump.SetBool("Cade", true);
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+        yield return new WaitForSeconds(50 * Time.deltaTime);
+        Score.fine = true;
+
+
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -182,7 +186,11 @@ public class Player : MonoBehaviour
         {
             if (!mask)
             {
-                Score.fine = true;
+                //Score.fine = true;
+                Destroy(collision.gameObject);
+                enemies.enemies.Remove(collision.gameObject);
+                end = true;
+
             }
             else
             {

@@ -15,7 +15,12 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        follow();
+        if (!Score.animazioneFine)
+        {
+            follow();
+
+        }
+ 
     }
 
 
@@ -23,4 +28,5 @@ public class FollowPlayer : MonoBehaviour
     {
         this.transform.position = player.transform.position - distanza;
     }
+
 }
