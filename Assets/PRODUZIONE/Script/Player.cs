@@ -102,14 +102,14 @@ public class Player : MonoBehaviour
     {
         increment += 0.01f;
         if(!end)
-            rigid.AddForce((10 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
+            rigid.AddForce((30 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f,0.0f,0.0f);
         if (this.gameObject.transform.position.y < 0.1)
         {
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,0.1f, this.gameObject.transform.position.z);
         }
 
-            transform.position = new Vector3(value, transform.position.y, transform.position.z);
+        transform.position = new Vector3(value, transform.position.y, transform.position.z);
 
 
         if(countImage.activeSelf == false)
@@ -289,7 +289,7 @@ public class Player : MonoBehaviour
             else
             {
                 paper = true;
-                imagePaper.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
+                imagePaper.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             }
         }
         if (other.gameObject.tag.Equals("Mask"))
@@ -298,11 +298,5 @@ public class Player : MonoBehaviour
             imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 255);
         }
     }
-
-
-
-
-
-
 
 }
