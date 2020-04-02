@@ -17,7 +17,11 @@ public class Player : MonoBehaviour
     float punteggio;
     bool end;
     GameObject countImage;
-    Sprite numero3Count;
+    public GameObject imageMask;
+    public GameObject imagePaper;
+    GameObject stelle;
+    bool endPolice;
+    bool endVirus;
 
 
     // Start is called before the first frame update
@@ -29,6 +33,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         //GameObject.Find("ImageMask").SetActive(false);
+        endPolice = false;
+        endVirus = false;
         end = false;
         punteggio = 0;
         mask = false;
@@ -42,7 +48,8 @@ public class Player : MonoBehaviour
         animator.SetBool("Walk", false);
         animator.SetBool("Countdown", false);
 
-
+        stelle = GameObject.Find("Stars");
+        stelle.SetActive(false);
         gun = GameObject.Find("GunMedico");
         gun.SetActive(false);
         Score.animazioneFine = false;
@@ -66,9 +73,9 @@ public class Player : MonoBehaviour
             {
                 if (!Score.pause)
                 {
-                    movePlayer();
-                    calcolaPunteggio();
-                    StartCoroutine(shotPlayer());
+                    MovePlayer();
+                    CalcolaPunteggio();
+                    StartCoroutine(ShotPlayer());
                 }
                 
             }
@@ -80,17 +87,17 @@ public class Player : MonoBehaviour
         }
         else if(end && !Score.countdown)
         {
-            StartCoroutine(animationPerdente());
+            StartCoroutine(AnimationPerdente());
         }
 
         else
         {
-                StartCoroutine(countdownAnimation());
+            StartCoroutine(CountdownAnimation());
         }
 
     }
 
-    public void movePlayer()
+    public void MovePlayer()
     {
         increment += 0.01f;
         if(!end)
@@ -104,7 +111,7 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(value, transform.position.y, transform.position.z);
 
 
-        if(countImage.active == false)
+        if(countImage.activeSelf == false)
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
@@ -138,9 +145,9 @@ public class Player : MonoBehaviour
 
     }
 
-    IEnumerator shotPlayer()
+    IEnumerator ShotPlayer()
     {
-        if (Input.touchCount > 0 && countImage.active == false)
+        if (Input.touchCount > 0 && countImage.activeSelf == false)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
@@ -164,7 +171,7 @@ public class Player : MonoBehaviour
             }
     }
 
-    public void calcolaPunteggio()
+    public void CalcolaPunteggio()
     {
          
             punteggio = punteggio + 0.5f + increment;
@@ -174,37 +181,40 @@ public class Player : MonoBehaviour
         
     }
     
-    IEnumerator animationPerdente()
+    IEnumerator AnimationPerdente()
     {
-        Score.buttonPause = false;
-        animator.SetBool("Walk", true);
-        yield return new WaitForSeconds(0.2f);
-        GameObject cam = GameObject.Find("Main Camera");
-        cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
-        cam.transform.position = new Vector3(this.transform.position.x, 4f, this.transform.position.z+5f);
-        Score.animazioneFine = true;
-        this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        rigid.velocity = Vector3.zero;
-        rigid.angularVelocity = Vector3.zero;
+        if (endVirus || endPolice)
+        {
+            Score.buttonPause = false;
+            animator.SetBool("Walk", true);
+            yield return new WaitForSeconds(0.2f);
+            GameObject cam = GameObject.Find("Main Camera");
+            cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
+            cam.transform.position = new Vector3(this.transform.position.x, 4f, this.transform.position.z + 5f);
+            Score.animazioneFine = true;
+            this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
 
-        animator.SetBool("Tosse", true);
+            animator.SetBool("Tosse", true);
 
-        yield return new WaitForSeconds(0.8f);
-        animator.SetBool("Morto", true);
+            yield return new WaitForSeconds(0.8f);
+            animator.SetBool("Morto", true);
 
-        yield return new WaitForSeconds(4.5f);
-        Score.fine = true;
+            yield return new WaitForSeconds(4.5f);
+            Score.fine = true;
+        }
 
 
     }
 
-    IEnumerator countdownAnimation()
+    IEnumerator CountdownAnimation()
     {
         countImage.SetActive(true);
         countImage.GetComponent<Animator>().SetBool("Count", true);
         Score.countdown = false;
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
 
         countImage.SetActive(false);
         Score.buttonPause=true;
@@ -226,16 +236,42 @@ public class Player : MonoBehaviour
                 Destroy(collision.gameObject);
                 enemies.enemies.Remove(collision.gameObject);
                 end = true;
+                endVirus = true;
 
             }
             else
             {
                 mask = false;
+                imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
                 Destroy(collision.gameObject);
                 enemies.enemies.Remove(collision.gameObject);
             }
-            
+        }
 
+        if (collision.gameObject.tag.Equals("Police"))
+        {
+            print("ciao");
+            if (!paper && stelle.activeSelf==true)
+            {
+                endPolice = true;
+                end = true;
+                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 10);
+                this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+
+            }
+            else if(!paper && stelle.activeSelf == false)
+            {
+                stelle.SetActive(true);
+                Destroy(collision.gameObject);
+                enemies.enemies.Remove(collision.gameObject);
+            }
+            else if (paper && stelle.activeSelf==false)
+            {
+                paper = false;
+                imagePaper.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
+                Destroy(collision.gameObject);
+                enemies.enemies.Remove(collision.gameObject);
+            }
         }
     }
 
@@ -243,11 +279,20 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Paper"))
         {
-            paper = true;
+            if (stelle.activeSelf == true)
+            {
+                stelle.SetActive(false);
+            }
+            else
+            {
+                paper = true;
+                imagePaper.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
+            }
         }
         if (other.gameObject.tag.Equals("Mask"))
         {
             mask = true;
+            imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 255);
         }
     }
 
