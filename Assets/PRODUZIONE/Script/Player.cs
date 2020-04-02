@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     bool endPolice;
     bool endVirus;
     public Sprite sprite1;
+    AudioSource musicaGioco;
 
 
     // Start is called before the first frame update
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour
         countImage.SetActive(false);
         countImage.GetComponent<Animator>().SetBool("Count", false);
 
+        musicaGioco = GameObject.Find("Music").GetComponent<AudioSource>();
 
     }
 
@@ -103,7 +105,23 @@ public class Player : MonoBehaviour
     public void MovePlayer()
     {
         increment += 0.01f;
-        if(!end)
+
+        if (musicaGioco.pitch < 2.0f)
+        {
+            int val = 10;
+            if (increment == 10)
+            {   
+                musicaGioco.pitch += 0.1f;
+            }
+            if (((int)increment-val)==10)
+            {
+                val = (int) increment;
+                musicaGioco.pitch += 0.1f;
+            }
+
+        }
+
+        if (!end)
             rigid.AddForce((30 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f,0.0f,0.0f);
         if (this.gameObject.transform.position.y < 0.1)
@@ -152,26 +170,28 @@ public class Player : MonoBehaviour
     {
         if (Input.touchCount > 0 && countImage.activeSelf == false)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began )
             {
-                startTouch = Input.GetTouch(0).position;
+
             }
 
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (Input.touchCount > 0 &&  Input.GetTouch(0).phase == TouchPhase.Stationary )
             {
-                endTouch = Input.GetTouch(0).position;
-                if (startTouch == endTouch)
-                {
-                    animator.SetBool("Shot", true);
-                    yield return new WaitForSeconds(0.6f);
-                    gun.SetActive(true);
-                    yield return new WaitForSeconds(0.3f);
-                    animator.SetBool("Shot", false);
-                    yield return new WaitForSeconds(0.3f);
-                    gun.SetActive(false);
-                }
+                animator.SetBool("Shot", true);
+                yield return new WaitForSeconds(0.6f);
+                gun.SetActive(true);
+
+
             }
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended )
+            {
+                yield return new WaitForSeconds(0.3f);
+                animator.SetBool("Shot", false);
+                yield return new WaitForSeconds(0.3f);
+                gun.SetActive(false);
             }
+        }
     }
 
     public void CalcolaPunteggio()
@@ -188,6 +208,10 @@ public class Player : MonoBehaviour
     {
         if (endVirus || endPolice)
         {
+            animator.SetBool("Shot", false);
+            gun.SetActive(false);
+
+
             Score.buttonPause = false;
             animator.SetBool("Walk", true);
             yield return new WaitForSeconds(0.2f);
