@@ -8841,6 +8841,12 @@ PrefabInstance:
       propertyPath: imagePaper
       value: 
       objectReference: {fileID: 962907779}
+    - target: {fileID: 3356606160255571457, guid: f62d8d2ff90e34278b9849443153887f,
+        type: 3}
+      propertyPath: sprite1
+      value: 
+      objectReference: {fileID: 21300004, guid: 6dec3a810da0b8f4c9dcf43a242b521b,
+        type: 3}
     - target: {fileID: 6752270860828315406, guid: f62d8d2ff90e34278b9849443153887f,
         type: 3}
       propertyPath: m_Name

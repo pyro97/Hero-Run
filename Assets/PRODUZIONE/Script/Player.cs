@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     GameObject stelle;
     bool endPolice;
     bool endVirus;
+    public Sprite sprite1;
 
 
     // Start is called before the first frame update
@@ -210,6 +211,8 @@ public class Player : MonoBehaviour
 
     IEnumerator CountdownAnimation()
     {
+
+        countImage.GetComponent<Image>().sprite = sprite1;
         countImage.SetActive(true);
         countImage.GetComponent<Animator>().SetBool("Count", true);
         Score.countdown = false;
@@ -221,10 +224,10 @@ public class Player : MonoBehaviour
         Score.pause = false;
         countImage.GetComponent<Animator>().SetBool("Count", false);
 
-        
+
     }
 
-  
+
 
     void OnCollisionEnter(Collision collision)
     {
