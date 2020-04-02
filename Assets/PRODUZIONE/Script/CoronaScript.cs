@@ -13,7 +13,8 @@ public class CoronaScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        rigid.AddForce(10 * new Vector3(0.0f, 0.0f, -30.0f));
+    {   
+        if(Time.timeScale==1)
+            rigid.AddForce(10 * new Vector3(0.0f, 0.0f, -30.0f));
     }
 }
