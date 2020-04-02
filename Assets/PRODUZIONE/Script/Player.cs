@@ -136,9 +136,9 @@ public class Player : MonoBehaviour
                     animator.SetBool("Shot", true);
                     yield return new WaitForSeconds(0.6f);
                     gun.SetActive(true);
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.3f);
                     animator.SetBool("Shot", false);
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.3f);
                     gun.SetActive(false);
                 }
             }
@@ -166,11 +166,12 @@ public class Player : MonoBehaviour
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
-       
-        animator.SetBool("Morto", true);
-        yield return new WaitForSeconds(0.5f);
+
         animator.SetBool("Tosse", true);
-       
+
+        yield return new WaitForSeconds(0.8f);
+        animator.SetBool("Morto", true);
+
         yield return new WaitForSeconds(4.5f);
         Score.fine = true;
 
