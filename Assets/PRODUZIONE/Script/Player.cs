@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     Rigidbody rigid;
     Animator animator;
     private EnemiesGenerator enemies;
+    private BonusGenerator bonusGenerator;
     [Range(-3.1f, 3.1f)] float value;
     public float increment;
     bool paper;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        bonusGenerator = GameObject.FindObjectOfType<BonusGenerator>();
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
     }
     void Start()
@@ -253,7 +255,6 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.tag.Equals("Police"))
         {
-            print("ciao");
             if (!paper && stelle.activeSelf==true)
             {
                 endPolice = true;
@@ -282,6 +283,9 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Paper"))
         {
+            Destroy(other.gameObject);
+            bonusGenerator.bonus.Remove(other.gameObject);
+            bonusGenerator.paper = true;
             if (stelle.activeSelf == true)
             {
                 stelle.SetActive(false);
@@ -294,6 +298,9 @@ public class Player : MonoBehaviour
         }
         if (other.gameObject.tag.Equals("Mask"))
         {
+            Destroy(other.gameObject);
+            bonusGenerator.bonus.Remove(other.gameObject);
+            bonusGenerator.mask = true;
             mask = true;
             imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 255);
         }
