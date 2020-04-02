@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     GameObject gun;
     float punteggio;
     bool end;
+    GameObject countImage;
+    Sprite numero3Count;
 
 
     // Start is called before the first frame update
@@ -37,12 +39,20 @@ public class Player : MonoBehaviour
         animator.SetBool("Shot", false);
         animator.SetBool("Morto", false);
         animator.SetBool("Tosse", false);
-        animator.SetBool("Run", true);
+        animator.SetBool("Walk", false);
+        animator.SetBool("Countdown", false);
+
 
         gun = GameObject.Find("GunMedico");
         gun.SetActive(false);
         Score.animazioneFine = false;
 
+        Score.countdown = true;
+        Score.buttonPause = false;
+        Score.pause = false;
+        countImage = GameObject.Find("CountdownImage");
+        countImage.SetActive(false);
+        countImage.GetComponent<Animator>().SetBool("Count", false);
 
 
     }
@@ -50,13 +60,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!end)
+        if (!end && !Score.countdown)
         {
             if (Time.timeScale == 1)
             {
-                movePlayer();
-                calcolaPunteggio();
-                StartCoroutine(shotPlayer());
+                if (!Score.pause)
+                {
+                    movePlayer();
+                    calcolaPunteggio();
+                    StartCoroutine(shotPlayer());
+                }
+                
             }
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
@@ -64,16 +78,16 @@ public class Player : MonoBehaviour
             }
 
         }
-        else
+        else if(end && !Score.countdown)
         {
             StartCoroutine(animationPerdente());
         }
 
+        else
+        {
+                StartCoroutine(countdownAnimation());
+        }
 
-       
-        
-
-        
     }
 
     public void movePlayer()
@@ -89,7 +103,10 @@ public class Player : MonoBehaviour
 
             transform.position = new Vector3(value, transform.position.y, transform.position.z);
 
-            if(Input.touchCount>0 && Input.GetTouch(0).phase == TouchPhase.Began)
+
+        if(countImage.active == false)
+        {
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 startTouch = Input.GetTouch(0).position;
             }
@@ -114,6 +131,8 @@ public class Player : MonoBehaviour
                 }
 
             }
+        }
+            
         
           
 
@@ -121,7 +140,7 @@ public class Player : MonoBehaviour
 
     IEnumerator shotPlayer()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && countImage.active == false)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
@@ -157,7 +176,8 @@ public class Player : MonoBehaviour
     
     IEnumerator animationPerdente()
     {
-        animator.SetBool("Run", false);
+        Score.buttonPause = false;
+        animator.SetBool("Walk", true);
         yield return new WaitForSeconds(0.2f);
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
@@ -177,6 +197,24 @@ public class Player : MonoBehaviour
 
 
     }
+
+    IEnumerator countdownAnimation()
+    {
+        countImage.SetActive(true);
+        countImage.GetComponent<Animator>().SetBool("Count", true);
+        Score.countdown = false;
+
+        yield return new WaitForSeconds(6f);
+
+        countImage.SetActive(false);
+        Score.buttonPause=true;
+        Score.pause = false;
+        countImage.GetComponent<Animator>().SetBool("Count", false);
+
+        
+    }
+
+  
 
     void OnCollisionEnter(Collision collision)
     {

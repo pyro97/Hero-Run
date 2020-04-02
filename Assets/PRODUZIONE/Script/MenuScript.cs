@@ -9,8 +9,8 @@ public class MenuScript : MonoBehaviour
 {
 
      Text punti,puntiMenu,puntiFinali; 
-     GameObject settaggi,panel,panelFine,panelScore;
-
+     GameObject panel,panelFine,panelScore;
+     GameObject settaggi;
 
 
     // Start is called before the first frame update
@@ -40,23 +40,37 @@ public class MenuScript : MonoBehaviour
             apriMenuFine();                              
          }
 
+        if (Score.buttonPause)
+        {
+            settaggi.SetActive(true);
+        }
+        else
+        {
+            settaggi.SetActive(false);
+
+        }
+
     }
 
     public void apriMenu(){
+        Score.pause = false;
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
-       settaggi.gameObject.SetActive(false);
-       punti.gameObject.SetActive(false);
+        Score.buttonPause = false;
+        print(Score.buttonPause);
+
+        punti.gameObject.SetActive(false);
         puntiMenu.text = "" + Score.punteggio;
        Time.timeScale=0;
     }
 
     public void apriMenuFine()
     {
+
         panelScore.gameObject.SetActive(false);
         panelFine.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
-        settaggi.gameObject.SetActive(false);
+        Score.buttonPause = false;
         punti.gameObject.SetActive(false);
         puntiFinali.gameObject.SetActive(true);
 
@@ -67,16 +81,20 @@ public class MenuScript : MonoBehaviour
     public void chiudiMenu(){
         panelScore.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
-       settaggi.gameObject.SetActive(true);
+        Score.buttonPause = false;
         punti.gameObject.SetActive(true);
         Time.timeScale=1;
+        Score.pause = true;
+        Score.countdown = true;
+
+
     }
 
     public void esci(){
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
-       settaggi.gameObject.SetActive(true);
-       SceneManager.LoadScene("Home");
+        Score.buttonPause = false;
+        SceneManager.LoadScene("Home");
        Score.punteggio=0;    
        Score.fine=false;
         Time.timeScale = 0;
@@ -87,8 +105,8 @@ public class MenuScript : MonoBehaviour
     public void ricomincia(){
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
-       settaggi.gameObject.SetActive(true);
-       SceneManager.LoadScene("Game");
+        Score.buttonPause = false;
+        SceneManager.LoadScene("Game");
        Score.punteggio=0;
        Score.fine = false;
         Time.timeScale = 0;
