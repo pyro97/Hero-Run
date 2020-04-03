@@ -131,7 +131,6 @@ public class EnemiesGenerator : MonoBehaviour
             }
             else
                 flag = false;
-
         }
 
     }
@@ -195,4 +194,5 @@ public class EnemiesGenerator : MonoBehaviour
         enemies.Add(go);
         enemyCount += 3;
     }
+
 }
