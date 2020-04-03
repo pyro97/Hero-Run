@@ -250,10 +250,6 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        print(collision.collider);
-        print(collision.GetType());
-        print(collision.collider.GetType());
-
         if (collision.collider.GetType() == typeof(SphereCollider))
         {
             if (collision.gameObject.tag.Equals("CoronaVirus") || (collision.gameObject.tag.Equals("Person")))
