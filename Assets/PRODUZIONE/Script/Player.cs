@@ -256,7 +256,7 @@ public class Player : MonoBehaviour
 
         if (collision.collider.GetType() == typeof(SphereCollider))
         {
-            if (collision.gameObject.tag.Equals("CoronaVirus"))
+            if (collision.gameObject.tag.Equals("CoronaVirus") || (collision.gameObject.tag.Equals("Person")))
             {
                 if (!mask)
                 {
