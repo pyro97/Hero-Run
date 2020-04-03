@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
         if (!end)
             rigid.AddForce((30 + increment) * new Vector3(0.0f, 0.0f, 25.0f));
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f,0.0f,0.0f);
-        if (this.gameObject.transform.position.y < 0.1)
+        if (this.gameObject.transform.position.y != 0.1)
         {
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,0.1f, this.gameObject.transform.position.z);
         }
@@ -163,26 +163,25 @@ public class Player : MonoBehaviour
     {
         if (Input.touchCount > 0 && countImage.activeSelf == false)
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began )
+            if (Input.GetTouch(0).phase == TouchPhase.Began )
             {
+                startTouch = Input.GetTouch(0).position;
 
             }
 
-            if (Input.touchCount > 0 &&  Input.GetTouch(0).phase == TouchPhase.Stationary )
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                animator.SetBool("Shot", true);
-                yield return new WaitForSeconds(0.6f);
-                gun.SetActive(true);
-
-
-            }
-
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended )
-            {
-                yield return new WaitForSeconds(0.3f);
-                animator.SetBool("Shot", false);
-                yield return new WaitForSeconds(0.3f);
-                gun.SetActive(false);
+                endTouch = Input.GetTouch(0).position;
+                if (startTouch == endTouch)
+                {
+                    animator.SetBool("Shot", true);
+                    yield return new WaitForSeconds(0.6f);
+                    gun.SetActive(true);
+                    yield return new WaitForSeconds(0.3f);
+                    animator.SetBool("Shot", false);
+                    yield return new WaitForSeconds(0.3f);
+                    gun.SetActive(false);
+                }
             }
         }
     }
