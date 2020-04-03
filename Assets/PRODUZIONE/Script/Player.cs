@@ -108,17 +108,10 @@ public class Player : MonoBehaviour
 
         if (musicaGioco.pitch < 2.0f)
         {
-            int val = 10;
-            if (increment == 10)
-            {   
-                musicaGioco.pitch += 0.1f;
-            }
-            if (((int)increment-val)==10)
+            if (increment % 10 == 0)
             {
-                val = (int) increment;
                 musicaGioco.pitch += 0.1f;
             }
-
         }
 
         if (!end)
@@ -257,48 +250,54 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        print(collision.collider);
+        print(collision.GetType());
+        print(collision.collider.GetType());
 
-        if (collision.gameObject.tag.Equals("CoronaVirus"))
+        if (collision.collider.GetType() == typeof(SphereCollider))
         {
-            if (!mask)
+            if (collision.gameObject.tag.Equals("CoronaVirus"))
             {
-                Destroy(collision.gameObject);
-                enemies.enemies.Remove(collision.gameObject);
-                end = true;
-                endVirus = true;
+                if (!mask)
+                {
+                    Destroy(collision.gameObject);
+                    enemies.enemies.Remove(collision.gameObject);
+                    end = true;
+                    endVirus = true;
 
+                }
+                else
+                {
+                    mask = false;
+                    imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
+                    Destroy(collision.gameObject);
+                    enemies.enemies.Remove(collision.gameObject);
+                }
             }
-            else
-            {
-                mask = false;
-                imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
-                Destroy(collision.gameObject);
-                enemies.enemies.Remove(collision.gameObject);
-            }
-        }
 
-        if (collision.gameObject.tag.Equals("Police"))
-        {
-            if (!paper && stelle.activeSelf==true)
+            if (collision.gameObject.tag.Equals("Police"))
             {
-                endPolice = true;
-                end = true;
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 10);
-                this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+                if (!paper && stelle.activeSelf == true)
+                {
+                    endPolice = true;
+                    end = true;
+                    this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 10);
+                    this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
 
-            }
-            else if(!paper && stelle.activeSelf == false)
-            {
-                stelle.SetActive(true);
-                Destroy(collision.gameObject);
-                enemies.enemies.Remove(collision.gameObject);
-            }
-            else if (paper && stelle.activeSelf==false)
-            {
-                paper = false;
-                imagePaper.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
-                Destroy(collision.gameObject);
-                enemies.enemies.Remove(collision.gameObject);
+                }
+                else if (!paper && stelle.activeSelf == false)
+                {
+                    stelle.SetActive(true);
+                    Destroy(collision.gameObject);
+                    enemies.enemies.Remove(collision.gameObject);
+                }
+                else if (paper && stelle.activeSelf == false)
+                {
+                    paper = false;
+                    imagePaper.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
+                    Destroy(collision.gameObject);
+                    enemies.enemies.Remove(collision.gameObject);
+                }
             }
         }
     }

@@ -57,7 +57,7 @@ public class MenuScript : MonoBehaviour
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
         Score.buttonPause = false;
-        print(Score.buttonPause);
+        
 
         punti.gameObject.SetActive(false);
         puntiMenu.text = "" + Score.punteggio;
