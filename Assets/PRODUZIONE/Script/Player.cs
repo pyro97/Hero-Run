@@ -175,11 +175,11 @@ public class Player : MonoBehaviour
                 if (startTouch == endTouch)
                 {
                     animator.SetBool("Shot", true);
-                    yield return new WaitForSeconds(0.6f);
+                    yield return new WaitForSeconds(0.3f);
                     gun.SetActive(true);
                     yield return new WaitForSeconds(0.3f);
                     animator.SetBool("Shot", false);
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForSeconds(0.1f);
                     gun.SetActive(false);
                 }
             }
