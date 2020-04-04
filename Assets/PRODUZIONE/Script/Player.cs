@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
     public Sprite sprite1;
     AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse;
     public AudioClip musicaSparo,musicaVirus,musicaTosse;
+    bool endSwipeCentral;
+    public int laneNum;
+    public float horizVel;
+
 
 
     // Start is called before the first frame update
@@ -76,6 +80,9 @@ public class Player : MonoBehaviour
 
         musicaFine = GameObject.Find("FinalMusic").GetComponent<AudioSource>();
         musicaFine.enabled = false;
+
+        laneNum = 2;
+        horizVel = 0;
 
 
 
@@ -132,44 +139,131 @@ public class Player : MonoBehaviour
         this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f,0.0f,0.0f);
         if (this.gameObject.transform.position.y != 0.1)
         {
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,0.1f, this.gameObject.transform.position.z);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
         }
 
-        transform.position = new Vector3(value, transform.position.y, transform.position.z);
+        rigid.AddForce((150 + increment) * new Vector3(horizVel, 0.0f, 0.0f));
 
+        if (laneNum==2)
+        {
+            this.gameObject.transform.position = new Vector3(0, 0.1f, this.gameObject.transform.position.z);
+        }
+        if (this.gameObject.transform.position.x < -3.1f)
+        {
+            this.gameObject.transform.position = new Vector3(-3.1f, 0.1f, this.gameObject.transform.position.z);
+        }
+        else if (this.gameObject.transform.position.x > 3.1f)
+        {
+            this.gameObject.transform.position = new Vector3(3.1f, 0.1f, this.gameObject.transform.position.z);
+        }
+        //transform.position = new Vector3(value, transform.position.y, transform.position.z);
 
-        if(countImage.activeSelf == false)
+        //transform.position = new Vector3(value, transform.position.y, transform.position.z);
+
+        if (countImage.activeSelf == false)
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 startTouch = Input.GetTouch(0).position;
             }
 
-
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 endTouch = Input.GetTouch(0).position;
 
-                if ((endTouch.x < startTouch.x) && transform.position.x > -3.1f)
+                if ((endTouch.x < startTouch.x) && laneNum > 1)
                 {
+                    SwipeMovementLeft();
+                    /*
                     if (value == -3.1f)
                         return;
                     value -= 3.1f;
+                    */
 
                 }
-                if ((endTouch.x > startTouch.x) && transform.position.x < 3.1f)
+                if ((endTouch.x > startTouch.x) && laneNum < 3)
                 {
-                    if (value == 3.1f)
+                    SwipeMovementRight();
+                    /*if (value == 3.1f)
                         return;
                     value += 3.1f;
+                    */
                 }
 
             }
+            //transform.position = new Vector3(value, transform.position.y, transform.position.z);
         }
-            
-        
-          
 
+
+
+
+    }
+
+    void SwipeMovementLeft()
+    {
+        horizVel = -3.1f;
+        if (this.gameObject.transform.position.x == 3.1f)
+        {
+            StartCoroutine(StopSlideF3T2());
+        }
+        else
+        {
+            StartCoroutine(StopSlideF2T1());
+        }
+
+        laneNum -= 1;
+
+    }
+
+    void SwipeMovementRight()
+    {
+        horizVel = 3.1f;
+        if (this.gameObject.transform.position.x == -3.1f)
+        {
+            StartCoroutine(StopSlideF1T2());
+        }
+        else
+        {
+            StartCoroutine(StopSlideF2T3());
+        }
+
+        laneNum += 1;
+    }
+
+    IEnumerator StopSlideF2T1()
+    {
+        while (this.gameObject.transform.position.x > -3.1)
+        {
+            yield return new WaitForSeconds(.05f);
+        }
+        horizVel = 0;
+    }
+
+    IEnumerator StopSlideF1T2()
+    {
+        while (this.gameObject.transform.position.x < 0)
+        {
+            yield return new WaitForSeconds(.05f);
+        }
+        horizVel = 0;
+    }
+
+    IEnumerator StopSlideF2T3()
+    {
+        while (this.gameObject.transform.position.x < 3.1)
+        {
+            yield return new WaitForSeconds(.05f);
+        }
+        horizVel = 0;
+    }
+
+    IEnumerator StopSlideF3T2()
+    {
+        while (this.gameObject.transform.position.x > 0)
+        {
+            yield return new WaitForSeconds(.05f);
+        }
+        horizVel = 0;
     }
 
     IEnumerator ShotPlayer()

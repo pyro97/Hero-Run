@@ -30,17 +30,14 @@ public class Persona : MonoBehaviour
         {
             if (other.tag == "Mask" || other.tag == "Paper")
             {
-                print("mask");
                 this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 5);
             }
             else if (this.transform.position.z > other.transform.position.z)
             {
-                print("maggiore");
                 this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 5);
             }
             else
             {
-                print("minore");
                 other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 5);
             }
         }
