@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     bool endSwipeCentral;
     public int laneNum;
     public float horizVel;
+    string contr;
 
 
 
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour
 
         laneNum = 2;
         horizVel = 0;
+        contr = "n";
 
 
 
@@ -142,10 +144,11 @@ public class Player : MonoBehaviour
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
         }
 
-        rigid.AddForce((150 + increment) * new Vector3(horizVel, 0.0f, 0.0f));
-
-        if (laneNum==2)
+        rigid.AddForce((100 + increment) * new Vector3(horizVel, 0.0f, 0.0f));
+        
+        if (endSwipeCentral)
         {
+            endSwipeCentral = false;
             this.gameObject.transform.position = new Vector3(0, 0.1f, this.gameObject.transform.position.z);
         }
         if (this.gameObject.transform.position.x < -3.1f)
@@ -171,7 +174,7 @@ public class Player : MonoBehaviour
             {
                 endTouch = Input.GetTouch(0).position;
 
-                if ((endTouch.x < startTouch.x) && laneNum > 1)
+                if ((endTouch.x < startTouch.x) && laneNum > 1 && contr=="n")
                 {
                     SwipeMovementLeft();
                     /*
@@ -181,7 +184,7 @@ public class Player : MonoBehaviour
                     */
 
                 }
-                if ((endTouch.x > startTouch.x) && laneNum < 3)
+                if ((endTouch.x > startTouch.x) && laneNum < 3 && contr=="n")
                 {
                     SwipeMovementRight();
                     /*if (value == 3.1f)
@@ -190,6 +193,10 @@ public class Player : MonoBehaviour
                     */
                 }
 
+            }
+            if (contr == "n")
+            {
+                ControlloPosizione();
             }
             //transform.position = new Vector3(value, transform.position.y, transform.position.z);
         }
@@ -210,9 +217,9 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(StopSlideF2T1());
         }
-
+        
         laneNum -= 1;
-
+        contr = "y";
     }
 
     void SwipeMovementRight()
@@ -226,44 +233,40 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(StopSlideF2T3());
         }
-
+        contr = "y";
         laneNum += 1;
     }
 
     IEnumerator StopSlideF2T1()
     {
-        while (this.gameObject.transform.position.x > -3.1)
-        {
-            yield return new WaitForSeconds(.05f);
-        }
+        
+        yield return new WaitForSeconds(.5f);
+        contr = "n";
         horizVel = 0;
     }
 
     IEnumerator StopSlideF1T2()
     {
-        while (this.gameObject.transform.position.x < 0)
-        {
-            yield return new WaitForSeconds(.05f);
-        }
+        
+        yield return new WaitForSeconds(.5f);
         horizVel = 0;
+        contr = "n";
+        endSwipeCentral = true;
     }
 
     IEnumerator StopSlideF2T3()
     {
-        while (this.gameObject.transform.position.x < 3.1)
-        {
-            yield return new WaitForSeconds(.05f);
-        }
+        yield return new WaitForSeconds(.5f);
         horizVel = 0;
+        contr = "n";
     }
 
     IEnumerator StopSlideF3T2()
     {
-        while (this.gameObject.transform.position.x > 0)
-        {
-            yield return new WaitForSeconds(.05f);
-        }
+        yield return new WaitForSeconds(.5f);
         horizVel = 0;
+        endSwipeCentral = true;
+        contr = "n";
     }
 
     IEnumerator ShotPlayer()
@@ -283,20 +286,19 @@ public class Player : MonoBehaviour
                 {
                     sourceSparo.enabled = true;
                     sourceSparo.Play();
-
-
+                    ControlloPosizione();
                     animator.SetBool("Shot", true);
                     yield return new WaitForSeconds(0.3f);
+                    ControlloPosizione();
                     gun.SetActive(true);
                     yield return new WaitForSeconds(0.3f);
                     animator.SetBool("Shot", false);
+                    ControlloPosizione();
                     yield return new WaitForSeconds(0.1f);
                     gun.SetActive(false);
-
+                    ControlloPosizione();
                     sourceSparo.Stop();
                     sourceSparo.enabled = false;
-
-
 
                 }
             }
@@ -395,7 +397,7 @@ public class Player : MonoBehaviour
             {
                 if (!mask)
                 {
-                    avviaMusicaFinale();
+                    AvviaMusicaFinale();
                     Destroy(collision.gameObject);
                     enemies.enemies.Remove(collision.gameObject);
                     end = true;
@@ -417,7 +419,7 @@ public class Player : MonoBehaviour
             {
                 if (!paper && stelle.activeSelf == true)
                 {
-                    avviaMusicaFinale();
+                    AvviaMusicaFinale();
                     endPolice = true;
                     end = true;
                     this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 10);
@@ -479,13 +481,29 @@ public class Player : MonoBehaviour
  }
 
 
-    public void avviaMusicaFinale()
+    public void AvviaMusicaFinale()
     {
         GameObject.Find("Music").GetComponent<AudioSource>().Stop();
         GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
 
         GameObject.Find("FinalMusic").GetComponent<AudioSource>().enabled = true;
         GameObject.Find("FinalMusic").GetComponent<AudioSource>().Play();
+    }
+
+    public void ControlloPosizione()
+    {
+        if (laneNum == 2)
+        {           
+            this.gameObject.transform.position = new Vector3(0, 0.1f, this.gameObject.transform.position.z);
+        }
+        if (laneNum == 1)
+        {
+            this.gameObject.transform.position = new Vector3(-3.1f, 0.1f, this.gameObject.transform.position.z);
+        }
+        if (laneNum == 3)
+        {
+            this.gameObject.transform.position = new Vector3(3.1f, 0.1f, this.gameObject.transform.position.z);
+        }
     }
 
 }

@@ -6,7 +6,9 @@ public class EnemiesGenerator : MonoBehaviour
 {
     public bool mortaPersona;
     public GameObject theEnemy;
-    public GameObject person;
+    public GameObject personCheBalla;
+    //public GameObject calciatore;
+    //public GameObject uomo;
     public List<GameObject> enemies;
     public GameObject player;
     public GameObject police;
@@ -87,7 +89,23 @@ public class EnemiesGenerator : MonoBehaviour
             GameObject go;
             go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
-            go = Instantiate(person, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+            /*UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
+            int i= Random.Range(1, 3);
+            if (i == 1)
+            {
+                go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+
+            }
+            else if(i == 2)
+            {
+                go = Instantiate(calciatore, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+            }
+            else
+            {
+                go = Instantiate(uomo, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+
+            }*/
+            go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
             go = Instantiate(police, new Vector3(xPosPoliceMan, 0.1f, zPosPolice + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
@@ -188,7 +206,7 @@ public class EnemiesGenerator : MonoBehaviour
         GameObject go;
         go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
         enemies.Add(go);
-        go = Instantiate(person, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
+        go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
         enemies.Add(go);
         go = Instantiate(police, new Vector3(xPosPoliceMan, 0.1f, zPosPolice + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
         enemies.Add(go);
