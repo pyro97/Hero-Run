@@ -323,6 +323,7 @@ public class Player : MonoBehaviour
             {
                 if (!paper && stelle.activeSelf == true)
                 {
+                    avviaMusicaFinale();
                     endPolice = true;
                     end = true;
                     this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 10);
