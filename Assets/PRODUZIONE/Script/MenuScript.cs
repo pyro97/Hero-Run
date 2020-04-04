@@ -66,16 +66,20 @@ public class MenuScript : MonoBehaviour
 
     public void apriMenuFine()
     {
+       
 
-        panelScore.gameObject.SetActive(false);
-        panelFine.gameObject.SetActive(true);
-        panel.gameObject.SetActive(false);
-        Score.buttonPause = false;
-        punti.gameObject.SetActive(false);
-        puntiFinali.gameObject.SetActive(true);
+            panelScore.gameObject.SetActive(false);
+            panelFine.gameObject.SetActive(true);
+            panel.gameObject.SetActive(false);
+            Score.buttonPause = false;
+            punti.gameObject.SetActive(false);
+            puntiFinali.gameObject.SetActive(true);
 
-        puntiFinali.text = "" + Score.punteggio;
-        Time.timeScale = 0;
+            puntiFinali.text = "" + Score.punteggio;
+            Time.timeScale = 0;
+            Score.fine = false;
+        
+   
     }
 
     public void chiudiMenu(){

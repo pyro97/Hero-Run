@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     bool endPolice;
     bool endVirus;
     public Sprite sprite1;
-    AudioSource musicaGioco;
+    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse;
+    public AudioClip musicaSparo,musicaVirus,musicaTosse;
 
 
     // Start is called before the first frame update
@@ -33,6 +34,10 @@ public class Player : MonoBehaviour
     {
         bonusGenerator = GameObject.FindObjectOfType<BonusGenerator>();
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
+
+        sourceSparo = AddAudio(musicaSparo, false, false, 1f);
+        sourceTosse = AddAudio(musicaTosse, false, false, 1f);
+        sourceVirus = AddAudio(musicaVirus, false, false, 1f);
     }
     void Start()
     {
@@ -66,6 +71,14 @@ public class Player : MonoBehaviour
         countImage.GetComponent<Animator>().SetBool("Count", false);
 
         musicaGioco = GameObject.Find("Music").GetComponent<AudioSource>();
+        musicaGioco.enabled = true;
+        musicaGioco.Play();
+
+        musicaFine = GameObject.Find("FinalMusic").GetComponent<AudioSource>();
+        musicaFine.enabled = false;
+
+
+
 
     }
 
@@ -174,6 +187,10 @@ public class Player : MonoBehaviour
                 endTouch = Input.GetTouch(0).position;
                 if (startTouch == endTouch)
                 {
+                    sourceSparo.enabled = true;
+                    sourceSparo.Play();
+
+
                     animator.SetBool("Shot", true);
                     yield return new WaitForSeconds(0.3f);
                     gun.SetActive(true);
@@ -181,6 +198,12 @@ public class Player : MonoBehaviour
                     animator.SetBool("Shot", false);
                     yield return new WaitForSeconds(0.1f);
                     gun.SetActive(false);
+
+                    sourceSparo.Stop();
+                    sourceSparo.enabled = false;
+
+
+
                 }
             }
         }
@@ -198,14 +221,20 @@ public class Player : MonoBehaviour
     
     IEnumerator AnimationPerdente()
     {
-        if (endVirus || endPolice)
+        if ((endVirus || endPolice ) && !Score.animazioneFine)
         {
+
+            sourceVirus.enabled = true;
+
+            sourceVirus.Play();
+
+
+
             animator.SetBool("Shot", false);
             gun.SetActive(false);
-
-
             Score.buttonPause = false;
             animator.SetBool("Walk", true);
+
             yield return new WaitForSeconds(0.2f);
             GameObject cam = GameObject.Find("Main Camera");
             cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
@@ -215,13 +244,30 @@ public class Player : MonoBehaviour
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
 
+            sourceVirus.Stop();
+            sourceVirus.enabled = false;
+
+            sourceTosse.enabled = true;
+            sourceTosse.Play();
+
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
             animator.SetBool("Tosse", true);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
+
 
             yield return new WaitForSeconds(0.8f);
+
             animator.SetBool("Morto", true);
 
-            yield return new WaitForSeconds(4.5f);
+
+            sourceTosse.Stop();
+            sourceTosse.enabled = false;
+
+
+            yield return new WaitForSeconds(1.2f);
             Score.fine = true;
+
+
         }
 
 
@@ -255,6 +301,7 @@ public class Player : MonoBehaviour
             {
                 if (!mask)
                 {
+                    avviaMusicaFinale();
                     Destroy(collision.gameObject);
                     enemies.enemies.Remove(collision.gameObject);
                     end = true;
@@ -263,10 +310,12 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
+
                     mask = false;
                     imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
                     Destroy(collision.gameObject);
                     enemies.enemies.Remove(collision.gameObject);
+
                 }
             }
 
@@ -322,6 +371,26 @@ public class Player : MonoBehaviour
             mask = true;
             imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 255);
         }
+    }
+
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol){
+      AudioSource newAudio = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+        newAudio.clip = clip; 
+         newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.enabled = false;
+         newAudio.volume = vol; 
+        return newAudio; 
+ }
+
+
+    public void avviaMusicaFinale()
+    {
+        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+        GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
+
+        GameObject.Find("FinalMusic").GetComponent<AudioSource>().enabled = true;
+        GameObject.Find("FinalMusic").GetComponent<AudioSource>().Play();
     }
 
 }
