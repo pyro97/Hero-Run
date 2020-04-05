@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public int laneNum;
     public float horizVel;
     string contr;
+    PlayerPrefsHandler playerPrefs;
 
 
 
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        playerPrefs = new PlayerPrefsHandler();
+        playerPrefs.SetNumPartiteTotali(playerPrefs.GetNumPartiteTotali() + 1);
         //GameObject.Find("ImageMask").SetActive(false);
         endPolice = false;
         endVirus = false;

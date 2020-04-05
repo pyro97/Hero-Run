@@ -11,11 +11,13 @@ public class MenuScript : MonoBehaviour
      Text punti,puntiMenu,puntiFinali; 
      GameObject panel,panelFine,panelScore;
      GameObject settaggi;
+     PlayerPrefsHandler playerPrefs;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        playerPrefs = new PlayerPrefsHandler();
         Time.timeScale = 1;
         panel = GameObject.Find("Panel");
         panelScore = GameObject.Find("PanelScore");
@@ -74,9 +76,12 @@ public class MenuScript : MonoBehaviour
             Score.buttonPause = false;
             punti.gameObject.SetActive(false);
             puntiFinali.gameObject.SetActive(true);
-
             puntiFinali.text = "" + Score.punteggio;
-            Time.timeScale = 0;
+             int bestRecord = playerPrefs.GetRecordPersonale();
+            if(Score.punteggio > bestRecord){
+                playerPrefs.SetRecordPersonale(Score.punteggio);
+            }
+             Time.timeScale = 0;
             Score.fine = false;
         
    
