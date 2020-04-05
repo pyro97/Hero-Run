@@ -86,6 +86,8 @@ public class Player : MonoBehaviour
         animator.SetBool("Tosse", false);
         animator.SetBool("Walk", false);
         animator.SetBool("Countdown", false);
+        animator.SetBool("Sparato", false);
+
 
         stelle = GameObject.Find("Stars");
         stelle.SetActive(false);
@@ -337,7 +339,7 @@ public class Player : MonoBehaviour
     
     IEnumerator AnimationPerdente()
     {
-        if ((endVirus || endPolice ) && !Score.animazioneFine)
+        if (endVirus && !Score.animazioneFine)
         {
 
             sourceVirus.enabled = true;
@@ -384,7 +386,38 @@ public class Player : MonoBehaviour
             Score.fine = true;
 
 
+        }else if(endPolice && !Score.animazioneFine)
+        {
+            sourceVirus.enabled = true;
+
+
+            animator.SetBool("Shot", false);
+            gun.SetActive(false);
+            Score.buttonPause = false;
+            animator.SetBool("Sparato", true);
+
+            yield return new WaitForSeconds(0.2f);
+            GameObject cam = GameObject.Find("Main Camera");
+            cam.transform.rotation = Quaternion.Euler(17.5f, 180, 0);
+            cam.transform.position = new Vector3(this.transform.position.x, 4f, this.transform.position.z + 10f);
+            Score.animazioneFine = true;
+            this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
+
+            sourceSparoPolizia.enabled = true;
+            sourceSparoPolizia.Play();
+
+            yield return new WaitForSeconds(0.8f);
+
+            sourceSparoPolizia.Stop();
+            sourceSparoPolizia.enabled = false;
+
+
+            yield return new WaitForSeconds(0.1f);
+            Score.fine = true;
         }
+  
 
 
     }
@@ -442,7 +475,7 @@ public class Player : MonoBehaviour
                     AvviaMusicaFinale();
                     endPolice = true;
                     end = true;
-                    this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 10);
+                    this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z - 5);
                     this.gameObject.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
 
                 }
