@@ -24,14 +24,13 @@ public class Player : MonoBehaviour
     bool endPolice;
     bool endVirus;
     public Sprite sprite1;
-    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse;
-    public AudioClip musicaSparo,musicaVirus,musicaTosse;
+    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse,sourceStarnuto,sourceSparoPolizia;
+    public AudioClip musicaSparo,musicaVirus, musicaTosse, musicaStarnuto, musicaSparoPolizia;
     bool endSwipeCentral;
     public int laneNum;
     public float horizVel;
     string contr;
     PlayerPrefsHandler playerPrefs;
-
 
 
     // Start is called before the first frame update
@@ -41,6 +40,8 @@ public class Player : MonoBehaviour
         bonusGenerator = GameObject.FindObjectOfType<BonusGenerator>();
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
 
+        sourceStarnuto = AddAudio(musicaStarnuto, false, false, 1f);
+        sourceSparoPolizia = AddAudio(musicaSparoPolizia, false, false, 1f);
         sourceSparo = AddAudio(musicaSparo, false, false, 1f);
         sourceTosse = AddAudio(musicaTosse, false, false, 1f);
         sourceVirus = AddAudio(musicaVirus, false, false, 1f);
@@ -77,13 +78,19 @@ public class Player : MonoBehaviour
         countImage = GameObject.Find("CountdownImage");
         countImage.SetActive(false);
         countImage.GetComponent<Animator>().SetBool("Count", false);
-
+        
+        GameObject.Find("PauseMusic").GetComponent<AudioSource>().Stop();
+        GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = false;
+        
         musicaGioco = GameObject.Find("Music").GetComponent<AudioSource>();
         musicaGioco.enabled = true;
         musicaGioco.Play();
 
         musicaFine = GameObject.Find("FinalMusic").GetComponent<AudioSource>();
         musicaFine.enabled = false;
+
+        
+
 
         laneNum = 2;
         horizVel = 0;
@@ -492,6 +499,7 @@ public class Player : MonoBehaviour
         GameObject.Find("FinalMusic").GetComponent<AudioSource>().enabled = true;
         GameObject.Find("FinalMusic").GetComponent<AudioSource>().Play();
     }
+
 
     public void ControlloPosizione()
     {

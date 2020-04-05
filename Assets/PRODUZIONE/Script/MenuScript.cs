@@ -59,11 +59,28 @@ public class MenuScript : MonoBehaviour
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
         Score.buttonPause = false;
-        
-
+        AvviaMusicaPausa();
         punti.gameObject.SetActive(false);
         puntiMenu.text = "" + Score.punteggio;
-       Time.timeScale=0;
+        Time.timeScale=0;
+    }
+
+    public void AvviaMusicaPausa()
+    {
+        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+        GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
+
+        GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = true;
+        GameObject.Find("PauseMusic").GetComponent<AudioSource>().Play();
+    }
+
+    public void AvviaMusicaGiocoDaPausa()
+    {
+        GameObject.Find("PauseMusic").GetComponent<AudioSource>().Stop();
+        GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = false;
+
+        GameObject.Find("Music").GetComponent<AudioSource>().enabled = true;
+        GameObject.Find("Music").GetComponent<AudioSource>().Play();
     }
 
     public void apriMenuFine()
@@ -91,6 +108,7 @@ public class MenuScript : MonoBehaviour
         panelScore.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
+        AvviaMusicaGiocoDaPausa();
         punti.gameObject.SetActive(true);
         Time.timeScale=1;
         Score.pause = true;
@@ -116,8 +134,8 @@ public class MenuScript : MonoBehaviour
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
         SceneManager.LoadScene("Game");
-       Score.punteggio=0;
-       Score.fine = false;
+        Score.punteggio=0;
+        Score.fine = false;
         Time.timeScale = 0;
 
 
