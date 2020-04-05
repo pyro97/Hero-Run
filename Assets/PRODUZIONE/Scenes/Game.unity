@@ -3006,7 +3006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mortaPersona: 0
   theEnemy: {fileID: 1042199097}
-  person: {fileID: 1209044289}
+  personCheBalla: {fileID: 1209044289}
   enemies: []
   player: {fileID: 1087122275}
   police: {fileID: 1784498027}
