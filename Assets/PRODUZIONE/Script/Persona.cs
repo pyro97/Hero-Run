@@ -34,10 +34,9 @@ public class Persona : MonoBehaviour
 
     IEnumerator EffettoRogo()
     {
-        print("ciao");
         sourceRogo.enabled = true;
         sourceRogo.Play();
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(3.1f);
         sourceRogo.Stop();
         sourceRogo.enabled = false;
     }

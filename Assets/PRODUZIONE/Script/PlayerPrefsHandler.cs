@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerPrefsHandler
 {
 	public const string PLAYER_KEY_F = "playerKey";
-	public const string MUTE_INT = "mute";
+	public const string MUTE_MUSICHE_INT = "muteMusiche";
+	public const string MUTE_EFFETTI_INT = "muteEffetti";
 	public const string VOLUME_F = "volume";
 	public const string RECORD_PERS_INT = "recordPersonale";
 	public const string NUM_PARTITE_INT = "numPartiteTotali";
@@ -18,13 +19,15 @@ public class PlayerPrefsHandler
 
 	public void RestorePreferences()
 	{
-		SetMuted(GetIsMuted());
+		SetMutedMusica(GetIsMutedMusica());
+		SetMutedEffetti(GetIsMutedEffetti());
 		SetVolume(GetVolume());
 	}
 
 	public void InitializePreferences()
 	{
-		SetMuted(false);
+		SetMutedEffetti(false);
+		SetMutedMusica(false);
 		SetVolume(1.0f);
 	}
 
@@ -95,19 +98,34 @@ public class PlayerPrefsHandler
 		PlayerPrefs.SetInt(NUM_PARTITE_INT, val);
 	}
 
-	public void SetMuted(bool muted)
+	public void SetMutedEffetti(bool muted)
 	{
-		PlayerPrefs.SetInt(MUTE_INT, muted ? 1 : 0);
+		PlayerPrefs.SetInt(MUTE_EFFETTI_INT, muted ? 1 : 0);
 
 		// Pausing the AudioListener will disable all sounds.
 		AudioListener.pause = muted;
 	}
 
-	public bool GetIsMuted()
+	public bool GetIsMutedMusica()
 	{
 		// If the value of the MUTE_INT key is 1 then sound is muted, otherwise it is not muted.
 		// The default value of the MUTE_INT key is 0 (i.e. not muted).
-		return PlayerPrefs.GetInt(MUTE_INT, 0) == 1;
+		return PlayerPrefs.GetInt(MUTE_MUSICHE_INT, 0) == 1;
+	}
+
+	public void SetMutedMusica(bool muted)
+	{
+		PlayerPrefs.SetInt(MUTE_MUSICHE_INT, muted ? 1 : 0);
+
+		// Pausing the AudioListener will disable all sounds.
+		AudioListener.pause = muted;
+	}
+
+	public bool GetIsMutedEffetti()
+	{
+		// If the value of the MUTE_INT key is 1 then sound is muted, otherwise it is not muted.
+		// The default value of the MUTE_INT key is 0 (i.e. not muted).
+		return PlayerPrefs.GetInt(MUTE_EFFETTI_INT, 0) == 1;
 	}
 
 	public void SetVolume(float volume)

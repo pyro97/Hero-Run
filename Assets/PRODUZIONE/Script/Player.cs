@@ -37,19 +37,38 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        playerPrefs = new PlayerPrefsHandler();
+        playerPrefs.SetNumPartiteTotali(playerPrefs.GetNumPartiteTotali() + 1);
         bonusGenerator = GameObject.FindObjectOfType<BonusGenerator>();
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
+        if (playerPrefs.GetIsMutedEffetti())
+        {
+            sourceStarnuto = AddAudio(musicaStarnuto, false, false, 0f);
+            sourceSparoPolizia = AddAudio(musicaSparoPolizia, false, false, 0f);
+            sourceSparo = AddAudio(musicaSparo, false, false, 0f);
+            sourceTosse = AddAudio(musicaTosse, false, false, 0f);
+            sourceVirus = AddAudio(musicaVirus, false, false, 0f);
+        }
+        else
+        {
+            sourceStarnuto = AddAudio(musicaStarnuto, false, false, 1f);
+            sourceSparoPolizia = AddAudio(musicaSparoPolizia, false, false, 1f);
+            sourceSparo = AddAudio(musicaSparo, false, false, 1f);
+            sourceTosse = AddAudio(musicaTosse, false, false, 1f);
+            sourceVirus = AddAudio(musicaVirus, false, false, 1f);
+        }
 
-        sourceStarnuto = AddAudio(musicaStarnuto, false, false, 1f);
-        sourceSparoPolizia = AddAudio(musicaSparoPolizia, false, false, 1f);
-        sourceSparo = AddAudio(musicaSparo, false, false, 1f);
-        sourceTosse = AddAudio(musicaTosse, false, false, 1f);
-        sourceVirus = AddAudio(musicaVirus, false, false, 1f);
+        if (!playerPrefs.GetIsMutedMusica()) {
+            musicaGioco = GameObject.Find("Music").GetComponent<AudioSource>();
+            musicaGioco.enabled = true;
+            musicaGioco.Play();
+        }
+
+        
     }
     void Start()
     {
-        playerPrefs = new PlayerPrefsHandler();
-        playerPrefs.SetNumPartiteTotali(playerPrefs.GetNumPartiteTotali() + 1);
+        
         //GameObject.Find("ImageMask").SetActive(false);
         endPolice = false;
         endVirus = false;
@@ -79,19 +98,8 @@ public class Player : MonoBehaviour
         countImage.SetActive(false);
         countImage.GetComponent<Animator>().SetBool("Count", false);
         
-        GameObject.Find("PauseMusic").GetComponent<AudioSource>().Stop();
-        GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = false;
         
-        musicaGioco = GameObject.Find("Music").GetComponent<AudioSource>();
-        musicaGioco.enabled = true;
-        musicaGioco.Play();
-
-        musicaFine = GameObject.Find("FinalMusic").GetComponent<AudioSource>();
-        musicaFine.enabled = false;
-
         
-
-
         laneNum = 2;
         horizVel = 0;
         contr = "n";
@@ -138,7 +146,7 @@ public class Player : MonoBehaviour
     {
         increment += 0.01f;
 
-        if (musicaGioco.pitch < 2.0f)
+        if (!playerPrefs.GetIsMutedMusica() && musicaGioco.pitch < 2.0f)
         {
             if (increment % 10 == 0)
             {

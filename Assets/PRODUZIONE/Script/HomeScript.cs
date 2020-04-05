@@ -29,9 +29,12 @@ public class HomeScript : MonoBehaviour
 
         ChiudiMenuSetting();
 
-        musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
-        musicaMenu.enabled = true;
-        musicaMenu.Play();
+        if (!playerPrefsHandler.GetIsMutedMusica()) { 
+            musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
+            musicaMenu.enabled = true;
+            musicaMenu.Play();
+        }
+        
 
     }
 

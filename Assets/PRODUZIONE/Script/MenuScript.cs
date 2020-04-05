@@ -67,20 +67,27 @@ public class MenuScript : MonoBehaviour
 
     public void AvviaMusicaPausa()
     {
-        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
-        GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
+        if (playerPrefs.GetIsMutedMusica())
+        {
+            GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+            GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
 
-        GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = true;
-        GameObject.Find("PauseMusic").GetComponent<AudioSource>().Play();
+            GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = true;
+            GameObject.Find("PauseMusic").GetComponent<AudioSource>().Play();
+        }
     }
 
     public void AvviaMusicaGiocoDaPausa()
     {
-        GameObject.Find("PauseMusic").GetComponent<AudioSource>().Stop();
-        GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = false;
+        if (playerPrefs.GetIsMutedMusica())
+        {
+            GameObject.Find("PauseMusic").GetComponent<AudioSource>().Stop();
+            GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = false;
 
-        GameObject.Find("Music").GetComponent<AudioSource>().enabled = true;
-        GameObject.Find("Music").GetComponent<AudioSource>().Play();
+            GameObject.Find("Music").GetComponent<AudioSource>().enabled = true;
+            GameObject.Find("Music").GetComponent<AudioSource>().Play();
+        }
+        
     }
 
     public void apriMenuFine()
