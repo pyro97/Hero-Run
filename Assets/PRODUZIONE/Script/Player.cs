@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     bool endPolice;
     bool endVirus;
     public Sprite sprite1;
-    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse,sourceStarnuto,sourceSparoPolizia;
-    public AudioClip musicaSparo,musicaVirus, musicaTosse, musicaStarnuto, musicaSparoPolizia;
+    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse,sourceStarnuto,sourceSparoPolizia,source5Stelle;
+    public AudioClip musicaSparo,musicaVirus, musicaTosse, musicaStarnuto, musicaSparoPolizia,musica5Stelle;
     bool endSwipeCentral;
     public int laneNum;
     public float horizVel;
@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
         if (playerPrefs.GetIsMutedEffetti())
         {
+            source5Stelle = AddAudio(musica5Stelle, false, false, 0f);
             sourceStarnuto = AddAudio(musicaStarnuto, false, false, 0f);
             sourceSparoPolizia = AddAudio(musicaSparoPolizia, false, false, 0f);
             sourceSparo = AddAudio(musicaSparo, false, false, 0f);
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            source5Stelle = AddAudio(musica5Stelle, false, false, 1f);
             sourceStarnuto = AddAudio(musicaStarnuto, false, false, 1f);
             sourceSparoPolizia = AddAudio(musicaSparoPolizia, false, false, 1f);
             sourceSparo = AddAudio(musicaSparo, false, false, 1f);
@@ -446,6 +448,8 @@ public class Player : MonoBehaviour
                 }
                 else if (!paper && stelle.activeSelf == false)
                 {
+                    source5Stelle.enabled = true;
+                    source5Stelle.Play();
                     stelle.SetActive(true);
                     Destroy(collision.gameObject);
                     enemies.enemies.Remove(collision.gameObject);

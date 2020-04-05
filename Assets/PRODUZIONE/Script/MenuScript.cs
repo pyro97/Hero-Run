@@ -55,6 +55,7 @@ public class MenuScript : MonoBehaviour
     }
 
     public void apriMenu(){
+        AvviaMusicaPausa();
         Score.pause = false;
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
@@ -67,7 +68,7 @@ public class MenuScript : MonoBehaviour
 
     public void AvviaMusicaPausa()
     {
-        if (playerPrefs.GetIsMutedMusica())
+        if (!playerPrefs.GetIsMutedMusica())
         {
             GameObject.Find("Music").GetComponent<AudioSource>().Stop();
             GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
@@ -79,7 +80,7 @@ public class MenuScript : MonoBehaviour
 
     public void AvviaMusicaGiocoDaPausa()
     {
-        if (playerPrefs.GetIsMutedMusica())
+        if (!playerPrefs.GetIsMutedMusica())
         {
             GameObject.Find("PauseMusic").GetComponent<AudioSource>().Stop();
             GameObject.Find("PauseMusic").GetComponent<AudioSource>().enabled = false;
@@ -112,6 +113,7 @@ public class MenuScript : MonoBehaviour
     }
 
     public void chiudiMenu(){
+        AvviaMusicaGiocoDaPausa();
         panelScore.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;

@@ -16,7 +16,7 @@ public class HomeScript : MonoBehaviour
         panelMenuSettings = GameObject.Find("PanelMenuSettings");
 
         playerPrefsHandler =new PlayerPrefsHandler();
-        //playerPrefsHandler.CreateFirstTimePref();
+        playerPrefsHandler.CreateFirstTimePref();
         if (playerPrefsHandler.isFirstTime())
         {
             playerPrefsHandler.CreateFirstTimePref();
