@@ -2,12 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
+
 
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;
     GameObject playBtn, panelListaSettings, panelMenuSettings;
     PlayerPrefsHandler playerPrefsHandler;
+    Toggle toggleMusica, toggleEffetti;
+    public AudioClip clipClickButton;
+    AudioSource sourceClick;
+
+    private void Awake()
+    {
+        playerPrefsHandler = new PlayerPrefsHandler();
+        playerPrefsHandler.CreateFirstTimePref();
+
+        if (playerPrefsHandler.isFirstTime())
+        {
+            playerPrefsHandler.CreateFirstTimePref();
+        }
+        else
+        {
+            //setta tutte le preferenze dell'utente nel menu
+        }
+
+        if (!playerPrefsHandler.GetIsMutedMusica())
+        {
+            musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
+            musicaMenu.enabled = true;
+            musicaMenu.Play();
+        }
+
+        if (playerPrefsHandler.GetIsMutedEffetti())
+        {
+            sourceClick = AddAudio(clipClickButton, false, false,false, 0f);
+           
+        }
+        else
+        {
+            sourceClick = AddAudio(clipClickButton, false, false,false, 1f);
+
+
+        }
+
+
+
+    }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,33 +62,20 @@ public class HomeScript : MonoBehaviour
         panelListaSettings = GameObject.Find("PanelListaSettings");
         panelMenuSettings = GameObject.Find("PanelMenuSettings");
 
-        playerPrefsHandler =new PlayerPrefsHandler();
-        playerPrefsHandler.CreateFirstTimePref();
-        if (playerPrefsHandler.isFirstTime())
-        {
-            playerPrefsHandler.CreateFirstTimePref();
-            playerPrefsHandler.InitializePreferences();
-        }
-        else
-        {
-            //setta tutte le preferenze dell'utente nel menu
-        }
 
         ChiudiMenuSetting();
+        if (!playerPrefsHandler.GetIsMutedEffetti())
+        {
+            sourceClick.enabled = true;
 
-        if (!playerPrefsHandler.GetIsMutedMusica()) { 
-            musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
-            musicaMenu.enabled = true;
-            musicaMenu.Play();
         }
-        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 
     public void ApriMenuSetting()
@@ -75,11 +109,19 @@ public class HomeScript : MonoBehaviour
 
         if (!val)
         {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
             panelMenuSettings.SetActive(false);
 
         }
         else
         {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
             panelMenuSettings.SetActive(true);
             OpenSubPanelMenu(0);
 
@@ -90,6 +132,11 @@ public class HomeScript : MonoBehaviour
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+
         if (indexSubPanel == 0)
         {
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
@@ -107,14 +154,62 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
-            Slider slider=GameObject.Find("Slider").GetComponent<Slider>();
 
-            slider.value = playerPrefsHandler.GetVolume();
+            toggleMusica=GameObject.Find("ToggleMusica").GetComponent<Toggle>();
+            if (playerPrefsHandler.GetIsMutedMusica())
+            {
+                toggleMusica.isOn = false;
+                
 
-            slider.onValueChanged.AddListener(delegate {
+            }
+            else
+            {
+                toggleMusica.isOn = true;
 
-                playerPrefsHandler.SetVolume(slider.value);
-                AudioListener.volume = playerPrefsHandler.GetVolume();
+            }
+
+
+            toggleMusica.onValueChanged.AddListener(delegate {
+                if (toggleMusica.isOn)
+                {
+                    playerPrefsHandler.SetMutedMusica(false);
+                    musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
+                    musicaMenu.enabled = true;
+                    musicaMenu.Play();
+                }
+                else
+                {
+                    playerPrefsHandler.SetMutedMusica(true);
+                    musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
+                    musicaMenu.Pause();
+                    musicaMenu.enabled = false;
+
+                }
+            });
+
+             toggleEffetti = GameObject.Find("ToggleEffetti").GetComponent<Toggle>();
+            if (playerPrefsHandler.GetIsMutedEffetti())
+            {
+                toggleEffetti.isOn = false;
+            }
+            else
+            {
+                toggleEffetti.isOn = true;
+            }
+
+
+            toggleEffetti.onValueChanged.AddListener(delegate {
+                if (toggleEffetti.isOn)
+                {
+                    playerPrefsHandler.SetMutedEffetti(false);
+                    sourceClick.enabled = true;
+
+                }
+                else
+                {
+                    playerPrefsHandler.SetMutedEffetti(true);
+                    sourceClick.enabled = false;
+                }
             });
 
         }
@@ -128,4 +223,26 @@ public class HomeScript : MonoBehaviour
   
     }
 
+
+    public void loadGame()
+    {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+        // Only specifying the sceneName or sceneBuildIndex will load the Scene with the Single mode
+        SceneManager.LoadScene("Game");
+
+    }
+
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake,bool enab,float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.enabled = enab;
+        newAudio.volume = vol;
+        return newAudio;
+    }
 }

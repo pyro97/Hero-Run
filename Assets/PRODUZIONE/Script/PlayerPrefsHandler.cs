@@ -21,14 +21,12 @@ public class PlayerPrefsHandler
 	{
 		SetMutedMusica(GetIsMutedMusica());
 		SetMutedEffetti(GetIsMutedEffetti());
-		SetVolume(GetVolume());
 	}
 
 	public void InitializePreferences()
 	{
 		SetMutedEffetti(false);
 		SetMutedMusica(false);
-		SetVolume(1.0f);
 	}
 
     public void CreateFirstTimePref()
@@ -103,7 +101,7 @@ public class PlayerPrefsHandler
 		PlayerPrefs.SetInt(MUTE_EFFETTI_INT, muted ? 1 : 0);
 
 		// Pausing the AudioListener will disable all sounds.
-		AudioListener.pause = muted;
+		//AudioListener.pause = muted;
 	}
 
 	public bool GetIsMutedMusica()
@@ -118,7 +116,7 @@ public class PlayerPrefsHandler
 		PlayerPrefs.SetInt(MUTE_MUSICHE_INT, muted ? 1 : 0);
 
 		// Pausing the AudioListener will disable all sounds.
-		AudioListener.pause = muted;
+		//AudioListener.pause = muted;
 	}
 
 	public bool GetIsMutedEffetti()

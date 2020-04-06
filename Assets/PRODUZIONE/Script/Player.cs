@@ -538,11 +538,15 @@ public class Player : MonoBehaviour
 
     public void AvviaMusicaFinale()
     {
-        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
-        GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
+        if (!playerPrefs.GetIsMutedMusica())
+        {
+            GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+            GameObject.Find("Music").GetComponent<AudioSource>().enabled = false;
 
-        GameObject.Find("FinalMusic").GetComponent<AudioSource>().enabled = true;
-        GameObject.Find("FinalMusic").GetComponent<AudioSource>().Play();
+            GameObject.Find("FinalMusic").GetComponent<AudioSource>().enabled = true;
+            GameObject.Find("FinalMusic").GetComponent<AudioSource>().Play();
+        }
+    
     }
 
 
