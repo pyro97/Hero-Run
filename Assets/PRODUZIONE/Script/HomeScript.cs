@@ -220,7 +220,6 @@ public class HomeScript : MonoBehaviour
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
     {
-        print(sourceClick.volume + " " + sourceClick.isActiveAndEnabled);
         if (sourceClick.enabled)
         {
             sourceClick.Play();
