@@ -19,7 +19,7 @@ public class HomeScript : MonoBehaviour
     private void Awake()
     {
         playerPrefsHandler = new PlayerPrefsHandler();
-        playerPrefsHandler.CreateFirstTimePref();
+        //playerPrefsHandler.CreateFirstTimePref();
 
         if (playerPrefsHandler.isFirstTime())
         {
@@ -44,7 +44,7 @@ public class HomeScript : MonoBehaviour
         }
         else
         {
-            sourceClick = AddAudio(clipClickButton, false, false,false, 1f);
+            sourceClick = AddAudio(clipClickButton, false, false,false, 0.25f);
 
 
         }
