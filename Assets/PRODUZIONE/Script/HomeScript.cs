@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;
-    GameObject playBtn, panelListaSettings, panelMenuSettings;
+    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings;
     PlayerPrefsHandler playerPrefsHandler;
     Toggle toggleMusica, toggleEffetti;
     public AudioClip clipClickButton;
@@ -61,9 +61,14 @@ public class HomeScript : MonoBehaviour
         playBtn = GameObject.Find("PlayButton");
         panelListaSettings = GameObject.Find("PanelListaSettings");
         panelMenuSettings = GameObject.Find("PanelMenuSettings");
+        panelGameSettings = GameObject.Find("PanelGameSettings");
+        panelShopSettings = GameObject.Find("PanelShopSettings");
 
 
-        ChiudiMenuSetting();
+
+        ApriMenuSetting(false);
+        ApriGameSetting(false);
+        ApriShopSetting(false);
         if (!playerPrefsHandler.GetIsMutedEffetti())
         {
             sourceClick.enabled = true;
@@ -76,18 +81,6 @@ public class HomeScript : MonoBehaviour
     void Update()
     {
       
-    }
-
-    public void ApriMenuSetting()
-    {
-        PulsantiHomeAttivi(false);
-        AttivaMenuSetting(true);
-    }
-
-    public void ChiudiMenuSetting()
-    {
-        PulsantiHomeAttivi(true);
-        AttivaMenuSetting(false);
     }
 
     public void PulsantiHomeAttivi(bool val)
@@ -104,9 +97,55 @@ public class HomeScript : MonoBehaviour
         }
     }
 
+
+    public void ApriMenuSetting(bool val)
+    {
+        if (val)
+        {
+            PulsantiHomeAttivi(false);
+            AttivaMenuSetting(true);
+        }
+        else
+        {
+            PulsantiHomeAttivi(true);
+            AttivaMenuSetting(false);
+        }
+        
+    }
+
+    public void ApriGameSetting(bool val)
+    {
+        if (val)
+        {
+            PulsantiHomeAttivi(false);
+            AttivaGameSetting(true);
+        }
+        else
+        {
+            PulsantiHomeAttivi(true);
+            AttivaGameSetting(false);
+        }
+
+    }
+
+    public void ApriShopSetting(bool val)
+    {
+        if (val)
+        {
+            PulsantiHomeAttivi(false);
+            AttivaShopSetting(true);
+        }
+        else
+        {
+            PulsantiHomeAttivi(true);
+            AttivaShopSetting(false);
+        }
+
+    }
+
+
     public void AttivaMenuSetting(bool val)
     {
-
         if (!val)
         {
             if (sourceClick.enabled)
@@ -128,6 +167,55 @@ public class HomeScript : MonoBehaviour
 
         }
     }
+
+    public void AttivaGameSetting(bool val)
+    {
+        if (!val)
+        {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
+            panelGameSettings.SetActive(false);
+
+        }
+        else
+        {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
+            panelGameSettings.SetActive(true);
+            OpenSubPanelGame(0);
+
+
+        }
+    }
+
+    public void AttivaShopSetting(bool val)
+    {
+        if (!val)
+        {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
+            panelShopSettings.SetActive(false);
+
+        }
+        else
+        {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
+            panelShopSettings.SetActive(true);
+            //OpenSubPanelGame(0);
+
+
+        }
+    }
+
 
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
@@ -221,6 +309,34 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
         }
   
+    }
+
+
+    //0-> stat, 1->setting, 2->info
+    public void OpenSubPanelGame(int indexSubPanel)
+    {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+
+        if (indexSubPanel == 0)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+
+
+
+        }
+        else if (indexSubPanel == 1)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+
+           
+
+        }
+
     }
 
 
