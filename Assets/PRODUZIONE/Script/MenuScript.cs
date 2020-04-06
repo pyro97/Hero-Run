@@ -156,6 +156,7 @@ public class MenuScript : MonoBehaviour
     }
 
     public void esci(){
+        playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
         StartCoroutine(waitForClickSound());
 
 

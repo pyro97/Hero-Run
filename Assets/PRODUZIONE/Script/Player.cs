@@ -309,6 +309,7 @@ public class Player : MonoBehaviour
                 endTouch = Input.GetTouch(0).position;
                 if (startTouch == endTouch)
                 {
+                    contr = "y";
                     sourceSparo.enabled = true;
                     sourceSparo.Play();
                     ControlloPosizione();
@@ -322,6 +323,7 @@ public class Player : MonoBehaviour
                     yield return new WaitForSeconds(0.1f);
                     gun.SetActive(false);
                     ControlloPosizione();
+                    contr = "n";
                     sourceSparo.Stop();
                     sourceSparo.enabled = false;
 

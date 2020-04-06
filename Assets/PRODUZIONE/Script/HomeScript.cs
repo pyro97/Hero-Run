@@ -232,7 +232,7 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
             GameObject.Find("ScoreVal").GetComponent<Text>().text = playerPrefsHandler.GetRecordPersonale().ToString();
             GameObject.Find("NPartiteVal").GetComponent<Text>().text = playerPrefsHandler.GetNumPartiteTotali().ToString();
-            GameObject.Find("NCoinsVal").GetComponent<Text>().text = playerPrefsHandler.GetMoneteTotali().ToString();
+            GameObject.Find("NCoinsVal").GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString();
 
 
 

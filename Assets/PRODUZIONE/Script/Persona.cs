@@ -1,22 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Persona : MonoBehaviour
 {
     // Start is called before the first frame update
     private EnemiesGenerator enemies;
-    AudioSource sourceRogo;
-    public AudioClip musicaRogo;
+    int contaMonete = 0;
 
-
-    private void Awake()
-    {
-        sourceRogo = AddAudio(musicaRogo, false, false, 1f);
-    }
     void Start()
-    {   
-        sourceRogo = AddAudio(musicaRogo, false, false, 1f);
+    {
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
     }
 
@@ -25,21 +18,17 @@ public class Persona : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Fire"))
         {
-            StartCoroutine(EffettoRogo());
+            Score.monete += 1;
+            Text monete = GameObject.Find("Coins").GetComponent<Text>();
+            monete.text = "" + Score.monete;
+
             Destroy(this.gameObject);
             enemies.enemies.Remove(this.gameObject);
             enemies.mortaPersona = true;
         }
     }
 
-    IEnumerator EffettoRogo()
-    {
-        sourceRogo.enabled = true;
-        sourceRogo.Play();
-        yield return new WaitForSeconds(3.1f);
-        sourceRogo.Stop();
-        sourceRogo.enabled = false;
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -61,15 +50,6 @@ public class Persona : MonoBehaviour
         
     }
 
-    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
-    {
-        AudioSource newAudio = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-        newAudio.clip = clip;
-        newAudio.loop = loop;
-        newAudio.playOnAwake = playAwake;
-        newAudio.enabled = false;
-        newAudio.volume = vol;
-        return newAudio;
-    }
+
 
 }

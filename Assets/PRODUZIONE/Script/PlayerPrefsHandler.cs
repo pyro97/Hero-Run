@@ -10,7 +10,6 @@ public class PlayerPrefsHandler
 	public const string VOLUME_F = "volume";
 	public const string RECORD_PERS_INT = "recordPersonale";
 	public const string NUM_PARTITE_INT = "numPartiteTotali";
-	public const string MONETE_TOT_INT = "moneteTotaliGuadagnate";
 	public const string MONETE_INT = "monete";
 	public const string PERSONAGGIO_ATTUALE_S = "personaggioAttuale";
 
@@ -37,7 +36,6 @@ public class PlayerPrefsHandler
 		SetRecordPersonale(0);
 		SetPersonaggioAttuale("Medico");
 		SetNumPartiteTotali(0);
-		SetMoneteTotali(0);
 	}
 
     public bool isFirstTime()
@@ -56,15 +54,6 @@ public class PlayerPrefsHandler
 		PlayerPrefs.SetFloat(PLAYER_KEY_F, val);
 	}
 
-	public int GetMoneteTotali()
-	{
-		return PlayerPrefs.GetInt(MONETE_TOT_INT);
-	}
-
-	public void SetMoneteTotali(int val)
-	{
-		PlayerPrefs.SetInt(MONETE_TOT_INT, val);
-	}
 
 	public int GetMonete()
 	{
