@@ -12,12 +12,30 @@ public class MenuScript : MonoBehaviour
      GameObject panel,panelFine,panelScore;
      GameObject settaggi;
      PlayerPrefsHandler playerPrefs;
+    AudioSource sourceClick;
+    public AudioClip musicaClick;
 
+
+    void Awake()
+    {
+        playerPrefs = new PlayerPrefsHandler();
+
+        if (playerPrefs.GetIsMutedEffetti())
+        {
+            sourceClick = AddAudio(musicaClick, false, false, 0f);
+
+        }
+        else
+        {
+            sourceClick = AddAudio(musicaClick, false, false, 1f);
+
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerPrefs = new PlayerPrefsHandler();
         Time.timeScale = 1;
         panel = GameObject.Find("Panel");
         panelScore = GameObject.Find("PanelScore");
@@ -30,7 +48,12 @@ public class MenuScript : MonoBehaviour
         panelFine.gameObject.SetActive(false);
         panelScore.gameObject.SetActive(true);
         Score.punteggio=0;
-        Score.fine=false;    
+        Score.fine=false;
+        if (!playerPrefs.GetIsMutedEffetti())
+        {
+            sourceClick.enabled = true;
+
+        }
     }
 
     // Update is called once per frame
@@ -55,6 +78,8 @@ public class MenuScript : MonoBehaviour
     }
 
     public void apriMenu(){
+        StartCoroutine(waitForClickSound());
+
         AvviaMusicaPausa();
         Score.pause = false;
         panelScore.gameObject.SetActive(false);
@@ -113,6 +138,10 @@ public class MenuScript : MonoBehaviour
     }
 
     public void chiudiMenu(){
+        StartCoroutine(waitForClickSound());
+
+
+
         AvviaMusicaGiocoDaPausa();
         panelScore.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
@@ -127,6 +156,10 @@ public class MenuScript : MonoBehaviour
     }
 
     public void esci(){
+        StartCoroutine(waitForClickSound());
+
+
+
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
@@ -139,6 +172,8 @@ public class MenuScript : MonoBehaviour
     }
 
     public void ricomincia(){
+        StartCoroutine(waitForClickSound());
+
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
@@ -149,5 +184,29 @@ public class MenuScript : MonoBehaviour
 
 
     }
+
+
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.enabled = false;
+        newAudio.volume = vol;
+        return newAudio;
+    }
+
+    IEnumerator waitForClickSound()
+    {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+        yield return new WaitForSeconds(0.5f);
+       
+    }
+
+
 
 }

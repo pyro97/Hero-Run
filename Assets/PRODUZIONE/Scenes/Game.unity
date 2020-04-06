@@ -13718,6 +13718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06896e8dea4140be8a92aa3ed00fcd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicaClick: {fileID: 8300000, guid: 6baefb2411e974354ace687c76b7fa33, type: 3}
 --- !u!4 &1599130021
 Transform:
   m_ObjectHideFlags: 0

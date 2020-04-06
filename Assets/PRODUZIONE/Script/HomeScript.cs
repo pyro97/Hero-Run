@@ -220,6 +220,7 @@ public class HomeScript : MonoBehaviour
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
     {
+        print(sourceClick.volume + " " + sourceClick.isActiveAndEnabled);
         if (sourceClick.enabled)
         {
             sourceClick.Play();
@@ -291,12 +292,15 @@ public class HomeScript : MonoBehaviour
                 {
                     playerPrefsHandler.SetMutedEffetti(false);
                     sourceClick.enabled = true;
+                    sourceClick.volume = 0.25f;
 
                 }
                 else
                 {
                     playerPrefsHandler.SetMutedEffetti(true);
                     sourceClick.enabled = false;
+                    sourceClick.volume = 0f;
+
                 }
             });
 
@@ -312,7 +316,6 @@ public class HomeScript : MonoBehaviour
     }
 
 
-    //0-> stat, 1->setting, 2->info
     public void OpenSubPanelGame(int indexSubPanel)
     {
         if (sourceClick.enabled)

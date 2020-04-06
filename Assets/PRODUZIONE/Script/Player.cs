@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
             sourceSparo = AddAudio(musicaSparo, false, false, 0f);
             sourceTosse = AddAudio(musicaTosse, false, false, 0f);
             sourceVirus = AddAudio(musicaVirus, false, false, 0f);
+
         }
         else
         {
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
             sourceSparo = AddAudio(musicaSparo, false, false, 1f);
             sourceTosse = AddAudio(musicaTosse, false, false, 1f);
             sourceVirus = AddAudio(musicaVirus, false, false, 1f);
+
         }
 
         if (!playerPrefs.GetIsMutedMusica()) {
@@ -166,7 +168,7 @@ public class Player : MonoBehaviour
             this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
         }
 
-        rigid.AddForce((100 + increment) * new Vector3(horizVel, 0.0f, 0.0f));
+        rigid.AddForce((100) * new Vector3(horizVel, 0.0f, 0.0f));
         
         if (endSwipeCentral)
         {
