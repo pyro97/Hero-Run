@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     bool paper;
     bool mask;
     Vector2 startTouch, endTouch;
-    GameObject gun;
+    GameObject gun,panelScore;
     float punteggio;
     bool end;
     GameObject countImage;
@@ -110,6 +110,7 @@ public class Player : MonoBehaviour
         horizVel = 0;
         contr = "n";
 
+        panelScore = GameObject.Find("PanelScore");
 
 
 
@@ -341,6 +342,12 @@ public class Player : MonoBehaviour
     
     IEnumerator AnimationPerdente()
     {
+        Score.buttonPause = false;
+        stelle.SetActive(false);
+        panelScore.SetActive(false);
+        imageMask.SetActive(false);
+        imagePaper.SetActive(false);
+
         if (endVirus && !Score.animazioneFine)
         {
 

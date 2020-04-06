@@ -3007,7 +3007,6 @@ MonoBehaviour:
   mortaPersona: 0
   theEnemy: {fileID: 1042199097}
   personCheBalla: {fileID: 1209044289}
-  calciatore: {fileID: 2040649203}
   uomo: {fileID: 1956723391}
   enemies: []
   player: {fileID: 1087122275}
@@ -12695,7 +12694,7 @@ PrefabInstance:
     - target: {fileID: 5109664434990063744, guid: df63dd63caf4742628480cda9b70893d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5109664434990063744, guid: df63dd63caf4742628480cda9b70893d,
         type: 3}
@@ -17522,86 +17521,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4379673244704792, guid: 1be61187b5d765449be824463642cb0f,
     type: 3}
   m_PrefabInstance: {fileID: 2036302621}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2040649202
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1712714191545375668, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: musicaRogo
-      value: 
-      objectReference: {fileID: 8300000, guid: c8ccdaa2ed7c8f34cb911a2629696549, type: 3}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -16.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5962340074007605420, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7270258327615587007, guid: c07f35dc8457441169375ed5af1f1bc1,
-        type: 3}
-      propertyPath: m_Name
-      value: Calciatore
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c07f35dc8457441169375ed5af1f1bc1, type: 3}
---- !u!1 &2040649203 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7270258327615587007, guid: c07f35dc8457441169375ed5af1f1bc1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2040649202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2048668631
 PrefabInstance:

@@ -120,10 +120,10 @@ public class MenuScript : MonoBehaviour
     {
        
 
-            panelScore.gameObject.SetActive(false);
+            //panelScore.gameObject.SetActive(false);
             panelFine.gameObject.SetActive(true);
             panel.gameObject.SetActive(false);
-            Score.buttonPause = false;
+            //Score.buttonPause = false;
             punti.gameObject.SetActive(false);
             puntiFinali.gameObject.SetActive(true);
             puntiFinali.text = "" + Score.punteggio;
