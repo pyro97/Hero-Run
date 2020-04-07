@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class MenuScript : MonoBehaviour
 {
 
-     Text punti,puntiMenu,puntiFinali; 
+     Text punti,puntiMenu,puntiFinali,testoFinale; 
      GameObject panel,panelFine,panelScore;
      GameObject settaggi;
      PlayerPrefsHandler playerPrefs;
@@ -44,6 +44,7 @@ public class MenuScript : MonoBehaviour
         puntiMenu = GameObject.Find("PuntiMenu").GetComponent<Text>();
         punti = GameObject.Find("Punti").GetComponent<Text>();
         puntiFinali = GameObject.Find("PuntiFinali").GetComponent<Text>();
+        testoFinale = GameObject.Find("TitleFinale").GetComponent<Text>();
         panel.gameObject.SetActive(false);
         panelFine.gameObject.SetActive(false);
         panelScore.gameObject.SetActive(true);
@@ -118,21 +119,24 @@ public class MenuScript : MonoBehaviour
 
     public void apriMenuFine()
     {
-       
 
-            //panelScore.gameObject.SetActive(false);
-            panelFine.gameObject.SetActive(true);
-            panel.gameObject.SetActive(false);
-            //Score.buttonPause = false;
-            punti.gameObject.SetActive(false);
-            puntiFinali.gameObject.SetActive(true);
-            puntiFinali.text = "" + Score.punteggio;
-             int bestRecord = playerPrefs.GetRecordPersonale();
-            if(Score.punteggio > bestRecord){
-                playerPrefs.SetRecordPersonale(Score.punteggio);
-            }
-             Time.timeScale = 0;
-            Score.fine = false;
+        int bestRecord = playerPrefs.GetRecordPersonale();
+        //panelScore.gameObject.SetActive(false);
+        if (Score.punteggio > bestRecord)
+        {
+            playerPrefs.SetRecordPersonale(Score.punteggio);
+            testoFinale.text = "Nuovo Record";
+        }
+        panelFine.gameObject.SetActive(true);
+        panel.gameObject.SetActive(false);
+        //Score.buttonPause = false;
+        punti.gameObject.SetActive(false);
+        puntiFinali.gameObject.SetActive(true);
+        puntiFinali.text = "" + Score.punteggio;
+        
+        
+        Time.timeScale = 0;
+        Score.fine = false;
         
    
     }

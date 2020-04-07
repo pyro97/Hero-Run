@@ -6,7 +6,6 @@ public class Persona : MonoBehaviour
 {
     // Start is called before the first frame update
     private EnemiesGenerator enemies;
-    int contaMonete = 0;
 
     void Start()
     {

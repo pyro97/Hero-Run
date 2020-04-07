@@ -3268,7 +3268,6 @@ MonoBehaviour:
   personCheBalla: {fileID: 1209044289}
   uomo: {fileID: 1956723391}
   enemies: []
-  player: {fileID: 1915151644}
   police: {fileID: 1477586810}
 --- !u!4 &356648503
 Transform:
@@ -8261,7 +8260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979ea0d5695254bdaaa95abf3c66ca47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1915151644}
 --- !u!45 &963194230
 Skybox:
   m_ObjectHideFlags: 0
@@ -9049,11 +9047,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042199097}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -14512,7 +14510,7 @@ GameObject:
   - component: {fileID: 1611088111}
   - component: {fileID: 1611088110}
   m_Layer: 5
-  m_Name: Title
+  m_Name: TitleFinale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17980,7 +17978,6 @@ MonoBehaviour:
   bonusMask: {fileID: 1069109408}
   bonusPaper: {fileID: 100183841}
   bonus: []
-  player: {fileID: 1087122275}
   paper: 0
   mask: 0
 --- !u!4 &1973729918

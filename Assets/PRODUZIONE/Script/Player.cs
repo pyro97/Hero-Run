@@ -335,7 +335,7 @@ public class Player : MonoBehaviour
     public void CalcolaPunteggio()
     {
          
-            punteggio = punteggio + 0.5f + increment;
+            punteggio = punteggio + 0.5f ;
             Score.punteggio = (int)punteggio;
             Text t = GameObject.Find("Punti").GetComponent<Text>();
             t.text = "" + Score.punteggio;
