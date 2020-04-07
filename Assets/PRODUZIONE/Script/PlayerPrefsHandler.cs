@@ -34,7 +34,8 @@ public class PlayerPrefsHandler
 		SetPlayerKey(Random.Range(1, 1000000));
 		SetMonete(0);
 		SetRecordPersonale(0);
-		SetPersonaggioAttuale("Medico");
+		SetPersonaggioAttuale("The Loocka");
+		SetGiocatoreByNome("The Loocka");
 		SetNumPartiteTotali(0);
 	}
 
@@ -54,6 +55,17 @@ public class PlayerPrefsHandler
 		PlayerPrefs.SetFloat(PLAYER_KEY_F, val);
 	}
 
+    public bool GetGiocatoreByNome(string s)
+    {
+		string nome = PlayerPrefs.GetString(s);
+		if (nome.Equals(s)) return true;
+		else return false;
+    }
+
+    public void SetGiocatoreByNome(string s)
+    {
+		PlayerPrefs.SetString(s, s);
+    }
 
 	public int GetMonete()
 	{

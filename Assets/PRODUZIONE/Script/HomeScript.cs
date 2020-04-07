@@ -15,11 +15,13 @@ public class HomeScript : MonoBehaviour
     Toggle toggleMusica, toggleEffetti;
     public AudioClip clipClickButton;
     AudioSource sourceClick;
+    public GameObject[] players;
 
     private void Awake()
     {
         playerPrefsHandler = new PlayerPrefsHandler();
-        //playerPrefsHandler.CreateFirstTimePref();
+
+       
 
         if (playerPrefsHandler.isFirstTime())
         {
@@ -27,7 +29,19 @@ public class HomeScript : MonoBehaviour
         }
         else
         {
-            //setta tutte le preferenze dell'utente nel menu
+            //TEST TEST TEST TEST
+
+            //playerPrefsHandler.CreateFirstTimePref();
+            // PlayerPrefs.DeleteKey("Medico");
+            /*
+             *if (playerPrefsHandler.GetMonete() < 1000)
+                 {
+                     playerPrefsHandler.CreateFirstTimePref();
+                     playerPrefsHandler.SetMonete(6000);
+                 }
+             *
+             */
+
         }
 
         if (!playerPrefsHandler.GetIsMutedMusica())
@@ -326,7 +340,8 @@ public class HomeScript : MonoBehaviour
         {
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-
+            attivaCatalogo();
+         
 
 
         }
@@ -334,13 +349,68 @@ public class HomeScript : MonoBehaviour
         {
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
-
+         
            
 
         }
 
     }
 
+    public void SbloccaGiocatore(string s)
+    {
+        GameObject daSbloccare=null;
+        for(int i = 0; i < players.Length; i++)
+        {
+            if (players[i].name.Equals(s)) daSbloccare = players[i];
+        }
+
+        Text t=daSbloccare.transform.GetChild(3).GetComponent<Text>();
+        int num = int.Parse(t.text.ToString());
+        if (playerPrefsHandler.GetMonete() >= num)
+        {
+            playerPrefsHandler.SetMonete(playerPrefsHandler.GetMonete() - num);
+            playerPrefsHandler.SetGiocatoreByNome(s);
+            attivaCatalogo();
+        }
+
+    }
+
+    public void SelectGiocatore(string s)
+    {
+        GameObject daSelezionare = null;
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].name.Equals(s)) daSelezionare = players[i];
+        }
+
+        playerPrefsHandler.SetPersonaggioAttuale(daSelezionare.name);
+        attivaCatalogo();
+        
+
+    }
+
+    public void attivaCatalogo()
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.GetChild(2).gameObject.SetActive(true);
+            players[i].transform.GetChild(1).gameObject.SetActive(true);
+
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (playerPrefsHandler.GetGiocatoreByNome(players[i].name))
+            {
+                players[i].transform.GetChild(2).gameObject.SetActive(false);//pulsante sblocca
+
+                if (playerPrefsHandler.GetPersonaggioAttuale().Equals(players[i].name))
+                {
+                    players[i].transform.GetChild(1).gameObject.SetActive(false);//pulsante seleziona
+                }
+            }
+
+        }
+    }
 
     public void loadGame()
     {

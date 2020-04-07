@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
+     GameObject player;
     Vector3 distanza;
+
+    PlayerPrefsHandler playerPrefs;
+
+
+    void Awake()
+    {
+        playerPrefs = new PlayerPrefsHandler();
+        player = GameObject.Find(playerPrefs.GetPersonaggioAttuale());
+    }
+
     // Start is called before the first frame update
     void Start()
     {

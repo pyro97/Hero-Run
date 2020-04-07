@@ -8,9 +8,20 @@ public class BonusGenerator : MonoBehaviour
     public GameObject bonusMask;
     public GameObject bonusPaper;
     public List<GameObject> bonus;
-    public GameObject player;
+    GameObject player;
     public bool paper;
     public bool mask;
+
+    PlayerPrefsHandler playerPrefs;
+
+
+    void Awake()
+    {
+        playerPrefs = new PlayerPrefsHandler();
+        player = GameObject.Find(playerPrefs.GetPersonaggioAttuale());
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {

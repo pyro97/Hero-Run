@@ -9,7 +9,7 @@ public class EnemiesGenerator : MonoBehaviour
     public GameObject personCheBalla;
     public GameObject uomo;
     public List<GameObject> enemies;
-    public GameObject player;
+    GameObject player;
     public GameObject police;
     float xPosAlien;
     float xPosPerson;
@@ -20,8 +20,15 @@ public class EnemiesGenerator : MonoBehaviour
     int zPosPolice;
     int enemyCount;
     float startWait;
+    PlayerPrefsHandler playerPrefs;
 
-    
+
+    void Awake()
+    {
+        playerPrefs = new PlayerPrefsHandler();
+        player = GameObject.Find(playerPrefs.GetPersonaggioAttuale());
+    }
+
     // Start is called before the first frame update
     void Start()
     {
