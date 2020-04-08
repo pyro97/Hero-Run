@@ -236,6 +236,54 @@ public class HomeScript : MonoBehaviour
         }
     }
 
+    public void ChangeEffetti()
+    {
+        handlerEffetti = GameObject.Find("ButtonEffetti");
+        buttonEffetti = handlerEffetti.GetComponent<Button>();
+        if (playerPrefsHandler.GetIsMutedEffetti())
+        {
+            playerPrefsHandler.SetMutedEffetti(false);
+            sourceClick.enabled = true;
+            sourceClick.volume = 0.25f;
+            handlerEffetti.transform.GetChild(0).gameObject.SetActive(true);
+            handlerEffetti.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        else
+        {
+            playerPrefsHandler.SetMutedEffetti(true);
+            sourceClick.enabled = false;
+            sourceClick.volume = 0f;
+            handlerEffetti.transform.GetChild(0).gameObject.SetActive(false);
+            handlerEffetti.transform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
+
+    public void ChangeMusica()
+    {
+        handlerMusica = GameObject.Find("ButtonMusica");
+        buttonMusica = handlerMusica.GetComponent<Button>();
+
+        if (playerPrefsHandler.GetIsMutedMusica()) 
+        {
+            playerPrefsHandler.SetMutedMusica(false);
+            musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
+            musicaMenu.enabled = true;
+            musicaMenu.Play();
+            handlerMusica.transform.GetChild(0).gameObject.SetActive(true);
+            handlerMusica.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        else
+        {
+            playerPrefsHandler.SetMutedMusica(true);
+            musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
+            musicaMenu.Pause();
+            musicaMenu.enabled = false;
+            handlerMusica.transform.GetChild(0).gameObject.SetActive(false);
+            handlerMusica.transform.GetChild(1).gameObject.SetActive(true);
+        }
+
+    }
+    
 
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
@@ -283,27 +331,7 @@ public class HomeScript : MonoBehaviour
 
             }
 
-            buttonMusica.onClick.AddListener(delegate {
-                if (playerPrefsHandler.GetIsMutedMusica())
-                {
-                    playerPrefsHandler.SetMutedMusica(false);
-                    musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
-                    musicaMenu.enabled = true;
-                    musicaMenu.Play();
-                    handlerMusica.transform.GetChild(0).gameObject.SetActive(true);
-                    handlerMusica.transform.GetChild(1).gameObject.SetActive(false);
-                }
-                else
-                {
-                    playerPrefsHandler.SetMutedMusica(true);
-                    musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
-                    musicaMenu.Pause();
-                    musicaMenu.enabled = false;
-                    handlerMusica.transform.GetChild(0).gameObject.SetActive(false);
-                    handlerMusica.transform.GetChild(1).gameObject.SetActive(true);
-
-                }
-            });
+            
 
 
             handlerEffetti = GameObject.Find("ButtonEffetti");
@@ -324,26 +352,7 @@ public class HomeScript : MonoBehaviour
             }
 
 
-            buttonEffetti.onClick.AddListener(delegate {
-                if (playerPrefsHandler.GetIsMutedEffetti())
-                {
-                    playerPrefsHandler.SetMutedEffetti(false);
-                    sourceClick.enabled = true;
-                    sourceClick.volume = 0.25f;
-                    handlerEffetti.transform.GetChild(0).gameObject.SetActive(true);
-                    handlerEffetti.transform.GetChild(1).gameObject.SetActive(false);
-
-                }
-                else
-                {
-                    playerPrefsHandler.SetMutedEffetti(true);
-                    sourceClick.enabled = false;
-                    sourceClick.volume = 0f;
-                    handlerEffetti.transform.GetChild(0).gameObject.SetActive(false);
-                    handlerEffetti.transform.GetChild(1).gameObject.SetActive(true);
-
-                }
-            });
+         
 
         }
 
