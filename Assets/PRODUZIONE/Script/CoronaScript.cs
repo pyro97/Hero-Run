@@ -6,7 +6,6 @@ public class CoronaScript : MonoBehaviour
 {
     Rigidbody rigid;
     bool stoprun;
-    GameObject countImage;
     // Start is called before the first frame update
     void Start()
     {

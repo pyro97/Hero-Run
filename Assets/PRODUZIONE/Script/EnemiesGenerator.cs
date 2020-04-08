@@ -77,17 +77,9 @@ public class EnemiesGenerator : MonoBehaviour
             }
             else
             {
-                xPosAlien = 0;
-                if (count < 1.01)
-                {
-                    xPosPerson = -3;
-                    xPosPoliceMan = 3;
-                }
-                else
-                {
-                    xPosPerson = 3;
-                    xPosPoliceMan = -3;
-                }
+                xPosAlien = -3;
+                xPosPerson = 0;
+                xPosPoliceMan = 3;
             }
             zPosAlien = Random.Range(80, 90);
             zPosPerson = Random.Range(90, 100);
