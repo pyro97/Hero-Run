@@ -55,7 +55,7 @@ public class BonusGenerator : MonoBehaviour
         }
         float zPos = Random.Range(500f, 700f);
         GameObject go;
-        go = Instantiate(bonusPaper, new Vector3(xPos, 1.5f, zPos + player.transform.position.z), Quaternion.Euler(90, 20, 180)) as GameObject;
+        go = Instantiate(bonusPaper, new Vector3(xPos, 1.5f, zPos + player.transform.position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
         bonus.Add(go);
         zPos = Random.Range(700f, 1000f);
         go = Instantiate(bonusMask, new Vector3(xPos, 1.5f, zPos + player.transform.position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
