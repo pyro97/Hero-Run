@@ -21,7 +21,12 @@ public class HomeScript : MonoBehaviour
     {
         playerPrefsHandler = new PlayerPrefsHandler();
 
-       
+        if (AudioListener.pause)
+        {
+            AudioListener.pause = false;
+            AudioListener.volume = 1f;
+        }
+
 
         if (playerPrefsHandler.isFirstTime())
         {
