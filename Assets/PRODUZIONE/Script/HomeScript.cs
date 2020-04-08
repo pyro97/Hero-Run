@@ -42,6 +42,7 @@ public class HomeScript : MonoBehaviour
              */
 
         }
+    
 
         if (!playerPrefsHandler.GetIsMutedMusica())
         {
@@ -340,7 +341,11 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             attivaCatalogo();
-         
+            panelGameSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
+            GameObject moneteCatalogo = panelGameSettings.transform.GetChild(1).GetChild(2).gameObject;
+            moneteCatalogo.transform.GetChild(0).GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString();
+
+
 
 
         }
@@ -370,6 +375,9 @@ public class HomeScript : MonoBehaviour
             playerPrefsHandler.SetMonete(playerPrefsHandler.GetMonete() - num);
             playerPrefsHandler.SetGiocatoreByNome(s);
             attivaCatalogo();
+            GameObject moneteCatalogo = panelGameSettings.transform.GetChild(1).GetChild(2).gameObject;
+            moneteCatalogo.transform.GetChild(0).GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString();
+
         }
 
     }
