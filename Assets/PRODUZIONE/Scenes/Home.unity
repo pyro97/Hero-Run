@@ -1468,7 +1468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Se non hai l'autocertificazione schiava anche la \npolizia."
+  m_Text: "Se non hai l'autocertificazione schiva anche la \npolizia."
 --- !u!222 &436364352
 CanvasRenderer:
   m_ObjectHideFlags: 0

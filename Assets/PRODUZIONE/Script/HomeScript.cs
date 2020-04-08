@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-
+using Firebase.Firestore;
+using Firebase.Extensions;
 
 public class HomeScript : MonoBehaviour
 {
@@ -95,6 +96,24 @@ public class HomeScript : MonoBehaviour
 
         }
 
+        FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+        DocumentReference docRef = db.Collection("classifica").Document("obaoba9");
+        docRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            DocumentSnapshot snapshot = task.Result;
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> city = snapshot.ToDictionary();
+                foreach (KeyValuePair<string, object> pair in city)
+                {
+                    Debug.Log(string.Format("{0}: {1}", pair.Key, pair.Value));
+                }
+            }
+            else
+            {
+                Debug.Log(string.Format("Document {0} does not exist!", snapshot.Id));
+            }
+        });
     }
 
     // Update is called once per frame

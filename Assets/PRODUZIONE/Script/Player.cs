@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
 
     public void MovePlayer()
     {
-        increment += 0.01f;
+        increment += 0.03f;
         Score.incremento = increment;
 
         if (!playerPrefs.GetIsMutedMusica() && musicaGioco.pitch < 2.0f)
