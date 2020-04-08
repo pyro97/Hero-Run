@@ -283,7 +283,54 @@ public class HomeScript : MonoBehaviour
         }
 
     }
-    
+
+    public void Right1T2()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+    }
+
+    public void Left2T1()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+    }
+
+    public void Right2T3()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
+    }
+
+    public void Left3T2()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+    }
+
+    public void Right3T4()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
+    }
+
+    public void Left4T3()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
+    }
+
+    public void Right4T5()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(true);
+    }
+
+    public void Left5T4()
+    {
+        panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
+        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
+    }
 
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
@@ -389,10 +436,11 @@ public class HomeScript : MonoBehaviour
         else if (indexSubPanel == 1)
         {
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
-         
-           
-
+            panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);          
         }
 
     }
