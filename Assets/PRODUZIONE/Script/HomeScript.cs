@@ -11,7 +11,8 @@ public class HomeScript : MonoBehaviour
     AudioSource musicaMenu;
     GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings;
     PlayerPrefsHandler playerPrefsHandler;
-    Toggle toggleMusica, toggleEffetti;
+    Button buttonMusica, buttonEffetti;
+    GameObject handlerMusica, handlerEffetti;
     public AudioClip clipClickButton;
     AudioSource sourceClick;
     public GameObject[] players;
@@ -257,27 +258,35 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
 
-            toggleMusica=GameObject.Find("ToggleMusica").GetComponent<Toggle>();
+            handlerMusica = GameObject.Find("ButtonMusica");
+            buttonMusica=handlerMusica.GetComponent<Button>();
+
             if (playerPrefsHandler.GetIsMutedMusica())
             {
-                toggleMusica.isOn = false;
-                
+                handlerMusica.transform.GetChild(0).gameObject.SetActive(false);
+                handlerMusica.transform.GetChild(1).gameObject.SetActive(true);
+
+
+                //set immagine musica offf
 
             }
             else
             {
-                toggleMusica.isOn = true;
+                handlerMusica.transform.GetChild(0).gameObject.SetActive(true);
+                handlerMusica.transform.GetChild(1).gameObject.SetActive(false);
+                //set immagine musica on
 
             }
 
-
-            toggleMusica.onValueChanged.AddListener(delegate {
-                if (toggleMusica.isOn)
+            buttonMusica.onClick.AddListener(delegate {
+                if (playerPrefsHandler.GetIsMutedMusica())
                 {
                     playerPrefsHandler.SetMutedMusica(false);
                     musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
                     musicaMenu.enabled = true;
                     musicaMenu.Play();
+                    handlerMusica.transform.GetChild(0).gameObject.SetActive(true);
+                    handlerMusica.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else
                 {
@@ -285,27 +294,39 @@ public class HomeScript : MonoBehaviour
                     musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
                     musicaMenu.Pause();
                     musicaMenu.enabled = false;
+                    handlerMusica.transform.GetChild(0).gameObject.SetActive(false);
+                    handlerMusica.transform.GetChild(1).gameObject.SetActive(true);
 
                 }
             });
 
-             toggleEffetti = GameObject.Find("ToggleEffetti").GetComponent<Toggle>();
+
+            handlerEffetti = GameObject.Find("ButtonEffetti");
+            buttonEffetti = handlerEffetti.GetComponent<Button>();
+
             if (playerPrefsHandler.GetIsMutedEffetti())
             {
-                toggleEffetti.isOn = false;
+                handlerEffetti.transform.GetChild(0).gameObject.SetActive(false);
+                handlerEffetti.transform.GetChild(1).gameObject.SetActive(true);
+                //set effetto off
             }
             else
             {
-                toggleEffetti.isOn = true;
+                handlerEffetti.transform.GetChild(0).gameObject.SetActive(true);
+                handlerEffetti.transform.GetChild(1).gameObject.SetActive(false);
+                //set effetto on
+
             }
 
 
-            toggleEffetti.onValueChanged.AddListener(delegate {
-                if (toggleEffetti.isOn)
+            buttonEffetti.onClick.AddListener(delegate {
+                if (playerPrefsHandler.GetIsMutedEffetti())
                 {
                     playerPrefsHandler.SetMutedEffetti(false);
                     sourceClick.enabled = true;
                     sourceClick.volume = 0.25f;
+                    handlerEffetti.transform.GetChild(0).gameObject.SetActive(true);
+                    handlerEffetti.transform.GetChild(1).gameObject.SetActive(false);
 
                 }
                 else
@@ -313,6 +334,8 @@ public class HomeScript : MonoBehaviour
                     playerPrefsHandler.SetMutedEffetti(true);
                     sourceClick.enabled = false;
                     sourceClick.volume = 0f;
+                    handlerEffetti.transform.GetChild(0).gameObject.SetActive(false);
+                    handlerEffetti.transform.GetChild(1).gameObject.SetActive(true);
 
                 }
             });
