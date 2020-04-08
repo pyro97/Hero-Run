@@ -16,6 +16,14 @@ public static class Score
 
     public static bool buttonPause { get; set; }
 
+    public static bool continua { get; set; }
+
+    public static float incremento { get; set; }
+
+    public static bool adWatched { get; set; }
+    public static bool Premiato { get; set; }
+    public static int CountInterstitial { get; set; }
+
 
 
 

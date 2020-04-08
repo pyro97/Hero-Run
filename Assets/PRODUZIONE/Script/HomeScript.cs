@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
-
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;

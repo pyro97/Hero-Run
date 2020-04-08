@@ -37,8 +37,20 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if (AudioListener.pause)
+        {
+            AudioListener.pause = false;
+            AudioListener.volume = 1f;
+        }
+
         playerPrefs = new PlayerPrefsHandler();
-        playerPrefs.SetNumPartiteTotali(playerPrefs.GetNumPartiteTotali() + 1);
+        if (!Score.continua)
+        {
+            playerPrefs.SetNumPartiteTotali(playerPrefs.GetNumPartiteTotali() + 1);
+            Score.monete = 0;
+            Score.incremento = 0;
+            Score.adWatched = false;
+        }
         bonusGenerator = GameObject.FindObjectOfType<BonusGenerator>();
         enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
         if (playerPrefs.GetIsMutedEffetti())
@@ -68,11 +80,12 @@ public class Player : MonoBehaviour
             musicaGioco.Play();
         }
 
-        
+
     }
     void Start()
     {
-        
+
+
         //GameObject.Find("ImageMask").SetActive(false);
         endPolice = false;
         endVirus = false;
@@ -96,7 +109,6 @@ public class Player : MonoBehaviour
         gun = GameObject.Find("GunMedico");
         gun.SetActive(false);
         Score.animazioneFine = false;
-
         Score.countdown = true;
         Score.buttonPause = false;
         Score.pause = false;
@@ -112,6 +124,25 @@ public class Player : MonoBehaviour
 
         panelScore = GameObject.Find("PanelScore");
 
+        if (Score.continua)
+        {
+            Score.continua = false;
+            Score.adWatched = true;
+            punteggio = Score.punteggio;
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y,this.transform.position.z+50f);
+            Text t = GameObject.Find("Punti").GetComponent<Text>();
+            t.text = "" + Score.punteggio;
+            Text monete = GameObject.Find("Coins").GetComponent<Text>();
+            monete.text = "" + Score.monete;
+            increment = Score.incremento;
+            float incr1 = (Score.incremento / 10);
+            int moltiplicatore = (int)incr1;
+            float incrementoMusica = moltiplicatore * 0.1f;
+            print(incrementoMusica);
+            musicaGioco.pitch += incrementoMusica;
+            Score.pause = true;//new
+
+        }
 
 
     }
@@ -147,11 +178,14 @@ public class Player : MonoBehaviour
             StartCoroutine(CountdownAnimation());
         }
 
+
+
     }
 
     public void MovePlayer()
     {
         increment += 0.01f;
+        Score.incremento = increment;
 
         if (!playerPrefs.GetIsMutedMusica() && musicaGioco.pitch < 2.0f)
         {
@@ -576,5 +610,6 @@ public class Player : MonoBehaviour
             this.gameObject.transform.position = new Vector3(3.1f, 0.1f, this.gameObject.transform.position.z);
         }
     }
+
 
 }
