@@ -547,11 +547,13 @@ public class HomeScript : MonoBehaviour
     public void SbloccaGiocatore(string s)
     {
         GameObject daSbloccare=null;
-        for(int i = 0; i < players.Length; i++)
+        print(players[0]);
+        print(players[1]);
+        for (int i = 0; i < players.Length; i++)
         {
             if (players[i].name.Equals(s)) daSbloccare = players[i];
         }
-
+        print(daSbloccare);
         Text t=daSbloccare.transform.GetChild(3).GetComponent<Text>();
         int num = int.Parse(t.text.ToString());
         if (playerPrefsHandler.GetMonete() >= num)
