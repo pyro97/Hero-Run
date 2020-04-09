@@ -337,12 +337,20 @@ public class HomeScript : MonoBehaviour
 
     public void Right1T2()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
     }
 
     public void Left2T1()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
     }
