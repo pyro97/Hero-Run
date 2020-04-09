@@ -349,36 +349,60 @@ public class HomeScript : MonoBehaviour
 
     public void Right2T3()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
     }
 
     public void Left3T2()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
     }
 
     public void Right3T4()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
     }
 
     public void Left4T3()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
     }
 
     public void Right4T5()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(true);
     }
 
     public void Left5T4()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
         panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
     }
@@ -475,6 +499,11 @@ public class HomeScript : MonoBehaviour
         {
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
             attivaCatalogo();
             panelGameSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
             GameObject moneteCatalogo = panelGameSettings.transform.GetChild(1).GetChild(2).gameObject;
@@ -491,7 +520,18 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);          
+        }
+        else if (indexSubPanel == 2)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(true);
         }
 
     }
