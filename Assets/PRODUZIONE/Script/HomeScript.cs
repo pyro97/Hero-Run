@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Firebase.Firestore;
-using Firebase.Extensions;
+
 
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;
-    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings;
+    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings,panelClassificaSettings;
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
@@ -84,36 +83,23 @@ public class HomeScript : MonoBehaviour
         panelMenuSettings = GameObject.Find("PanelMenuSettings");
         panelGameSettings = GameObject.Find("PanelGameSettings");
         panelShopSettings = GameObject.Find("PanelShopSettings");
+        panelGameSettings = GameObject.Find("PanelGameSettings");
+        panelClassificaSettings = GameObject.Find("PanelClassificaSettings");
 
 
 
         ApriMenuSetting(false);
         ApriGameSetting(false);
         ApriShopSetting(false);
+        ApriClassificaSetting(false);
+
         if (!playerPrefsHandler.GetIsMutedEffetti())
         {
             sourceClick.enabled = true;
 
         }
 
-        FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-        DocumentReference docRef = db.Collection("classifica").Document("obaoba9");
-        docRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-        {
-            DocumentSnapshot snapshot = task.Result;
-            if (snapshot.Exists)
-            {
-                Dictionary<string, object> city = snapshot.ToDictionary();
-                foreach (KeyValuePair<string, object> pair in city)
-                {
-                    Debug.Log(string.Format("{0}: {1}", pair.Key, pair.Value));
-                }
-            }
-            else
-            {
-                Debug.Log(string.Format("Document {0} does not exist!", snapshot.Id));
-            }
-        });
+       
     }
 
     // Update is called once per frame
@@ -135,6 +121,13 @@ public class HomeScript : MonoBehaviour
             panelListaSettings.SetActive(true);
         }
     }
+
+
+
+
+
+
+
 
 
     public void ApriMenuSetting(bool val)
@@ -182,6 +175,20 @@ public class HomeScript : MonoBehaviour
 
     }
 
+    public void ApriClassificaSetting(bool val)
+    {
+        if (val)
+        {
+            PulsantiHomeAttivi(false);
+            AttivaClassificaSetting(true);
+        }
+        else
+        {
+            PulsantiHomeAttivi(true);
+            AttivaClassificaSetting(false);
+        }
+
+    }
 
     public void AttivaMenuSetting(bool val)
     {
@@ -250,6 +257,31 @@ public class HomeScript : MonoBehaviour
             }
             panelShopSettings.SetActive(true);
             //OpenSubPanelGame(0);
+
+
+        }
+    }
+
+
+    public void AttivaClassificaSetting(bool val)
+    {
+        if (!val)
+        {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
+            panelClassificaSettings.SetActive(false);
+
+        }
+        else
+        {
+            if (sourceClick.enabled)
+            {
+                sourceClick.Play();
+            }
+            panelClassificaSettings.SetActive(true);
+            OpenSubPanelClassifica(0);
 
 
         }
@@ -521,6 +553,22 @@ public class HomeScript : MonoBehaviour
             }
 
         }
+    }
+
+    public void OpenSubPanelClassifica(int indexSubPanel)
+    {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+
+        if (indexSubPanel == 0)
+        {
+            //modificare quando ci saranno piu pannelli
+
+        }
+
+
     }
 
     public void loadGame()
