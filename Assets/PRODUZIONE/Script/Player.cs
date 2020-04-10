@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     bool endPolice;
     bool endVirus;
     public Sprite sprite1;
-    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse,sourceStarnuto,sourceSparoPolizia,source5Stelle;
-    public AudioClip musicaSparo,musicaVirus, musicaTosse, musicaStarnuto, musicaSparoPolizia,musica5Stelle;
+    AudioSource musicaGioco, musicaFine, sourceSparo,sourceVirus,sourceTosse,sourceStarnuto,sourceSparoPolizia,source5Stelle,sourceBonusOK,sourceBonusNO;
+    public AudioClip musicaSparo,musicaVirus, musicaTosse, musicaStarnuto, musicaSparoPolizia,musica5Stelle,musicaBonusOK,musicaBonusNO;
     bool endSwipeCentral;
     public int laneNum;
     public float horizVel;
@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
             sourceSparo = AddAudio(musicaSparo, false, false, 0f);
             sourceTosse = AddAudio(musicaTosse, false, false, 0f);
             sourceVirus = AddAudio(musicaVirus, false, false, 0f);
+            sourceBonusNO = AddAudio(musicaBonusNO, false, false, 0f);
+            sourceBonusOK = AddAudio(musicaBonusOK, false, false, 0f);
 
         }
         else
@@ -71,6 +73,8 @@ public class Player : MonoBehaviour
             sourceSparo = AddAudio(musicaSparo, false, false, 1f);
             sourceTosse = AddAudio(musicaTosse, false, false, 1f);
             sourceVirus = AddAudio(musicaVirus, false, false, 1f);
+            sourceBonusNO = AddAudio(musicaBonusNO, false, false, 1f);
+            sourceBonusOK = AddAudio(musicaBonusOK, false, false, 1f);
 
         }
 
@@ -504,12 +508,11 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-
+                    StartCoroutine(BonusNO());
                     mask = false;
                     imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
                     Destroy(collision.gameObject);
                     enemies.enemies.Remove(collision.gameObject);
-
                 }
             }
 
@@ -534,6 +537,7 @@ public class Player : MonoBehaviour
                 }
                 else if (paper && stelle.activeSelf == false)
                 {
+                    StartCoroutine(BonusNO());
                     paper = false;
                     imagePaper.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
                     Destroy(collision.gameObject);
@@ -547,6 +551,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Paper"))
         {
+            StartCoroutine(BonusON());
             Destroy(other.gameObject);
             bonusGenerator.bonus.Remove(other.gameObject);
             bonusGenerator.paper = true;
@@ -562,6 +567,7 @@ public class Player : MonoBehaviour
         }
         if (other.gameObject.tag.Equals("Mask"))
         {
+            StartCoroutine(BonusON());
             Destroy(other.gameObject);
             bonusGenerator.bonus.Remove(other.gameObject);
             bonusGenerator.mask = true;
@@ -592,6 +598,24 @@ public class Player : MonoBehaviour
             GameObject.Find("FinalMusic").GetComponent<AudioSource>().Play();
         }
     
+    }
+
+    IEnumerator BonusON()
+    {
+        sourceBonusOK.enabled = true;
+        sourceBonusOK.Play();
+        yield return new WaitForSeconds(0.8f);
+        sourceBonusOK.Stop();
+        sourceBonusOK.enabled = false;
+    }
+
+    IEnumerator BonusNO()
+    {
+        sourceBonusNO.enabled = true;
+        sourceBonusNO.Play();
+        yield return new WaitForSeconds(0.8f);
+        sourceBonusNO.Stop();
+        sourceBonusNO.enabled = false;
     }
 
 

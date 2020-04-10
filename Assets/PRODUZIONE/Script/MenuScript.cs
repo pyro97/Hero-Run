@@ -144,7 +144,7 @@ public class MenuScript : MonoBehaviour
     }
 
     public void apriMenu(){
-        StartCoroutine(waitForClickSound());
+        //StartCoroutine(waitForClickSound());
 
         AvviaMusicaPausa();
         Score.pause = false;
@@ -223,7 +223,7 @@ public class MenuScript : MonoBehaviour
     }
 
     public void chiudiMenu(){
-        StartCoroutine(waitForClickSound());
+        //StartCoroutine(waitForClickSound());
         AvviaMusicaGiocoDaPausa();
         panelScore.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
@@ -250,7 +250,7 @@ public class MenuScript : MonoBehaviour
 
             }
             playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
-            StartCoroutine(waitForClickSound());
+            //StartCoroutine(waitForClickSound());
             panelScore.gameObject.SetActive(false);
             panel.gameObject.SetActive(false);
             Score.buttonPause = false;
@@ -274,7 +274,7 @@ public class MenuScript : MonoBehaviour
 
     public void ricomincia(){
 
-        StartCoroutine(waitForClickSound());
+        //StartCoroutine(waitForClickSound());
 
         
         panelScore.gameObject.SetActive(false);
@@ -291,7 +291,7 @@ public class MenuScript : MonoBehaviour
     public void ContinuaPartita()
     {
         Score.Premiato = false;
-        waitForClickSound();
+        //waitForClickSound();
         ShowRewardedVideo();
     }
 
@@ -308,15 +308,7 @@ public class MenuScript : MonoBehaviour
         return newAudio;
     }
 
-    IEnumerator waitForClickSound()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
-        }
-        yield return new WaitForSeconds(0.5f);
-       
-    }
+    
 
 
 
@@ -423,7 +415,7 @@ public class MenuScript : MonoBehaviour
     public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
-        StartCoroutine(waitForClickSound());
+        //StartCoroutine(waitForClickSound());
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
@@ -443,7 +435,7 @@ public class MenuScript : MonoBehaviour
     {
         interstitialAd.Destroy();
         playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
-        StartCoroutine(waitForClickSound());
+        //StartCoroutine(waitForClickSound());
         panelScore.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
@@ -462,7 +454,7 @@ public class MenuScript : MonoBehaviour
 
 
 
-
+    /*
     public void OnDestroy()
     {
         rewardedAd.OnUserEarnedReward -= HandleUserEarnedReward;
@@ -486,7 +478,7 @@ public class MenuScript : MonoBehaviour
         // Called when the ad click caused the user to leave the application.
         this.interstitialAd.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
 
-    }
+    }*/
 
 
 }

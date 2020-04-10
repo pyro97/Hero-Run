@@ -26,7 +26,8 @@ public class CoronaScript : MonoBehaviour
         {
             if (other.tag == "Mask" || other.tag == "Paper")
             {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 5);
+                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 10);
+                stoprun = true;
             }
             else if (this.transform.position.z > other.transform.position.z)
             {

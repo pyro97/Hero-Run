@@ -3018,7 +3018,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 8}
+  m_Size: {x: 1, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &332025705
 Rigidbody:
@@ -9385,6 +9385,16 @@ PrefabInstance:
       propertyPath: musica5Stelle
       value: 
       objectReference: {fileID: 8300000, guid: b54c1c83342ea4847b4ae00e7f28a344, type: 3}
+    - target: {fileID: 3356606160255571457, guid: f62d8d2ff90e34278b9849443153887f,
+        type: 3}
+      propertyPath: musicaBonusNO
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d57f85afd846e14dad4915c0e7e0204, type: 3}
+    - target: {fileID: 3356606160255571457, guid: f62d8d2ff90e34278b9849443153887f,
+        type: 3}
+      propertyPath: musicaBonusOK
+      value: 
+      objectReference: {fileID: 8300000, guid: a828ff64ffdecb0459aab82d30f7cc6a, type: 3}
     - target: {fileID: 6752270860828315406, guid: f62d8d2ff90e34278b9849443153887f,
         type: 3}
       propertyPath: m_Name
@@ -19172,6 +19182,16 @@ PrefabInstance:
       propertyPath: imagePaper
       value: 
       objectReference: {fileID: 962907779}
+    - target: {fileID: 6159500421917061990, guid: 0e366df603562c54793bbe8a8a5cec7b,
+        type: 3}
+      propertyPath: musicaBonusNO
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d57f85afd846e14dad4915c0e7e0204, type: 3}
+    - target: {fileID: 6159500421917061990, guid: 0e366df603562c54793bbe8a8a5cec7b,
+        type: 3}
+      propertyPath: musicaBonusOK
+      value: 
+      objectReference: {fileID: 8300000, guid: a828ff64ffdecb0459aab82d30f7cc6a, type: 3}
     - target: {fileID: 8386173558589848166, guid: 0e366df603562c54793bbe8a8a5cec7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19306,6 +19326,16 @@ PrefabInstance:
       propertyPath: imagePaper
       value: 
       objectReference: {fileID: 962907779}
+    - target: {fileID: 7297095284633989998, guid: 3bca4cb063e5542dd95e88b64fa9c38c,
+        type: 3}
+      propertyPath: musicaBonusNO
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d57f85afd846e14dad4915c0e7e0204, type: 3}
+    - target: {fileID: 7297095284633989998, guid: 3bca4cb063e5542dd95e88b64fa9c38c,
+        type: 3}
+      propertyPath: musicaBonusOK
+      value: 
+      objectReference: {fileID: 8300000, guid: a828ff64ffdecb0459aab82d30f7cc6a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bca4cb063e5542dd95e88b64fa9c38c, type: 3}
 --- !u!1 &8296172667810724883 stripped
