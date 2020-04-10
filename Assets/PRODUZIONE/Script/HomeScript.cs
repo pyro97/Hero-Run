@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-
+using Proyecto26;
+using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class HomeScript : MonoBehaviour
 {
@@ -16,6 +19,8 @@ public class HomeScript : MonoBehaviour
     public AudioClip clipClickButton;
     AudioSource sourceClick;
     public GameObject[] players;
+    List<User> listaOrdinata = new List<User>();
+
 
     private void Awake()
     {
@@ -97,9 +102,14 @@ public class HomeScript : MonoBehaviour
         {
             sourceClick.enabled = true;
 
+
         }
 
-       
+
+        getListaClassifica();
+
+
+
     }
 
     // Update is called once per frame
@@ -418,6 +428,7 @@ public class HomeScript : MonoBehaviour
     //0-> stat, 1->setting, 2->info
     public void OpenSubPanelMenu(int indexSubPanel)
     {
+
         if (sourceClick.enabled)
         {
             sourceClick.Play();
@@ -425,6 +436,12 @@ public class HomeScript : MonoBehaviour
 
         if (indexSubPanel == 0)
         {
+
+            panelMenuSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
+            panelMenuSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelMenuSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
+
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
@@ -437,6 +454,12 @@ public class HomeScript : MonoBehaviour
         }
         else if (indexSubPanel == 1)
         {
+            panelMenuSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelMenuSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
+            panelMenuSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
+
+
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
@@ -488,6 +511,14 @@ public class HomeScript : MonoBehaviour
 
         else if (indexSubPanel == 2)
         {
+
+            panelMenuSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelMenuSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelMenuSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
+
+
+
+
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
@@ -505,6 +536,10 @@ public class HomeScript : MonoBehaviour
 
         if (indexSubPanel == 0)
         {
+            panelGameSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
+            panelGameSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
@@ -523,6 +558,11 @@ public class HomeScript : MonoBehaviour
         }
         else if (indexSubPanel == 1)
         {
+            panelGameSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelGameSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
+            panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
+
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
@@ -533,6 +573,10 @@ public class HomeScript : MonoBehaviour
         }
         else if (indexSubPanel == 2)
         {
+            panelGameSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelGameSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
+
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
@@ -615,6 +659,23 @@ public class HomeScript : MonoBehaviour
         if (indexSubPanel == 0)
         {
             //modificare quando ci saranno piu pannelli
+            getListaClassifica();
+            foreach(User u in listaOrdinata)
+            {
+                print(u.punti);
+            }
+
+
+            GameObject righe = GameObject.Find("ListaUtentiClassifica");
+
+            for(int i=0;i<listaOrdinata.Count;i++)
+            {
+                GameObject row = righe.transform.GetChild(i).gameObject;
+                row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
+                row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+            }
+
+
 
         }
 
@@ -642,4 +703,33 @@ public class HomeScript : MonoBehaviour
         newAudio.volume = vol;
         return newAudio;
     }
+
+
+
+    public void getListaClassifica()
+    {
+
+        RestClient.Get("https://corun-b2a77.firebaseio.com/" + ".json").Then(response =>
+        {
+            //print(response.Text);
+
+            JObject stringa = JObject.Parse(response.Text);
+            // get JSON result objects into a list
+            IList<JToken> results = stringa["utenti"].Children().Children().ToList();
+            // serialize JSON results into .NET objects
+            IList<User> userResults = new List<User>();
+            foreach (JToken result in results)
+            {
+                User u = result.ToObject<User>();
+                userResults.Add(u);
+            }
+
+            listaOrdinata = userResults.ToList().OrderByDescending(x => x.punti).ToList();
+
+        });
+
+
+    }
+
+
 }

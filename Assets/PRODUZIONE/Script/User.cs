@@ -7,13 +7,13 @@ using System;
 public class User
 {
 
-    public string userName="";
-    public int userPunteggio=0;
+    public string nome="";
+    public int punti=0;
 
     public User(string userName,int userPunteggio)
     {
-        this.userName = userName;
-        this.userPunteggio = userPunteggio;
+        this.nome = userName;
+        this.punti = userPunteggio;
     }
 
     public User()
