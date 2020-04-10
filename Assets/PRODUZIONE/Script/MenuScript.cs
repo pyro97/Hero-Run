@@ -26,6 +26,8 @@ public class MenuScript : MonoBehaviour
     void Awake()
     {
         playerPrefs = new PlayerPrefsHandler();
+        
+
 
         if (playerPrefs.GetIsMutedEffetti())
         {
@@ -469,7 +471,7 @@ public class MenuScript : MonoBehaviour
 
         rewardedAd.OnAdLoaded -= HandleRewardedAdLoaded;
         rewardedAd.OnAdFailedToLoad -= HandleRewardedAdFailedToLoad;
-        rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
+        rewardedAd.OnAdFailedToShow -= HandleRewardedAdFailedToShow;
 
 
 
