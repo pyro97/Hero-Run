@@ -32,9 +32,13 @@ public class HomeScript : MonoBehaviour
             AudioListener.volume = 1f;
         }
 
+        //TEST
+        playerPrefsHandler.SetPlayerKey("gwyro");
+        //TEST
 
         if (playerPrefsHandler.isFirstTime())
         {
+            //POPUP INIZIALE
             playerPrefsHandler.CreateFirstTimePref();
         }
         else

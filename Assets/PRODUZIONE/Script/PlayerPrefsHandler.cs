@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerPrefsHandler
 {
-	public const string PLAYER_KEY_F = "playerKey";
+	public const string PLAYER_KEY_S = "playerKey";
 	public const string MUTE_MUSICHE_INT = "muteMusiche";
 	public const string MUTE_EFFETTI_INT = "muteEffetti";
 	public const string VOLUME_F = "volume";
@@ -31,7 +31,7 @@ public class PlayerPrefsHandler
     public void CreateFirstTimePref()
     {
 		InitializePreferences();
-		SetPlayerKey(Random.Range(1, 1000000));
+		//SetPlayerKey("");
 		SetMonete(0);
 		SetRecordPersonale(0);
 		SetPersonaggioAttuale("The Loocka");
@@ -41,18 +41,26 @@ public class PlayerPrefsHandler
 
     public bool isFirstTime()
     {
-		if (GetPlayerKey() != 0) return false;
-		else return true;
+		if (GetPlayerKey().Length > 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+
+
     }
 
-	public float GetPlayerKey()
+	public string GetPlayerKey()
 	{
-		return PlayerPrefs.GetFloat(PLAYER_KEY_F);
+		return PlayerPrefs.GetString(PLAYER_KEY_S,"");
 	}
 
-	public void SetPlayerKey(float val)
+	public void SetPlayerKey(string val)
 	{
-		PlayerPrefs.SetFloat(PLAYER_KEY_F, val);
+		PlayerPrefs.SetString(PLAYER_KEY_S, val);
 	}
 
     public bool GetGiocatoreByNome(string s)

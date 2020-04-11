@@ -270,7 +270,7 @@ public class MenuScript : MonoBehaviour
             getListaClassifica();
             if (Score.punteggio > Score.ultimoPunteggioClassifica)
             {
-                User user = new User("Simone", Score.punteggio);
+                User user = new User(playerPrefs.GetPlayerKey(), Score.punteggio);
                 //RestClient.Delete("https://corun-b2a77.firebaseio.com/utenti.json?orderBy="+"idUtente"+"&equalTo=" + Score.ultimoIdClassifica);
                 RestClient.Post("https://corun-b2a77.firebaseio.com/utenti" + ".json", user).Then(response => {
 
