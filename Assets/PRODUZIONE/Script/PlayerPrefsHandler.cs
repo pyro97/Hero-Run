@@ -31,7 +31,7 @@ public class PlayerPrefsHandler
     public void CreateFirstTimePref()
     {
 		InitializePreferences();
-		//SetPlayerKey("");
+		SetPlayerKey(GetPlayerKey());
 		SetMonete(0);
 		SetRecordPersonale(0);
 		SetPersonaggioAttuale("The Loocka");

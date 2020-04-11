@@ -12,7 +12,9 @@ using Newtonsoft.Json.Linq;
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;
-    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings, panelClassificaSettings, panelAlertClassifica, panelAlertPersonaggio;
+    GameObject playBtn, panelListaSettings, panelMenuSettings,
+        panelGameSettings, panelShopSettings, panelClassificaSettings,
+        panelAlertClassifica, panelAlertPersonaggio,panelInputNomeUtente,panelAlertInputNomeUtente;
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
@@ -25,6 +27,11 @@ public class HomeScript : MonoBehaviour
     private void Awake()
     {
         playerPrefsHandler = new PlayerPrefsHandler();
+        panelAlertInputNomeUtente = GameObject.Find("PanelAlertInputNomeUtente");
+        panelAlertInputNomeUtente.SetActive(false);
+        panelInputNomeUtente = GameObject.Find("PanelInputNomeUtente");
+        panelInputNomeUtente.SetActive(false);
+
 
         if (AudioListener.pause)
         {
@@ -32,19 +39,15 @@ public class HomeScript : MonoBehaviour
             AudioListener.volume = 1f;
         }
 
-        playerPrefsHandler.SetPlayerKey("gwyro");
-
         if (playerPrefsHandler.isFirstTime())
         {
-            playerPrefsHandler.CreateFirstTimePref();
+            print(playerPrefsHandler.GetPlayerKey());
+            panelInputNomeUtente.SetActive(true);
         }
         else
         {
             //TEST TEST TEST TEST
 
-            playerPrefsHandler.CreateFirstTimePref();
-            PlayerPrefs.DeleteKey("Medico");
-            PlayerPrefs.DeleteKey("Conte");
             /*
              *if (playerPrefsHandler.GetMonete() < 1000)
                  {
@@ -161,6 +164,32 @@ public class HomeScript : MonoBehaviour
     }
 
 
+
+    public void ControllaInputNome()
+    {
+        InputField inputField = panelInputNomeUtente.transform.GetChild(0).GetChild(0).GetChild(2).gameObject.GetComponent<InputField>();
+        if (inputField.text.ToString().Length > 0 && inputField.text.ToString().Length < 10)
+        {
+            playerPrefsHandler.SetPlayerKey(inputField.text.ToString());
+            playerPrefsHandler.CreateFirstTimePref();
+            panelInputNomeUtente.SetActive(false);
+            panelAlertInputNomeUtente.SetActive(false);
+
+        }
+        else
+        {
+            panelInputNomeUtente.SetActive(false);
+            panelAlertInputNomeUtente.SetActive(true);
+        }
+    }
+
+    public void ChiudiAlertInputField()
+    {
+        panelAlertInputNomeUtente.SetActive(false);
+        panelInputNomeUtente.SetActive(true);
+
+
+    }
 
 
 
