@@ -42,8 +42,9 @@ public class HomeScript : MonoBehaviour
         {
             //TEST TEST TEST TEST
 
-            //playerPrefsHandler.CreateFirstTimePref();
-            // PlayerPrefs.DeleteKey("Medico");
+            playerPrefsHandler.CreateFirstTimePref();
+            PlayerPrefs.DeleteKey("Medico");
+            PlayerPrefs.DeleteKey("Conte");
             /*
              *if (playerPrefsHandler.GetMonete() < 1000)
                  {
@@ -119,6 +120,8 @@ public class HomeScript : MonoBehaviour
         ApriGameSetting(false);
         ApriShopSetting(false);
         ApriClassificaSetting(false);
+        panelAlertClassifica.gameObject.SetActive(false);
+        panelAlertPersonaggio.gameObject.SetActive(false);
 
         if (!playerPrefsHandler.GetIsMutedEffetti())
         {

@@ -92,9 +92,12 @@ public class MenuScript : MonoBehaviour
         // Called when the ad click caused the user to leave the application.
         this.interstitialAd.OnAdLeavingApplication += HandleOnAdLeavingApplication;
 
-
-        RequestRewardVideo();
-        RequestInterstitial();
+        if(Application.internetReachability != NetworkReachability.NotReachable)
+        {
+            RequestRewardVideo();
+            RequestInterstitial();
+        }
+        
 
         Time.timeScale = 1;
         panel = GameObject.Find("Panel");
