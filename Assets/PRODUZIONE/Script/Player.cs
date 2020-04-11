@@ -139,12 +139,7 @@ public class Player : MonoBehaviour
             Text monete = GameObject.Find("Coins").GetComponent<Text>();
             monete.text = "" + Score.monete;
             increment = Score.incremento;
-            float incr1 = (Score.incremento / 10);
-            int moltiplicatore = (int)incr1;
-            float incrementoMusica = moltiplicatore * 0.1f;
-            print(incrementoMusica);
-            musicaGioco.pitch += incrementoMusica;
-            Score.pause = true;//new
+            Score.pause = true;
 
         }
 

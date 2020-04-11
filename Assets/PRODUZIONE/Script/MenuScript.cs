@@ -15,10 +15,10 @@ public class MenuScript : MonoBehaviour
     private RewardedAd rewardedAd;
     private InterstitialAd interstitialAd;
 
-    Text punti,puntiMenu,puntiFinali,testoFinale; 
-     GameObject panel,panelFine,panelScore;
-     GameObject settaggi;
-     PlayerPrefsHandler playerPrefs;
+    Text punti, puntiMenu, puntiFinali, testoFinale;
+    GameObject panel, panelFine, panelScore, panelAlert, panelAlertRicomincia;
+    GameObject settaggi;
+    PlayerPrefsHandler playerPrefs;
     AudioSource sourceClick;
     public AudioClip musicaClick;
     Button buttonVideo;
@@ -30,7 +30,7 @@ public class MenuScript : MonoBehaviour
     void Awake()
     {
         playerPrefs = new PlayerPrefsHandler();
-        
+
 
 
         if (playerPrefs.GetIsMutedEffetti())
@@ -101,6 +101,8 @@ public class MenuScript : MonoBehaviour
         panelScore = GameObject.Find("PanelScore");
         panelFine = GameObject.Find("PanelFine");
         settaggi = GameObject.Find("Setting");
+        panelAlert = GameObject.Find("PanelAlert");
+        panelAlertRicomincia = GameObject.Find("PanelAlertRicomincia");
         puntiMenu = GameObject.Find("PuntiMenu").GetComponent<Text>();
         punti = GameObject.Find("Punti").GetComponent<Text>();
         puntiFinali = GameObject.Find("PuntiFinali").GetComponent<Text>();
@@ -108,13 +110,15 @@ public class MenuScript : MonoBehaviour
         buttonVideo = GameObject.Find("Continua").GetComponent<Button>();
         panel.gameObject.SetActive(false);
         panelFine.gameObject.SetActive(false);
+        panelAlert.gameObject.SetActive(false);
         panelScore.gameObject.SetActive(true);
+        panelAlertRicomincia.gameObject.SetActive(false);
         if (!Score.continua)
         {
             Score.punteggio = 0;
 
         }
-        Score.fine=false;
+        Score.fine = false;
         if (!playerPrefs.GetIsMutedEffetti())
         {
             sourceClick.enabled = true;
@@ -122,7 +126,7 @@ public class MenuScript : MonoBehaviour
         }
     }
 
-  
+
 
 
 
@@ -131,19 +135,9 @@ public class MenuScript : MonoBehaviour
     {
 
 
-       if(Score.fine){
+        if (Score.fine)
+        {
             apriMenuFine();
-            
-         }
-
-        if (Score.buttonPause)
-        {
-            settaggi.SetActive(true);
-        }
-        else
-        {
-            settaggi.SetActive(false);
-
         }
 
         if (punteggioInserito)
@@ -158,19 +152,32 @@ public class MenuScript : MonoBehaviour
             Time.timeScale = 0;
         }
 
+        if (Score.buttonPause)
+        {
+            settaggi.SetActive(true);
+        }
+        else
+        {
+            settaggi.SetActive(false);
+
+        }
+
     }
 
-    public void apriMenu(){
+    public void apriMenu()
+    {
         //StartCoroutine(waitForClickSound());
 
         AvviaMusicaPausa();
         Score.pause = false;
         panelScore.gameObject.SetActive(false);
+        panelAlert.gameObject.SetActive(false);
+        panelAlertRicomincia.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
         Score.buttonPause = false;
         punti.gameObject.SetActive(false);
         puntiMenu.text = "" + Score.punteggio;
-        Time.timeScale=0;
+        Time.timeScale = 0;
     }
 
     public void AvviaMusicaPausa()
@@ -195,7 +202,7 @@ public class MenuScript : MonoBehaviour
             GameObject.Find("Music").GetComponent<AudioSource>().enabled = true;
             GameObject.Find("Music").GetComponent<AudioSource>().Play();
         }
-        
+
     }
 
 
@@ -229,49 +236,46 @@ public class MenuScript : MonoBehaviour
         puntiFinali.text = "" + Score.punteggio;
 
         if (Score.adWatched || Application.internetReachability == NetworkReachability.NotReachable)
-        {   
+        {
             buttonVideo.interactable = false;
         }
 
         Time.timeScale = 0;
         Score.fine = false;
-        
-   
+
+
     }
 
-    public void chiudiMenu(){
+    public void chiudiMenu()
+    {
         //StartCoroutine(waitForClickSound());
         AvviaMusicaGiocoDaPausa();
         panelScore.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
         punti.gameObject.SetActive(true);
-        Time.timeScale=1;
+        Time.timeScale = 1;
         Score.pause = true;
         Score.countdown = true;
 
 
     }
 
-    public void esci(){
+    public void esci()
+    {
 
         if (Score.connessione && Application.internetReachability != NetworkReachability.NotReachable &&
-            Score.punteggio > Score.ultimoPunteggioClassifica )
+            Score.punteggio > Score.ultimoPunteggioClassifica)
         {
             getListaClassifica();
             if (Score.punteggio > Score.ultimoPunteggioClassifica)
             {
-
                 User user = new User("Simone", Score.punteggio);
                 //RestClient.Delete("https://corun-b2a77.firebaseio.com/utenti.json?orderBy="+"idUtente"+"&equalTo=" + Score.ultimoIdClassifica);
-                RestClient.Post("https://corun-b2a77.firebaseio.com/utenti"+".json", user).Then(response => {
+                RestClient.Post("https://corun-b2a77.firebaseio.com/utenti" + ".json", user).Then(response => {
 
                     punteggioInserito = true;
                 });
-
-        
-
-                
             }
 
 
@@ -280,7 +284,6 @@ public class MenuScript : MonoBehaviour
         {
             if (Score.CountInterstitial != 3)
             {
-                print("nono");
                 Score.CountInterstitial += 1;
                 playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
                 //StartCoroutine(waitForClickSound());
@@ -294,9 +297,9 @@ public class MenuScript : MonoBehaviour
             }
             else
             {
-       
-               Score.CountInterstitial = 0;
-        
+
+                Score.CountInterstitial = 0;
+
                 ShowInterstitialAd();
             }
         }
@@ -304,17 +307,24 @@ public class MenuScript : MonoBehaviour
 
 
 
-        
+
     }
 
     public void esciPausa()
     {
+        OpenAlert();
 
-        if (Score.CountInterstitial !=3)
+    }
+
+
+    public void HomeDaPausa()
+    {
+        if (Score.CountInterstitial != 3)
         {
             Score.CountInterstitial += 1;
             panelScore.gameObject.SetActive(false);
             panel.gameObject.SetActive(false);
+            panelAlert.gameObject.SetActive(false);
             Score.buttonPause = false;
             SceneManager.LoadScene("Home");
             Score.punteggio = 0;
@@ -329,22 +339,39 @@ public class MenuScript : MonoBehaviour
             ShowInterstitialAd();
         }
     }
+    void OpenAlert()
+    {
+        panelAlert.gameObject.SetActive(true);
+    }
 
-    public void ricomincia(){
+    public void ricomincia()
+    {
 
         //StartCoroutine(waitForClickSound());
+        OpenAlertRicomincia();
 
-        
+
+
+    }
+
+    void OpenAlertRicomincia()
+    {
+        panelAlertRicomincia.gameObject.SetActive(true);
+    }
+
+    public void RestartAlert()
+    {
         panelScore.gameObject.SetActive(false);
+        panelAlertRicomincia.gameObject.SetActive(false);
         panel.gameObject.SetActive(false);
         Score.buttonPause = false;
         SceneManager.LoadScene("Game");
-        Score.punteggio=0;
+        Score.punteggio = 0;
         Score.fine = false;
 
         Time.timeScale = 0;
-
     }
+
 
     public void ContinuaPartita()
     {
@@ -366,7 +393,7 @@ public class MenuScript : MonoBehaviour
         return newAudio;
     }
 
-    
+
 
 
 
@@ -434,7 +461,7 @@ public class MenuScript : MonoBehaviour
     public void HandleRewardedAdClosed(object sender, EventArgs args)
     {
         RequestRewardVideo();
-        
+
         if (Score.Premiato)
         {
             panelScore.gameObject.SetActive(false);
@@ -460,12 +487,12 @@ public class MenuScript : MonoBehaviour
     public void HandleUserEarnedReward(object sender, Reward args)
     {
         Score.Premiato = true;
-       
+
     }
 
 
 
-//INTERSTITIAL
+    //INTERSTITIAL
     public void HandleOnAdLoaded(object sender, EventArgs args)
     {
     }
@@ -548,7 +575,6 @@ public class MenuScript : MonoBehaviour
 
         RestClient.Get("https://corun-b2a77.firebaseio.com/" + ".json").Then(response =>
         {
-            //print(response.Text);
 
             JObject stringa = JObject.Parse(response.Text);
             // get JSON result objects into a list
@@ -573,13 +599,6 @@ public class MenuScript : MonoBehaviour
         });
 
 
-    }
-
-
-    IEnumerator aspettaSecondi()
-    {
-        yield return new WaitForSeconds(5f);
-        punteggioInserito = true;
     }
 
 
