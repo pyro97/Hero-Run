@@ -16,8 +16,8 @@ public class HomeScript : MonoBehaviour
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
-    public AudioClip clipClickButton;
-    AudioSource sourceClick;
+    public AudioClip clipClickButton,clipSblocco;
+    AudioSource sourceClick,sourceSblocco;
     public GameObject[] players;
     List<User> listaOrdinata = new List<User>();
 
@@ -39,18 +39,17 @@ public class HomeScript : MonoBehaviour
         }
         else
         {
-            //TEST TEST TEST TEST
+           //TEST TEST TEST TEST
 
             //playerPrefsHandler.CreateFirstTimePref();
             // PlayerPrefs.DeleteKey("Medico");
-            /*
-             *if (playerPrefsHandler.GetMonete() < 1000)
+           
+             if (playerPrefsHandler.GetMonete() < 1000)
                  {
                      playerPrefsHandler.CreateFirstTimePref();
                      playerPrefsHandler.SetMonete(6000);
                  }
-             *
-             */
+             
 
         }
     
@@ -65,12 +64,13 @@ public class HomeScript : MonoBehaviour
         if (playerPrefsHandler.GetIsMutedEffetti())
         {
             sourceClick = AddAudio(clipClickButton, false, false,false, 0f);
+            sourceSblocco = AddAudio(clipSblocco, false, false, false, 0f);
            
         }
         else
         {
             sourceClick = AddAudio(clipClickButton, false, false,false, 0.25f);
-
+            sourceSblocco = AddAudio(clipSblocco, false, false, false, 25f);
 
         }
 
@@ -591,17 +591,16 @@ public class HomeScript : MonoBehaviour
     public void SbloccaGiocatore(string s)
     {
         GameObject daSbloccare=null;
-        print(players[0]);
-        print(players[1]);
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].name.Equals(s)) daSbloccare = players[i];
         }
-        print(daSbloccare);
         Text t=daSbloccare.transform.GetChild(3).GetComponent<Text>();
         int num = int.Parse(t.text.ToString());
         if (playerPrefsHandler.GetMonete() >= num)
         {
+            sourceSblocco.enabled = true;
+            sourceSblocco.Play();
             playerPrefsHandler.SetMonete(playerPrefsHandler.GetMonete() - num);
             playerPrefsHandler.SetGiocatoreByNome(s);
             attivaCatalogo();
@@ -611,6 +610,8 @@ public class HomeScript : MonoBehaviour
         }
 
     }
+
+    
 
     public void SelectGiocatore(string s)
     {

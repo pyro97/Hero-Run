@@ -2695,6 +2695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clipClickButton: {fileID: 8300000, guid: 6baefb2411e974354ace687c76b7fa33, type: 3}
+  clipSblocco: {fileID: 8300000, guid: c698342508d690444a12f89b652d0365, type: 3}
   players:
   - {fileID: 1751354961}
   - {fileID: 248246423}
