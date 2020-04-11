@@ -235,7 +235,7 @@ public class HomeScript : MonoBehaviour
 
     public void ChiudiPanelAlertClassifica()
     {
-        panelAlertClassifica.gameObject.SetActive(true);
+        panelAlertClassifica.gameObject.SetActive(false);
         PulsantiHomeAttivi(true);
     }
 
