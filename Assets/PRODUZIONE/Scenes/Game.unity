@@ -5089,7 +5089,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1599130020}
-        m_MethodName: esci
+        m_MethodName: esciPausa
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

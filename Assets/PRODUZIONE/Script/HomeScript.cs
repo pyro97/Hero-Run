@@ -12,12 +12,12 @@ using Newtonsoft.Json.Linq;
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;
-    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings,panelClassificaSettings;
+    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings, panelClassificaSettings;
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
-    public AudioClip clipClickButton,clipSblocco;
-    AudioSource sourceClick,sourceSblocco;
+    public AudioClip clipClickButton, clipSblocco;
+    AudioSource sourceClick, sourceSblocco;
     public GameObject[] players;
     List<User> listaOrdinata = new List<User>();
 
@@ -39,20 +39,21 @@ public class HomeScript : MonoBehaviour
         }
         else
         {
-           //TEST TEST TEST TEST
+            //TEST TEST TEST TEST
 
             //playerPrefsHandler.CreateFirstTimePref();
             // PlayerPrefs.DeleteKey("Medico");
-           
-             if (playerPrefsHandler.GetMonete() < 1000)
+            /*
+             *if (playerPrefsHandler.GetMonete() < 1000)
                  {
                      playerPrefsHandler.CreateFirstTimePref();
                      playerPrefsHandler.SetMonete(6000);
                  }
+             *
+             */
              
 
         }
-    
 
         if (!playerPrefsHandler.GetIsMutedMusica())
         {
@@ -63,14 +64,17 @@ public class HomeScript : MonoBehaviour
 
         if (playerPrefsHandler.GetIsMutedEffetti())
         {
-            sourceClick = AddAudio(clipClickButton, false, false,false, 0f);
+            sourceClick = AddAudio(clipClickButton, false, false, false, 0f);
             sourceSblocco = AddAudio(clipSblocco, false, false, false, 0f);
-           
+
+
         }
         else
         {
-            sourceClick = AddAudio(clipClickButton, false, false,false, 0.25f);
+            sourceClick = AddAudio(clipClickButton, false, false, false, 0.25f);
             sourceSblocco = AddAudio(clipSblocco, false, false, false, 25f);
+
+
 
         }
 
@@ -83,6 +87,15 @@ public class HomeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Score.connessione = false;
+        }
+        else
+        {
+            Score.connessione = true;
+        }
+
         playBtn = GameObject.Find("PlayButton");
         panelListaSettings = GameObject.Find("PanelListaSettings");
         panelMenuSettings = GameObject.Find("PanelMenuSettings");
@@ -91,8 +104,13 @@ public class HomeScript : MonoBehaviour
         panelGameSettings = GameObject.Find("PanelGameSettings");
         panelClassificaSettings = GameObject.Find("PanelClassificaSettings");
 
-
-
+        /*
+        for (int i = 0; i < 10; i++)
+        {
+            User user = new User("fff"+i, i + 1);
+            RestClient.Post("https://corun-b2a77.firebaseio.com/utenti/" +".json", user);
+        }
+        */
         ApriMenuSetting(false);
         ApriGameSetting(false);
         ApriShopSetting(false);
@@ -105,9 +123,16 @@ public class HomeScript : MonoBehaviour
 
         }
 
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+        {
+            getListaClassifica();
+            Score.connessione = true;
+        }
 
-        getListaClassifica();
 
+      
+
+     
 
 
     }
@@ -115,7 +140,6 @@ public class HomeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
     }
 
     public void PulsantiHomeAttivi(bool val)
@@ -152,7 +176,7 @@ public class HomeScript : MonoBehaviour
             PulsantiHomeAttivi(true);
             AttivaMenuSetting(false);
         }
-        
+
     }
 
     public void ApriGameSetting(bool val)
@@ -324,7 +348,7 @@ public class HomeScript : MonoBehaviour
         handlerMusica = GameObject.Find("ButtonMusica");
         buttonMusica = handlerMusica.GetComponent<Button>();
 
-        if (playerPrefsHandler.GetIsMutedMusica()) 
+        if (playerPrefsHandler.GetIsMutedMusica())
         {
             playerPrefsHandler.SetMutedMusica(false);
             musicaMenu = GameObject.Find("MenuMusic").GetComponent<AudioSource>();
@@ -465,7 +489,7 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
 
             handlerMusica = GameObject.Find("ButtonMusica");
-            buttonMusica=handlerMusica.GetComponent<Button>();
+            buttonMusica = handlerMusica.GetComponent<Button>();
 
             if (playerPrefsHandler.GetIsMutedMusica())
             {
@@ -484,7 +508,7 @@ public class HomeScript : MonoBehaviour
 
             }
 
-            
+
 
 
             handlerEffetti = GameObject.Find("ButtonEffetti");
@@ -505,7 +529,7 @@ public class HomeScript : MonoBehaviour
             }
 
 
-         
+
 
         }
 
@@ -523,7 +547,7 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
         }
-  
+
     }
 
 
@@ -569,7 +593,7 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);          
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
         }
         else if (indexSubPanel == 2)
         {
@@ -590,12 +614,15 @@ public class HomeScript : MonoBehaviour
 
     public void SbloccaGiocatore(string s)
     {
-        GameObject daSbloccare=null;
+        GameObject daSbloccare = null;
+        print(players[0]);
+        print(players[1]);
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].name.Equals(s)) daSbloccare = players[i];
         }
-        Text t=daSbloccare.transform.GetChild(3).GetComponent<Text>();
+        print(daSbloccare);
+        Text t = daSbloccare.transform.GetChild(3).GetComponent<Text>();
         int num = int.Parse(t.text.ToString());
         if (playerPrefsHandler.GetMonete() >= num)
         {
@@ -611,10 +638,12 @@ public class HomeScript : MonoBehaviour
 
     }
 
-    
-
     public void SelectGiocatore(string s)
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         GameObject daSelezionare = null;
         for (int i = 0; i < players.Length; i++)
         {
@@ -623,7 +652,7 @@ public class HomeScript : MonoBehaviour
 
         playerPrefsHandler.SetPersonaggioAttuale(daSelezionare.name);
         attivaCatalogo();
-        
+
 
     }
 
@@ -659,22 +688,29 @@ public class HomeScript : MonoBehaviour
 
         if (indexSubPanel == 0)
         {
-            //modificare quando ci saranno piu pannelli
-            getListaClassifica();
-            foreach(User u in listaOrdinata)
+            if (Score.connessione)
             {
-                print(u.punti);
+                //modificare quando ci saranno piu pannelli
+                getListaClassifica();
+
+
+
+                GameObject righe = GameObject.Find("ListaUtentiClassifica");
+
+                for (int i = 0; i < 10; i++)
+                {
+
+                    GameObject row = righe.transform.GetChild(i).gameObject;
+                    row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
+                    row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+                }
+
+            }
+            else
+            {
+                //popup
             }
 
-
-            GameObject righe = GameObject.Find("ListaUtentiClassifica");
-
-            for(int i=0;i<listaOrdinata.Count;i++)
-            {
-                GameObject row = righe.transform.GetChild(i).gameObject;
-                row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
-                row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
-            }
 
 
 
@@ -694,7 +730,7 @@ public class HomeScript : MonoBehaviour
 
     }
 
-    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake,bool enab,float vol)
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, bool enab, float vol)
     {
         AudioSource newAudio = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
         newAudio.clip = clip;
@@ -726,6 +762,14 @@ public class HomeScript : MonoBehaviour
             }
 
             listaOrdinata = userResults.ToList().OrderByDescending(x => x.punti).ToList();
+
+            for (int i = 0; i < listaOrdinata.Count; i++)
+            {
+                if (i == 9)
+                {
+                    Score.ultimoPunteggioClassifica = listaOrdinata[i].punti;
+                }
+            }
 
         });
 

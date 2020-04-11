@@ -24,6 +24,12 @@ public static class Score
     public static bool Premiato { get; set; }
     public static int CountInterstitial { get; set; }
 
+    public static int ultimoPunteggioClassifica { get; set; }
+
+
+    public static bool connessione { get; set; }
+
+
 
 
 

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using GoogleMobileAds.Api;
 using GoogleMobileAds;
 using System;
+using Proyecto26;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 public class MenuScript : MonoBehaviour
 {
@@ -21,7 +24,7 @@ public class MenuScript : MonoBehaviour
     Button buttonVideo;
     string appUnitId;
     string idRewardedAd, idInterstitialAd;
-
+    List<User> listaOrdinata = new List<User>();
 
     void Awake()
     {
@@ -238,19 +241,64 @@ public class MenuScript : MonoBehaviour
 
     public void esci(){
 
-        if (Score.CountInterstitial !=0)
+        if (Score.connessione && Application.internetReachability != NetworkReachability.NotReachable &&
+            Score.punteggio > Score.ultimoPunteggioClassifica && Score.punteggio>playerPrefs.GetRecordPersonale())
         {
-            if (Score.CountInterstitial == 3)
+            getListaClassifica();
+            if(Score.punteggio > Score.ultimoPunteggioClassifica)
             {
-                Score.CountInterstitial = 0;
+                User user = new User("Simone", Score.punteggio);
+                //RestClient.Delete("https://corun-b2a77.firebaseio.com/utenti?punti="+Score.ultimoPunteggioClassifica+".json");
+                RestClient.Post("https://corun-b2a77.firebaseio.com/utenti/"+".json", user);
+                playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
+                //StartCoroutine(waitForClickSound());
+                panelScore.gameObject.SetActive(false);
+                panel.gameObject.SetActive(false);
+                Score.buttonPause = false;
+                SceneManager.LoadScene("Home");
+                Score.punteggio = 0;
+                Score.fine = false;
+                Time.timeScale = 0;
+            }
+
+
+        }
+        else
+        {
+            if (Score.CountInterstitial != 3)
+            {
+                Score.CountInterstitial += 1;
+                playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
+                //StartCoroutine(waitForClickSound());
+                panelScore.gameObject.SetActive(false);
+                panel.gameObject.SetActive(false);
+                Score.buttonPause = false;
+                SceneManager.LoadScene("Home");
+                Score.punteggio = 0;
+                Score.fine = false;
+                Time.timeScale = 0;
             }
             else
             {
-                Score.CountInterstitial += 1;
-
+       
+               Score.CountInterstitial = 0;
+        
+                ShowInterstitialAd();
             }
-            playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
-            //StartCoroutine(waitForClickSound());
+        }
+
+
+
+
+        
+    }
+
+    public void esciPausa()
+    {
+
+        if (Score.CountInterstitial !=3)
+        {
+            Score.CountInterstitial += 1;
             panelScore.gameObject.SetActive(false);
             panel.gameObject.SetActive(false);
             Score.buttonPause = false;
@@ -261,15 +309,11 @@ public class MenuScript : MonoBehaviour
         }
         else
         {
-            Score.CountInterstitial += 1;
+
+            Score.CountInterstitial = 0;
 
             ShowInterstitialAd();
         }
-
-      
-
-        
-
     }
 
     public void ricomincia(){
@@ -479,6 +523,44 @@ public class MenuScript : MonoBehaviour
         this.interstitialAd.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
 
     }*/
+
+
+
+
+
+
+    public void getListaClassifica()
+    {
+
+        RestClient.Get("https://corun-b2a77.firebaseio.com/" + ".json").Then(response =>
+        {
+            //print(response.Text);
+
+            JObject stringa = JObject.Parse(response.Text);
+            // get JSON result objects into a list
+            IList<JToken> results = stringa["utenti"].Children().Children().ToList();
+            // serialize JSON results into .NET objects
+            IList<User> userResults = new List<User>();
+            foreach (JToken result in results)
+            {
+                User u = result.ToObject<User>();
+                userResults.Add(u);
+            }
+
+            listaOrdinata = userResults.ToList().OrderByDescending(x => x.punti).ToList();
+
+            for (int i = 0; i < listaOrdinata.Count; i++)
+            {
+                if (i == 9)
+                {
+                    Score.ultimoPunteggioClassifica = listaOrdinata[i].punti;
+                }
+            }
+        });
+
+
+    }
+
 
 
 }
