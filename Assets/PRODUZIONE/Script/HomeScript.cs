@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 public class HomeScript : MonoBehaviour
 {
     AudioSource musicaMenu;
-    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings, panelClassificaSettings;
+    GameObject playBtn, panelListaSettings, panelMenuSettings, panelGameSettings, panelShopSettings, panelClassificaSettings, panelAlertClassifica, panelAlertPersonaggio;
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
@@ -32,13 +32,10 @@ public class HomeScript : MonoBehaviour
             AudioListener.volume = 1f;
         }
 
-        //TEST
         playerPrefsHandler.SetPlayerKey("gwyro");
-        //TEST
 
         if (playerPrefsHandler.isFirstTime())
         {
-            //POPUP INIZIALE
             playerPrefsHandler.CreateFirstTimePref();
         }
         else
@@ -108,7 +105,8 @@ public class HomeScript : MonoBehaviour
         panelShopSettings = GameObject.Find("PanelShopSettings");
         panelGameSettings = GameObject.Find("PanelGameSettings");
         panelClassificaSettings = GameObject.Find("PanelClassificaSettings");
-
+        panelAlertClassifica = GameObject.Find("PanelAlertClassifica");
+        panelAlertPersonaggio = GameObject.Find("PanelAlertPersonaggio");
         /*
         for (int i = 1; i < 11; i++)
         {
@@ -116,7 +114,7 @@ public class HomeScript : MonoBehaviour
             RestClient.Post("https://corun-b2a77.firebaseio.com/utenti"+".json", user);
         }
         */
-        
+
         ApriMenuSetting(false);
         ApriGameSetting(false);
         ApriShopSetting(false);
@@ -217,7 +215,12 @@ public class HomeScript : MonoBehaviour
         if (val)
         {
             PulsantiHomeAttivi(false);
-            AttivaClassificaSetting(true);
+            if (!Score.connessione)
+            {
+                panelAlertClassifica.gameObject.SetActive(true);
+            }
+            else
+                AttivaClassificaSetting(true);
         }
         else
         {
@@ -226,6 +229,13 @@ public class HomeScript : MonoBehaviour
         }
 
     }
+
+    public void ChiudiPanelAlertClassifica()
+    {
+        panelAlertClassifica.gameObject.SetActive(true);
+        PulsantiHomeAttivi(true);
+    }
+
 
     public void AttivaMenuSetting(bool val)
     {
@@ -618,13 +628,10 @@ public class HomeScript : MonoBehaviour
     public void SbloccaGiocatore(string s)
     {
         GameObject daSbloccare = null;
-        print(players[0]);
-        print(players[1]);
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].name.Equals(s)) daSbloccare = players[i];
         }
-        print(daSbloccare);
         Text t = daSbloccare.transform.GetChild(3).GetComponent<Text>();
         int num = int.Parse(t.text.ToString());
         if (playerPrefsHandler.GetMonete() >= num)
@@ -638,7 +645,16 @@ public class HomeScript : MonoBehaviour
             moneteCatalogo.transform.GetChild(0).GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString();
 
         }
+        else
+        {
+            panelAlertPersonaggio.gameObject.SetActive(true);
+        }
 
+    }
+
+    public void ChiudiAlertPersonaggio()
+    {
+        panelAlertPersonaggio.gameObject.SetActive(false);
     }
 
     public void SelectGiocatore(string s)
