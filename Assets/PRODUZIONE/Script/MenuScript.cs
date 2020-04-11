@@ -25,6 +25,7 @@ public class MenuScript : MonoBehaviour
     string appUnitId;
     string idRewardedAd, idInterstitialAd;
     List<User> listaOrdinata = new List<User>();
+    bool punteggioInserito = false;
 
     void Awake()
     {
@@ -131,7 +132,8 @@ public class MenuScript : MonoBehaviour
 
 
        if(Score.fine){
-            apriMenuFine();                              
+            apriMenuFine();
+            
          }
 
         if (Score.buttonPause)
@@ -142,6 +144,18 @@ public class MenuScript : MonoBehaviour
         {
             settaggi.SetActive(false);
 
+        }
+
+        if (punteggioInserito)
+        {
+            playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
+            panelScore.gameObject.SetActive(false);
+            panel.gameObject.SetActive(false);
+            Score.buttonPause = false;
+            SceneManager.LoadScene("Home");
+            Score.punteggio = 0;
+            Score.fine = false;
+            Time.timeScale = 0;
         }
 
     }
@@ -242,23 +256,22 @@ public class MenuScript : MonoBehaviour
     public void esci(){
 
         if (Score.connessione && Application.internetReachability != NetworkReachability.NotReachable &&
-            Score.punteggio > Score.ultimoPunteggioClassifica && Score.punteggio>playerPrefs.GetRecordPersonale())
+            Score.punteggio > Score.ultimoPunteggioClassifica )
         {
             getListaClassifica();
-            if(Score.punteggio > Score.ultimoPunteggioClassifica)
+            if (Score.punteggio > Score.ultimoPunteggioClassifica)
             {
+
                 User user = new User("Simone", Score.punteggio);
-                //RestClient.Delete("https://corun-b2a77.firebaseio.com/utenti?punti="+Score.ultimoPunteggioClassifica+".json");
-                RestClient.Post("https://corun-b2a77.firebaseio.com/utenti/"+".json", user);
-                playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
-                //StartCoroutine(waitForClickSound());
-                panelScore.gameObject.SetActive(false);
-                panel.gameObject.SetActive(false);
-                Score.buttonPause = false;
-                SceneManager.LoadScene("Home");
-                Score.punteggio = 0;
-                Score.fine = false;
-                Time.timeScale = 0;
+                //RestClient.Delete("https://corun-b2a77.firebaseio.com/utenti.json?orderBy="+"idUtente"+"&equalTo=" + Score.ultimoIdClassifica);
+                RestClient.Post("https://corun-b2a77.firebaseio.com/utenti"+".json", user).Then(response => {
+
+                    punteggioInserito = true;
+                });
+
+        
+
+                
             }
 
 
@@ -267,6 +280,7 @@ public class MenuScript : MonoBehaviour
         {
             if (Score.CountInterstitial != 3)
             {
+                print("nono");
                 Score.CountInterstitial += 1;
                 playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
                 //StartCoroutine(waitForClickSound());
@@ -559,6 +573,13 @@ public class MenuScript : MonoBehaviour
         });
 
 
+    }
+
+
+    IEnumerator aspettaSecondi()
+    {
+        yield return new WaitForSeconds(5f);
+        punteggioInserito = true;
     }
 
 

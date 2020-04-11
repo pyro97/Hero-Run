@@ -51,7 +51,8 @@ public class HomeScript : MonoBehaviour
                  }
              *
              */
-             
+
+            //playerPrefsHandler.CreateFirstTimePref();
 
         }
 
@@ -105,12 +106,13 @@ public class HomeScript : MonoBehaviour
         panelClassificaSettings = GameObject.Find("PanelClassificaSettings");
 
         /*
-        for (int i = 0; i < 10; i++)
+        for (int i = 1; i < 11; i++)
         {
-            User user = new User("fff"+i, i + 1);
-            RestClient.Post("https://corun-b2a77.firebaseio.com/utenti/" +".json", user);
+            User user = new User("Giuseppe"+i, i + 10);
+            RestClient.Post("https://corun-b2a77.firebaseio.com/utenti"+".json", user);
         }
         */
+        
         ApriMenuSetting(false);
         ApriGameSetting(false);
         ApriShopSetting(false);
@@ -130,9 +132,6 @@ public class HomeScript : MonoBehaviour
         }
 
 
-      
-
-     
 
 
     }
@@ -748,7 +747,6 @@ public class HomeScript : MonoBehaviour
 
         RestClient.Get("https://corun-b2a77.firebaseio.com/" + ".json").Then(response =>
         {
-            //print(response.Text);
 
             JObject stringa = JObject.Parse(response.Text);
             // get JSON result objects into a list
@@ -758,10 +756,14 @@ public class HomeScript : MonoBehaviour
             foreach (JToken result in results)
             {
                 User u = result.ToObject<User>();
+
                 userResults.Add(u);
             }
 
             listaOrdinata = userResults.ToList().OrderByDescending(x => x.punti).ToList();
+
+
+
 
             for (int i = 0; i < listaOrdinata.Count; i++)
             {
