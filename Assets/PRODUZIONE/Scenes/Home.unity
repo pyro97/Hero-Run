@@ -1769,7 +1769,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 463625900}
-        m_MethodName: AvantiIndietroCatalogo
+        m_MethodName: AvantiIndietroComandi
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6507,16 +6507,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831926278}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0031748, y: 0.95307946, z: 1.0031748}
   m_Children: []
   m_Father: {fileID: 1504666665}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -123.00008, y: -573}
+  m_AnchoredPosition: {x: -665.0001, y: -572.9999}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &831926280
@@ -10607,7 +10607,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 463625900}
-        m_MethodName: AvantiIndietroCatalogo
+        m_MethodName: AvantiIndietroComandi
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11699,7 +11699,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 463625900}
-        m_MethodName: AvantiIndietroCatalogo
+        m_MethodName: AvantiIndietroComandi
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
