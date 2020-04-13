@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class Persona : MonoBehaviour
 {
     // Start is called before the first frame update
-    private EnemiesGenerator enemies;
+    //private EnemiesGenerator enemies;
 
     void Start()
     {
-        enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
+        //enemies = GameObject.FindObjectOfType<EnemiesGenerator>();
     }
 
 
@@ -20,10 +20,10 @@ public class Persona : MonoBehaviour
             Score.monete += 1;
             Text monete = GameObject.Find("Coins").GetComponent<Text>();
             monete.text = "" + Score.monete;
-
-            Destroy(this.gameObject);
-            enemies.enemies.Remove(this.gameObject);
-            enemies.mortaPersona = true;
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z - 100);
+            //Destroy(this.gameObject);
+            //enemies.enemies.Remove(this.gameObject);
+            //enemies.mortaPersona = true;
         }
     }
 
@@ -35,15 +35,15 @@ public class Persona : MonoBehaviour
         {
             if (other.tag == "Mask" || other.tag == "Paper")
             {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 5);
+                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 12);
             }
             else if (this.transform.position.z > other.transform.position.z)
             {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 5);
+                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z + 12);
             }
             else
             {
-                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 5);
+                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 12);
             }
         }
         

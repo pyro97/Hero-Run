@@ -183,8 +183,12 @@ public class Player : MonoBehaviour
 
     public void MovePlayer()
     {
-        increment += 0.03f;
-        Score.incremento = increment;
+        
+
+        if (increment < 100) {
+            increment += 0.01f;
+            Score.incremento = increment;
+        }
 
         if (!playerPrefs.GetIsMutedMusica() && musicaGioco.pitch < 2.0f)
         {
@@ -506,8 +510,9 @@ public class Player : MonoBehaviour
                     StartCoroutine(BonusNO());
                     mask = false;
                     imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
-                    Destroy(collision.gameObject);
-                    enemies.enemies.Remove(collision.gameObject);
+                    collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    //Destroy(collision.gameObject);
+                    //enemies.enemies.Remove(collision.gameObject);
                 }
             }
 
@@ -527,16 +532,18 @@ public class Player : MonoBehaviour
                     source5Stelle.enabled = true;
                     source5Stelle.Play();
                     stelle.SetActive(true);
-                    Destroy(collision.gameObject);
-                    enemies.enemies.Remove(collision.gameObject);
+                    collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    //Destroy(collision.gameObject);
+                    //enemies.enemies.Remove(collision.gameObject);
                 }
                 else if (paper && stelle.activeSelf == false)
                 {
                     StartCoroutine(BonusNO());
                     paper = false;
                     imagePaper.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
-                    Destroy(collision.gameObject);
-                    enemies.enemies.Remove(collision.gameObject);
+                    collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    //Destroy(collision.gameObject);
+                    //enemies.enemies.Remove(collision.gameObject);
                 }
             }
         }
