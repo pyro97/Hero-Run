@@ -739,18 +739,14 @@ public class HomeScript : MonoBehaviour
 
         if (indexSubPanel == 0)
         {
-            if (Score.connessione)
+            if (Application.internetReachability!= NetworkReachability.NotReachable)
             {
                 //modificare quando ci saranno piu pannelli
                 getListaClassifica();
-
-
-
                 GameObject righe = GameObject.Find("ListaUtentiClassifica");
 
                 for (int i = 0; i < 10; i++)
                 {
-
                     GameObject row = righe.transform.GetChild(i).gameObject;
                     row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
                     row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
@@ -759,7 +755,8 @@ public class HomeScript : MonoBehaviour
             }
             else
             {
-                //popup
+                panelAlertClassifica.SetActive(true);
+                ApriClassificaSetting(false);
             }
 
 

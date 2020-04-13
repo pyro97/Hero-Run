@@ -2776,10 +2776,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Per vedere la classifica online dovresti accendere internet all''apertura
-    del gioco
-
-'
+  m_Text: Errore di connessione. Attiva Internet e Riprova. Se il problema persiste
+    riavvia il gioco.
 --- !u!222 &385580506
 CanvasRenderer:
   m_ObjectHideFlags: 0
