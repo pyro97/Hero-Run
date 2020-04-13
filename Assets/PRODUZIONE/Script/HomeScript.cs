@@ -46,6 +46,8 @@ public class HomeScript : MonoBehaviour
         }
         else
         {
+            playerPrefsHandler.SetMonete(6000);
+
             //TEST TEST TEST TEST
 
             /*
@@ -414,84 +416,52 @@ public class HomeScript : MonoBehaviour
 
     }
 
-    public void Right1T2()
+    public void AvantiIndietroComandi(int index)
     {
         if (sourceClick.enabled)
         {
             sourceClick.Play();
         }
-        panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
-    }
+        if (index == 0)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
 
-    public void Left2T1()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
         }
-        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
-    }
+        else if (index == 1)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+        }
+        else if(index == 2)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
 
-    public void Right2T3()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
         }
-        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
-    }
+        else if (index == 3)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
 
-    public void Left3T2()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
         }
-        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
-    }
+        else if (index == 4)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
 
-    public void Right3T4()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
-        }
-        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
-    }
 
-    public void Left4T3()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
         }
-        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(true);
-    }
+        else if (index == 5)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(true);
 
-    public void Right4T5()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
         }
-        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(true);
-    }
-
-    public void Left5T4()
-    {
-        if (sourceClick.enabled)
-        {
-            sourceClick.Play();
-        }
-        panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
-        panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(true);
     }
 
     //0-> stat, 1->setting, 2->info
@@ -573,9 +543,6 @@ public class HomeScript : MonoBehaviour
 
             }
 
-
-
-
         }
 
         else if (indexSubPanel == 2)
@@ -621,6 +588,9 @@ public class HomeScript : MonoBehaviour
             GameObject moneteCatalogo = panelGameSettings.transform.GetChild(1).GetChild(2).gameObject;
             moneteCatalogo.transform.GetChild(0).GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString();
 
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
 
 
 
@@ -639,6 +609,10 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
         }
         else if (indexSubPanel == 2)
         {
@@ -653,6 +627,8 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(true);
+
+           
         }
 
     }
@@ -727,6 +703,33 @@ public class HomeScript : MonoBehaviour
                 }
             }
 
+        }
+    }
+
+    public void AvantiIndietroCatalogo(int index)
+    {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+        if (index == 0)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
+        }
+        else if (index == 1)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
+
+        }
+        else if (index == 2)
+        {
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(true);
         }
     }
 
