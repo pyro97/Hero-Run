@@ -46,7 +46,7 @@ public class HomeScript : MonoBehaviour
         }
         else
         {
-            playerPrefsHandler.SetMonete(6000);
+            //playerPrefsHandler.SetMonete(6000);
 
             //TEST TEST TEST TEST
 
