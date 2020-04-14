@@ -739,11 +739,19 @@ public class HomeScript : MonoBehaviour
 
         if (indexSubPanel == 0)
         {
-            if (Application.internetReachability!= NetworkReachability.NotReachable)
+            if (Application.internetReachability != NetworkReachability.NotReachable)
             {
                 //modificare quando ci saranno piu pannelli
                 getListaClassifica();
+
+                GameObject.Find("PanelClassifica").transform.GetChild(0).gameObject.SetActive(true);
+                GameObject.Find("PanelClassifica").transform.GetChild(1).gameObject.SetActive(false);
+                GameObject.Find("PanelClassifica").transform.GetChild(2).gameObject.SetActive(false);
+
+
                 GameObject righe = GameObject.Find("ListaUtentiClassifica");
+
+                
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -763,9 +771,41 @@ public class HomeScript : MonoBehaviour
 
 
         }
+        if (indexSubPanel == 1)
+        {
+            GameObject.Find("PanelClassifica").transform.GetChild(0).gameObject.SetActive(false);
+            GameObject.Find("PanelClassifica").transform.GetChild(1).gameObject.SetActive(true);
+            GameObject.Find("PanelClassifica").transform.GetChild(2).gameObject.SetActive(false);
+
+            GameObject righe2 = GameObject.Find("ListaUtentiClassifica2");
+
+            for (int i = 10; i < 20; i++)
+            {
+                GameObject row = righe2.transform.GetChild(i-10).gameObject;
+                row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
+                row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+            }
+
+        }
+        if (indexSubPanel == 2)
+        {
+            GameObject.Find("PanelClassifica").transform.GetChild(0).gameObject.SetActive(false);
+            GameObject.Find("PanelClassifica").transform.GetChild(1).gameObject.SetActive(false);
+            GameObject.Find("PanelClassifica").transform.GetChild(2).gameObject.SetActive(true);
+
+            GameObject righe3 = GameObject.Find("ListaUtentiClassifica3");
+
+            for (int i = 20; i < 30; i++)
+            {
+                GameObject row = righe3.transform.GetChild(i-20).gameObject;
+                row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
+                row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+            }
+        }
 
 
     }
+
 
     public void loadGame()
     {
@@ -816,7 +856,7 @@ public class HomeScript : MonoBehaviour
 
             for (int i = 0; i < listaOrdinata.Count; i++)
             {
-                if (i == 9)
+                if (i == 29)
                 {
                     Score.ultimoPunteggioClassifica = listaOrdinata[i].punti;
                 }

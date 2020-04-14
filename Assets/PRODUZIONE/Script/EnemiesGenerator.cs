@@ -198,7 +198,7 @@ public class EnemiesGenerator : MonoBehaviour
         zPosPerson = Random.Range(90, 100);
         zPosPolice = Random.Range(100, 110);
         GameObject go;
-        go = Instantiate(theEnemy, new Vector3(xPosAlien, 1.2f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
+        go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
         enemies.Add(go);
         UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
         int i = Random.Range(1, 3);
