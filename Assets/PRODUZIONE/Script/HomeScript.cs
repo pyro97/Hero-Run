@@ -41,11 +41,14 @@ public class HomeScript : MonoBehaviour
 
         if (playerPrefsHandler.isFirstTime())
         {
-            print(playerPrefsHandler.GetPlayerKey());
             panelInputNomeUtente.SetActive(true);
         }
         else
         {
+            if (playerPrefsHandler.GetPersonaggioAttuale().Equals("Medico"))
+            {
+                playerPrefsHandler.SetPersonaggioAttuale("The Loocka");
+            }
             //playerPrefsHandler.SetMonete(6000);
 
             //TEST TEST TEST TEST
@@ -590,7 +593,6 @@ public class HomeScript : MonoBehaviour
 
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
 
 
 
@@ -612,7 +614,6 @@ public class HomeScript : MonoBehaviour
 
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
         }
         else if (indexSubPanel == 2)
         {
@@ -628,7 +629,9 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(true);
 
-           
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+
         }
 
     }
@@ -716,20 +719,12 @@ public class HomeScript : MonoBehaviour
         {
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
         }
         else if (index == 1)
         {
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(true);
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
 
-        }
-        else if (index == 2)
-        {
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(true);
         }
     }
 
