@@ -23,6 +23,7 @@ public class HomeScript : MonoBehaviour
     public GameObject[] players;
     List<User> listaOrdinata = new List<User>();
 
+    
 
     private void Awake()
     {
@@ -124,6 +125,7 @@ public class HomeScript : MonoBehaviour
         }
         */
 
+        SetResponsive();
         ApriMenuSetting(false);
         ApriGameSetting(false);
         ApriShopSetting(false);
@@ -824,6 +826,195 @@ public class HomeScript : MonoBehaviour
 
 
     }
+
+
+    public void SetResponsive()
+    {
+        print(Screen.height + " " + Screen.width);
+        if ((Screen.height > 2600 && Screen.height < 3000) && (Screen.width > 1100 && Screen.width < 1500))
+        {
+
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+
+        }
+        else if ((Screen.height > 2500 && Screen.height < 2900) && (Screen.width > 1100 && Screen.width < 1500))
+        {
+            panelListaSettings.GetComponent<RectTransform>().localPosition = new Vector3(305.5f, -480f, -115f);
+            panelListaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(2).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(3).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 120f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 120f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 120f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 120f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+        }
+        else if ((Screen.height > 2100 && Screen.height < 2500) && (Screen.width > 1000 && Screen.width < 1500))
+        {
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+
+        }
+        else if ((Screen.height > 1900 && Screen.height < 2100) && (Screen.width > 1000 && Screen.width < 1500))
+        {
+            panelListaSettings.GetComponent<RectTransform>().localPosition = new Vector3(305.5f, -480f, -115f);
+            panelListaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(2).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(3).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 180f, 0f);
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 180f, 0f);
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 180f, 0f);
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 180f, 0f);
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+
+
+        }
+
+        else if ((Screen.height > 1200 && Screen.height < 1500) && (Screen.width > 700 && Screen.width < 1000))
+        {
+            panelListaSettings.GetComponent<RectTransform>().localPosition = new Vector3(305.5f, -480f, -115f);
+            panelListaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(2).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelListaSettings.transform.GetChild(3).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+        }
+
+        else if ((Screen.height > 780 && Screen.height < 1200) && (Screen.width > 400 && Screen.width < 700))
+        {
+            panelListaSettings.GetComponent<RectTransform>().localPosition = new Vector3(305.5f, -450f, -115f);
+            panelListaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            panelListaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            panelListaSettings.transform.GetChild(2).GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            panelListaSettings.transform.GetChild(3).GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 130f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.85f, 0.85f, 0.85f);
+
+        }
+        else if ((Screen.height > 550 && Screen.height < 800) && (Screen.width > 250 && Screen.width < 350))
+        {
+            panelListaSettings.GetComponent<RectTransform>().localPosition = new Vector3(305.5f, -500f, -115f);
+            panelListaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelListaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelListaSettings.transform.GetChild(2).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelListaSettings.transform.GetChild(3).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelMenuSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelMenuSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelGameSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelGameSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelShopSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelShopSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0f, 140f, 0f);
+            panelClassificaSettings.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(0f, 150f, 0f);
+            panelClassificaSettings.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(0.95f, 0.95f, 0.95f);
+
+        }
+
+
+    }
+
 
 
 }
