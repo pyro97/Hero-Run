@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pavimento
+  - BonusPaper
+  - BonusMask
+  - Fire
+  - Mask
+  - Paper
+  - Person
+  - Police
+  - Alieno
   layers:
   - Default
   - TransparentFX
