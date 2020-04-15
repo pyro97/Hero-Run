@@ -14,7 +14,7 @@ public class HomeScript : MonoBehaviour
     AudioSource musicaMenu;
     GameObject playBtn, panelListaSettings, panelMenuSettings,
         panelGameSettings, panelShopSettings, panelClassificaSettings,
-        panelAlertClassifica, panelAlertPersonaggio,panelInputNomeUtente,panelAlertInputNomeUtente;
+        panelAlertClassifica, panelAlertPersonaggio,panelInputNomeUtente,panelAlertInputNomeUtente,panelAlertNomePresente, panelAlertNoConnInsNome;
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
@@ -22,8 +22,9 @@ public class HomeScript : MonoBehaviour
     AudioSource sourceClick, sourceSblocco;
     public GameObject[] players;
     List<User> listaOrdinata = new List<User>();
+    bool listaPiena;
 
-    
+
 
     private void Awake()
     {
@@ -32,6 +33,10 @@ public class HomeScript : MonoBehaviour
         panelAlertInputNomeUtente.SetActive(false);
         panelInputNomeUtente = GameObject.Find("PanelInputNomeUtente");
         panelInputNomeUtente.SetActive(false);
+        panelAlertNomePresente = GameObject.Find("PanelAlertNomePresente");
+        panelAlertNomePresente.SetActive(false);
+        panelAlertNoConnInsNome = GameObject.Find("PanelAlertNoConnInsNome");
+        panelAlertNoConnInsNome.SetActive(false);
 
 
         if (AudioListener.pause)
@@ -99,6 +104,8 @@ public class HomeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        listaPiena = false;
+
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
             Score.connessione = false;
@@ -154,6 +161,10 @@ public class HomeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (listaOrdinata.Count > 0)
+        {
+            listaPiena = true;
+        }
     }
 
     public void PulsantiHomeAttivi(bool val)
@@ -171,23 +182,51 @@ public class HomeScript : MonoBehaviour
     }
 
 
-
     public void ControllaInputNome()
     {
         InputField inputField = panelInputNomeUtente.transform.GetChild(0).GetChild(0).GetChild(2).gameObject.GetComponent<InputField>();
-        if (inputField.text.ToString().Length > 0 && inputField.text.ToString().Length < 10)
-        {
-            playerPrefsHandler.SetPlayerKey(inputField.text.ToString());
-            playerPrefsHandler.CreateFirstTimePref();
-            panelInputNomeUtente.SetActive(false);
-            panelAlertInputNomeUtente.SetActive(false);
 
+        if (Application.internetReachability != NetworkReachability.NotReachable || !listaPiena)
+        {
+
+
+            if (inputField.text.ToString().Length > 0 && inputField.text.ToString().Length < 10)
+            {
+
+                bool nomePresente = false;
+                foreach (User user in listaOrdinata)
+                {
+                    if (user.nome == inputField.text.ToString()) nomePresente = true;
+                }
+
+                if (!nomePresente)
+                {
+                    playerPrefsHandler.SetPlayerKey(inputField.text.ToString());
+                    playerPrefsHandler.CreateFirstTimePref();
+                    panelInputNomeUtente.SetActive(false);
+                    panelAlertInputNomeUtente.SetActive(false);
+                }
+                else
+                {
+                    panelInputNomeUtente.SetActive(false);
+                    panelAlertNomePresente.SetActive(true);
+
+                }
+
+
+            }
+            else
+            {
+                panelInputNomeUtente.SetActive(false);
+                panelAlertInputNomeUtente.SetActive(true);
+            }
         }
         else
         {
             panelInputNomeUtente.SetActive(false);
-            panelAlertInputNomeUtente.SetActive(true);
+            panelAlertNoConnInsNome.SetActive(true);
         }
+
     }
 
     public void ChiudiAlertInputField()
@@ -195,8 +234,22 @@ public class HomeScript : MonoBehaviour
         panelAlertInputNomeUtente.SetActive(false);
         panelInputNomeUtente.SetActive(true);
 
+    }
+
+    public void ChiudiAlertNomeGiaPresente()
+    {
+        panelAlertNomePresente.SetActive(false);
+        panelInputNomeUtente.SetActive(true);
 
     }
+
+    public void ChiudiAlertNoConnInpNome()
+    {
+        panelAlertNoConnInsNome.SetActive(false);
+        panelInputNomeUtente.SetActive(true);
+
+    }
+
 
 
 
