@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoronaScript : MonoBehaviour
+public class AlienoScript : MonoBehaviour
 {
     Rigidbody rigid;
     bool stoprun;
