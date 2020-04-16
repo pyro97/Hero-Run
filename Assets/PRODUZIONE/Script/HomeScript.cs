@@ -641,6 +641,7 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
             attivaCatalogo();
             panelGameSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
             GameObject moneteCatalogo = panelGameSettings.transform.GetChild(1).GetChild(2).gameObject;
@@ -665,6 +666,8 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
+
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
 
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
@@ -682,7 +685,8 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(true);
+            panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
+            panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(true);
 
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
