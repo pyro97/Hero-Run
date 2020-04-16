@@ -333,7 +333,7 @@ public class Player : MonoBehaviour
 
     IEnumerator ShotPlayer()
     {
-        if (Input.touchCount > 0 && countImage.activeSelf == false)
+        if (Input.touchCount > 0 && countImage.activeSelf == false && contr=="n")
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began )
             {
