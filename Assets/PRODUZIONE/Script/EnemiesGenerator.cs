@@ -32,7 +32,7 @@ public class EnemiesGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startWait = 3f;
+        startWait = 4f;
         mortaPersona = false;
         enemies = new List<GameObject>();
         StartCoroutine(EnemyDrop());
@@ -87,7 +87,7 @@ public class EnemiesGenerator : MonoBehaviour
             GameObject go;
             go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
-            UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
+            /*UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
             int i= Random.Range(1, 3);
             if (i == 1)
             {
@@ -95,9 +95,9 @@ public class EnemiesGenerator : MonoBehaviour
 
             }
             else if(i == 2)
-            {
+            {*/
                 go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
-            }
+            //}
           
             //go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
@@ -200,7 +200,7 @@ public class EnemiesGenerator : MonoBehaviour
         GameObject go;
         go = Instantiate(theEnemy, new Vector3(xPosAlien, 0.1f, zPosAlien + player.transform.position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
         enemies.Add(go);
-        UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
+        /*UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
         int i = Random.Range(1, 3);
         if (i == 1)
         {
@@ -208,9 +208,9 @@ public class EnemiesGenerator : MonoBehaviour
 
         }
         else if (i == 2)
-        {
+        {*/
             go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
-        }
+        //}
         
         //go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
         enemies.Add(go);
