@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CittaGenerator : MonoBehaviour
 {
-    private float spawnz = -6f;
+    private float spawnz = 96f;
     public GameObject[] prefabs;
     private float RoadLenght = 96f;
     private int amountOfRoads = 3;
