@@ -7,7 +7,7 @@ public class EnemiesGenerator : MonoBehaviour
     public bool mortaPersona;
     public GameObject theEnemy;
     public GameObject personCheBalla;
-    public GameObject uomo;
+    //public GameObject uomo;
     public List<GameObject> enemies;
     GameObject player;
     public GameObject police;
@@ -98,7 +98,7 @@ public class EnemiesGenerator : MonoBehaviour
             {*/
                 go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             //}
-          
+           
             //go = Instantiate(personCheBalla, new Vector3(xPosPerson, 0.1f, zPosPerson + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
             enemies.Add(go);
             go = Instantiate(police, new Vector3(xPosPoliceMan, 0.1f, zPosPolice + player.transform.position.z), Quaternion.Euler(0, -180f, 0)) as GameObject;
