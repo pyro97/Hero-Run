@@ -21414,6 +21414,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 396400661}
     m_Modifications:
+    - target: {fileID: 7697028602320948847, guid: 6b0fcea8413274a5abd011079cb2fd4f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72855900a61cc4276a1d7b9ea102f049,
+        type: 3}
     - target: {fileID: 7697028602638879032, guid: 6b0fcea8413274a5abd011079cb2fd4f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -21565,6 +21571,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7697028602943792957, guid: 6b0fcea8413274a5abd011079cb2fd4f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f8064a01e70d14fffbce7c235058cb08,
+        type: 3}
     - target: {fileID: 7697028602943792959, guid: 6b0fcea8413274a5abd011079cb2fd4f,
         type: 3}
       propertyPath: m_Name
@@ -21714,6 +21726,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8069168594801012013, guid: 07c9636e8d5684895a52d4f52c97720f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72855900a61cc4276a1d7b9ea102f049,
+        type: 3}
     - target: {fileID: 8069168595072926891, guid: 07c9636e8d5684895a52d4f52c97720f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -21937,6 +21955,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8525187044449118646, guid: 41d4879ece9584d50927c26e228c5057,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72855900a61cc4276a1d7b9ea102f049,
+        type: 3}
     - target: {fileID: 8525187044745973016, guid: 41d4879ece9584d50927c26e228c5057,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
