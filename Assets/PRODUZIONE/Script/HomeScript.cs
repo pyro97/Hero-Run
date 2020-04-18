@@ -870,8 +870,15 @@ public class HomeScript : MonoBehaviour
         {
             sourceClick.Play();
         }
-        // Only specifying the sceneName or sceneBuildIndex will load the Scene with the Single mode
-        SceneManager.LoadScene("Game");
+        if (playerPrefsHandler.GetNumPartiteTotali() > 0)
+        {
+            SceneManager.LoadScene("Game");
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial");
+
+        }
 
     }
 
