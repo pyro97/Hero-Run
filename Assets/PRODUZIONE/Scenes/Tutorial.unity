@@ -266,8 +266,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Devi attraversare una citt\xE0 colpita da un virus alieno. Lungo la strada
-    troverai alieni, persone infette e poliziotti che dovrai assolutamente evitare."
+  m_Text: "Scendi in strada, evita gli alieni, le persone e i poliziotti. Diventa
+    l'eroe della citt\xE0 superando ogni record."
 --- !u!222 &45914337
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1066,7 +1066,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: f4c99a340a6e6504aa6e992b7a253612, type: 3}
-    m_FontSize: 30
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -1077,9 +1077,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: La polizia controlla la situazione per le strade. Puoi solo evitarla e
-    se non ci riuscirai vedrai appararire delle stelle ad indicare che sei ricercato,
-    mentra la seconda volta verrai giustiziato.
+  m_Text: Evita la polizia oppure appariranno delle stelle ad indicare che sei ricercato,
+    mentre la seconda volta perderai.
 --- !u!222 &514989930
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1575,7 +1574,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3844a989156a44a9188153f0f91ece20, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d00f3d0b2afd4df190e98dcf555a2e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1743,7 +1742,7 @@ MonoBehaviour:
   m_Text: 'Movimento: Swipe a destra e a sinistra per cambiare corsia della strada.
 
     Sparare:
-    tocca sullo schermo per attivare il lanciafiamme e sparare.'
+    Tocca sullo schermo per attivare il lanciafiamme e sparare.'
 --- !u!222 &944043561
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2014,7 +2013,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: f4c99a340a6e6504aa6e992b7a253612, type: 3}
-    m_FontSize: 30
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -2025,11 +2024,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Mascherina: ti permette di evitare la morte se toccherai un alieno o una
-    persona infetta.
-
-    Certificazione: ti permette di evitare di essere ricercato
-    se toccherai un poliziotto'
+  m_Text: "Cuore: ti permetter\xE0 di evitare la morte se toccherai un alieno o una
+    persona.\nCertificazione: ti permetter\xE0 di non essere ricercato se toccherai
+    un poliziotto"
 --- !u!222 &971478244
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3557,7 +3554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 15e0c022fa78c494da92366a76659bb5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c7733d33537f747eaaac26085174379c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3695,7 +3692,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 312}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1477756795
 MonoBehaviour:
@@ -3715,7 +3712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2afca267c7ad0462ca25479b2aa5fe0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fb58e305acbd47a9860453b4f70d655, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4382,7 +4379,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc2e4a247c3ea4f01aa95cab479049bf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78f96acc7906c4f13a5a99c6b994203b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4468,8 +4465,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Gli alieni verranno verso di te per infettarti e potranno solo essere
-    evitati. Sparare non servir\xE0 a niente."
+  m_Text: "Gli alieni verranno verso di te e potranno solamente essere evitati. Sparare
+    non servir\xE0 a niente. Attento, toccandoli perderai."
 --- !u!222 &1773750399
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5063,8 +5060,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tutte le persone sono gi\xE0 infette. Hai due opzioni: evitarle oppure
-    attivare il lanciafiamme per spararle e guadagnare monete."
+  m_Text: Le persone dovranno essere evitate oppure potrai attivare il lanciafiamme
+    per spararle e guadagnare monete.
 --- !u!222 &2021994580
 CanvasRenderer:
   m_ObjectHideFlags: 0
