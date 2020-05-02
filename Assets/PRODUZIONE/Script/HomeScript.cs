@@ -231,6 +231,7 @@ public class HomeScript : MonoBehaviour
                 if (!nomePresente)
                 {
                     playerPrefsHandler.SetPlayerKey(inputField.text.ToString());
+                    playerPrefsHandler.SetVersionName(versionName);
                     playerPrefsHandler.CreateFirstTimePref();
                     panelInputNomeUtente.SetActive(false);
                     panelAlertInputNomeUtente.SetActive(false);
