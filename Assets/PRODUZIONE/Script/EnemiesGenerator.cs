@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemiesGenerator : MonoBehaviour
 {
@@ -112,23 +113,19 @@ public class EnemiesGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         DestroyEnemies();
+
+    }
+
+   public void SortEnemies()
+    {
+        enemies.OrderBy(x=>x.transform.position.z);
     }
 
     void DestroyEnemies()
     {
-        bool flag = true;
-        while (flag)
-        {
-            /*if (mortaPersona && ((enemies[0].transform.position.z + 20) < player.transform.position.z) && ((enemies[1].transform.position.z + 20) < player.transform.position.z))
-            {
-                Destroy(enemies[0]);
-                enemies.RemoveAt(0);
-                Destroy(enemies[0]);
-                enemies.RemoveAt(0);
-                CreateEnemies();
-                mortaPersona = false;
-            }*/
+     
             if (enemyCount>0 && ((enemies[0].transform.position.z + 20) < player.transform.position.z) && ((enemies[1].transform.position.z + 20) < player.transform.position.z)
                 &&  ((enemies[2].transform.position.z + 20) < player.transform.position.z))
             {
@@ -141,9 +138,8 @@ public class EnemiesGenerator : MonoBehaviour
                 CreateEnemies();
 
             }
-            else
-                flag = false;
-        }
+      
+        
 
     }
 

@@ -50,17 +50,16 @@ public class MenuScript : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            appUnitId = "ca-app-pub-3940256099942544~3347511713";
-            idRewardedAd = "ca-app-pub-3940256099942544/5224354917";
-            idInterstitialAd = "ca-app-pub-3940256099942544/1033173712";
+            appUnitId = "ca-app-pub-9751551150368721~3087476692";
+            idRewardedAd = "ca-app-pub-9751551150368721/9541204403";
+            idInterstitialAd = "ca-app-pub-9751551150368721/4200661085";
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            appUnitId = "ca-app-pub-3940256099942544~1458002511";
-            idRewardedAd = "ca-app-pub-3940256099942544/1712485313";
-            idInterstitialAd = "ca-app-pub-3940256099942544/4411468910";
+            appUnitId = "ca-app-pub-9751551150368721~6839266861";
+            idRewardedAd = "ca-app-pub-9751551150368721/4423968463";
+            idInterstitialAd = "ca-app-pub-9751551150368721/5737050132";
         }
-
         MobileAds.Initialize(appUnitId);
 
 
@@ -91,7 +90,7 @@ public class MenuScript : MonoBehaviour
         // Called when the ad click caused the user to leave the application.
         this.interstitialAd.OnAdLeavingApplication += HandleOnAdLeavingApplication;
 
-        if(Application.internetReachability != NetworkReachability.NotReachable)
+        if(Application.internetReachability != NetworkReachability.NotReachable && playerPrefs.GetRemoveAds()==false)
         {
             RequestRewardVideo();
             RequestInterstitial();
@@ -153,6 +152,7 @@ public class MenuScript : MonoBehaviour
             settaggi.SetActive(false);
 
         }
+
 
     }
 
@@ -268,17 +268,26 @@ public class MenuScript : MonoBehaviour
     public void esci()
     {
 
+        panelFine.transform.GetChild(2).gameObject.GetComponent<Button>().interactable = false;
+        panelFine.transform.GetChild(3).gameObject.GetComponent<Button>().interactable = false;
+
         if (Score.connessione && Application.internetReachability != NetworkReachability.NotReachable &&
             Score.punteggio > Score.ultimoPunteggioClassifica)
         {
+            panelFirebase.gameObject.SetActive(true);
+            panelFirebase.transform.GetChild(1).gameObject.SetActive(false);
+            panelFirebase.transform.GetChild(2).gameObject.SetActive(true);
+
             getListaClassifica();
             if (Score.punteggio > Score.ultimoPunteggioClassifica)
             {
                 User user = new User(playerPrefs.GetPlayerKey(), Score.punteggio);
                 //RestClient.Delete("https://corun-b2a77.firebaseio.com/utenti.json?orderBy="+"idUtente"+"&equalTo=" + Score.ultimoIdClassifica);
                 RestClient.Post("https://corun-b2a77.firebaseio.com/utenti" + ".json", user).Then(response => {
+                    panelFirebase.transform.GetChild(2).gameObject.SetActive(false);
+                    panelFirebase.transform.GetChild(1).gameObject.SetActive(true);
 
-                    panelFirebase.gameObject.SetActive(true);
+
                 });
             }
 
@@ -286,9 +295,31 @@ public class MenuScript : MonoBehaviour
         }
         else
         {
-            if (Score.CountInterstitial != 3)
+            if (playerPrefs.GetRemoveAds() == false)
             {
-                Score.CountInterstitial += 1;
+                if (Score.CountInterstitial != 3)
+                {
+                    Score.CountInterstitial += 1;
+                    playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
+                    //StartCoroutine(waitForClickSound());
+                    panelScore.gameObject.SetActive(false);
+                    panel.gameObject.SetActive(false);
+                    Score.buttonPause = false;
+                    SceneManager.LoadScene("Home");
+                    Score.punteggio = 0;
+                    Score.fine = false;
+                    Time.timeScale = 0;
+                }
+                else
+                {
+
+                    Score.CountInterstitial = 0;
+
+                    ShowInterstitialAd();
+                }
+            }
+            else
+            {
                 playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
                 //StartCoroutine(waitForClickSound());
                 panelScore.gameObject.SetActive(false);
@@ -299,13 +330,7 @@ public class MenuScript : MonoBehaviour
                 Score.fine = false;
                 Time.timeScale = 0;
             }
-            else
-            {
-
-                Score.CountInterstitial = 0;
-
-                ShowInterstitialAd();
-            }
+     
         }
 
 
@@ -380,8 +405,24 @@ public class MenuScript : MonoBehaviour
     public void ContinuaPartita()
     {
         Score.Premiato = false;
-        //waitForClickSound();
-        ShowRewardedVideo();
+
+        if (playerPrefs.GetRemoveAds() == false)
+        {
+            //waitForClickSound();
+            ShowRewardedVideo();
+        }
+        else
+        {
+                panelScore.gameObject.SetActive(false);
+                panel.gameObject.SetActive(false);
+                Score.buttonPause = false;
+                SceneManager.LoadScene("Game");
+                Score.fine = false;
+                Time.timeScale = 0;
+                Score.continua = true;
+            
+        }
+  
     }
 
 
@@ -416,6 +457,17 @@ public class MenuScript : MonoBehaviour
             AudioListener.volume = 0;
             rewardedAd.Show();
         }
+        else
+        {
+            panelScore.gameObject.SetActive(false);
+            panel.gameObject.SetActive(false);
+            Score.buttonPause = false;
+            SceneManager.LoadScene("Game");
+            Score.fine = false;
+            Time.timeScale = 0;
+            Score.continua = true;
+            //buttonVideo.interactable = false;
+        }
     }
 
 
@@ -433,6 +485,18 @@ public class MenuScript : MonoBehaviour
             AudioListener.volume = 0;
             interstitialAd.Show();
         }
+        else
+        {
+             playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
+        //StartCoroutine(waitForClickSound());
+        panelScore.gameObject.SetActive(false);
+        panel.gameObject.SetActive(false);
+        Score.buttonPause = false;
+        SceneManager.LoadScene("Home");
+        Score.punteggio = 0;
+        Score.fine = false;
+        Time.timeScale = 0;
+        }
     }
 
     private AdRequest CreateNewRequest()
@@ -448,7 +512,8 @@ public class MenuScript : MonoBehaviour
 
     public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
     {
-        RequestRewardVideo();
+        // RequestRewardVideo();
+
     }
 
     public void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -459,7 +524,9 @@ public class MenuScript : MonoBehaviour
 
     public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
     {
-        RequestRewardVideo();
+        //RequestRewardVideo();
+        buttonVideo.interactable = false;
+
     }
 
     public void HandleRewardedAdClosed(object sender, EventArgs args)
@@ -503,15 +570,7 @@ public class MenuScript : MonoBehaviour
 
     public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        playerPrefs.SetMonete(playerPrefs.GetMonete() + Score.monete);
-        //StartCoroutine(waitForClickSound());
-        panelScore.gameObject.SetActive(false);
-        panel.gameObject.SetActive(false);
-        Score.buttonPause = false;
-        SceneManager.LoadScene("Home");
-        Score.punteggio = 0;
-        Score.fine = false;
-        Time.timeScale = 0;
+       
     }
 
     public void HandleOnAdOpened(object sender, EventArgs args)
@@ -532,7 +591,6 @@ public class MenuScript : MonoBehaviour
         Score.punteggio = 0;
         Score.fine = false;
         Time.timeScale = 0;
-
     }
 
     public void HandleOnAdLeavingApplication(object sender, EventArgs args)
@@ -543,7 +601,7 @@ public class MenuScript : MonoBehaviour
 
 
 
-    /*
+    
     public void OnDestroy()
     {
         rewardedAd.OnUserEarnedReward -= HandleUserEarnedReward;
@@ -567,7 +625,7 @@ public class MenuScript : MonoBehaviour
         // Called when the ad click caused the user to leave the application.
         this.interstitialAd.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
 
-    }*/
+    }
 
 
 

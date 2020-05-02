@@ -12,6 +12,9 @@ public class PlayerPrefsHandler
 	public const string NUM_PARTITE_INT = "numPartiteTotali";
 	public const string MONETE_INT = "monete";
 	public const string PERSONAGGIO_ATTUALE_S = "personaggioAttuale";
+	public const string REMOVE_ADS = "rimuoviAds";
+	public const string VERSION_S = "versioneString";
+	public const string DEVICE_S = "nomeDevice";
 
 
 
@@ -37,6 +40,7 @@ public class PlayerPrefsHandler
 		SetPersonaggioAttuale("The Loocka");
 		SetGiocatoreByNome("The Loocka");
 		SetNumPartiteTotali(0);
+		SetRemoveAds(false);
 	}
 
     public bool isFirstTime()
@@ -52,6 +56,43 @@ public class PlayerPrefsHandler
 
 
     }
+
+	public bool isSamsung()
+	{
+		if (GetDeviceName().Equals("Samsung"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+
+	}
+
+	public string GetVersionName()
+	{
+		return PlayerPrefs.GetString(VERSION_S, "");
+	}
+
+	public void SetVersionName(string val)
+	{
+		PlayerPrefs.SetString(VERSION_S, val);
+	}
+
+	public string GetDeviceName()
+	{
+		return PlayerPrefs.GetString(DEVICE_S, "");
+	}
+
+	public void SetDeviceName(string val)
+	{
+		if (val.Contains("Galaxy") || val.Contains("Samsung") || val.Contains("Unknown"))
+		{
+			PlayerPrefs.SetString(DEVICE_S, "Samsung");
+		}
+	}
 
 	public string GetPlayerKey()
 	{
@@ -157,6 +198,21 @@ public class PlayerPrefsHandler
 	public void SetPersonaggioAttuale(string val)
 	{
 		PlayerPrefs.SetString(PERSONAGGIO_ATTUALE_S, val);
+	}
+
+	public bool GetRemoveAds()
+	{
+		// If the value of the MUTE_INT key is 1 then sound is muted, otherwise it is not muted.
+		// The default value of the MUTE_INT key is 0 (i.e. not muted).
+		return PlayerPrefs.GetInt(REMOVE_ADS, 0) == 1;
+	}
+
+	public void SetRemoveAds(bool muted)
+	{
+		PlayerPrefs.SetInt(REMOVE_ADS, muted ? 1 : 0);
+
+		// Pausing the AudioListener will disable all sounds.
+		//AudioListener.pause = muted;
 	}
 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TutorialScript : MonoBehaviour
 {
@@ -70,6 +71,10 @@ public class TutorialScript : MonoBehaviour
             panelTutorial.transform.GetChild(0).gameObject.SetActive(false);
             panelTutorial.transform.GetChild(1).gameObject.SetActive(true);
             panelTutorial.transform.GetChild(2).gameObject.SetActive(false);
+            if (playerPrefsHandler.isSamsung())
+            {
+                panelTutorial.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = "Movimento: Swipe a destra e a sinitra per cambiare corsia della strada. Sparare: Swipe Up sullo schermo per attivare il lanciafiamme e sparare.";
+            }
         }
         else if (index == 2)
         {

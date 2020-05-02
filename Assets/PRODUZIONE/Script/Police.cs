@@ -17,7 +17,8 @@ public class Police : MonoBehaviour
         {
             if (other.tag == "Mask" || other.tag == "Paper")
             {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z - 150);
+                this.gameObject.SetActive(false);
+                //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z - 150);
             }
             else if (this.transform.position.z > other.transform.position.z)
             {
@@ -25,7 +26,7 @@ public class Police : MonoBehaviour
             }
             else
             {
-                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 12);
+               // other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 12);
             }
         }
 

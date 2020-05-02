@@ -140,7 +140,7 @@ public class Player : MonoBehaviour
             t.text = "" + Score.punteggio;
             Text monete = GameObject.Find("Coins").GetComponent<Text>();
             monete.text = "" + Score.monete;
-            increment = Score.incremento;
+            increment = Score.incremento/2;
             Score.pause = true;
 
         }
@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
             {
                 if (!Score.pause)
                 {
-                    if (Application.platform != RuntimePlatform.IPhonePlayer)
+                    if (playerPrefs.isSamsung())
                     {
                         if (Input.GetMouseButtonDown(0))
                         {
@@ -200,7 +200,7 @@ public class Player : MonoBehaviour
     {
         
 
-        if (increment < 100) {
+        if (increment < 70) {
             increment += 0.01f;
             Score.incremento = increment;
         }
@@ -242,7 +242,7 @@ public class Player : MonoBehaviour
 
         if (countImage.activeSelf == false)
         {
-            if(SystemInfo.deviceName.Contains("Galaxy") || SystemInfo.deviceName.Contains("Samsung") || SystemInfo.deviceName.Contains("Unknown"))
+            if(playerPrefs.isSamsung())
             {
                 float disX = Mathf.Abs(initialPos.x - finalPos.x);
                 float disY = Mathf.Abs(initialPos.y - finalPos.y);
@@ -369,7 +369,7 @@ public class Player : MonoBehaviour
 
     IEnumerator ShotPlayer()
     {
-        if (SystemInfo.deviceName.Contains("Galaxy") || SystemInfo.deviceName.Contains("Samsung") || SystemInfo.deviceName.Contains("Unknown"))
+        if (playerPrefs.isSamsung())
         {
 
             if (Input.GetMouseButtonUp(0) && countImage.activeSelf == false && contr == "n")
@@ -591,8 +591,9 @@ public class Player : MonoBehaviour
                     StartCoroutine(BonusNO());
                     mask = false;
                     imageMask.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
-                    collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
-                    //Destroy(collision.gameObject);
+                    //collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    collision.gameObject.SetActive(false);
+                //Destroy(collision.gameObject);
                     //enemies.enemies.Remove(collision.gameObject);
                 }
             }
@@ -613,8 +614,9 @@ public class Player : MonoBehaviour
                     source5Stelle.enabled = true;
                     source5Stelle.Play();
                     stelle.SetActive(true);
-                    collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
-                    //Destroy(collision.gameObject);
+                    //collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    collision.gameObject.SetActive(false);
+                //Destroy(collision.gameObject);
                     //enemies.enemies.Remove(collision.gameObject);
                 }
                 else if (paper && stelle.activeSelf == false)
@@ -622,7 +624,9 @@ public class Player : MonoBehaviour
                     StartCoroutine(BonusNO());
                     paper = false;
                     imagePaper.GetComponent<Image>().color = new Color32(255, 235, 235, 80);
-                    collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    //collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z - 100);
+                    collision.gameObject.SetActive(false);
+
                     //Destroy(collision.gameObject);
                     //enemies.enemies.Remove(collision.gameObject);
                 }

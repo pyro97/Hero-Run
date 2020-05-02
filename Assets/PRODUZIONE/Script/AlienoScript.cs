@@ -6,6 +6,7 @@ public class AlienoScript : MonoBehaviour
 {
     Rigidbody rigid;
     bool stoprun;
+    EnemiesGenerator enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class AlienoScript : MonoBehaviour
 
             if (Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                this.rigid.AddForce(50f * new Vector3(0.0f, 0.0f, -30.0f));
+                this.rigid.AddForce(100f * new Vector3(0.0f, 0.0f, -30.0f));
 
             }
             else
@@ -42,8 +43,11 @@ public class AlienoScript : MonoBehaviour
         {
             if (other.tag == "Mask" || other.tag == "Paper")
             {
-                this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z - 150);
-                stoprun = true;
+                this.gameObject.SetActive(false);
+                //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, other.gameObject.transform.position.z - 150);
+                //stoprun = true;
+                //test
+               // enemies.SortEnemies();
             }
             else if (this.transform.position.z > other.transform.position.z)
             {
@@ -52,7 +56,7 @@ public class AlienoScript : MonoBehaviour
             }
             else
             {
-                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 10);
+               // other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y, this.gameObject.transform.position.z + 10);
             }
         }
     }

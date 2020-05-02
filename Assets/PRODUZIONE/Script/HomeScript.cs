@@ -14,7 +14,7 @@ public class HomeScript : MonoBehaviour
     AudioSource musicaMenu;
     GameObject playBtn, panelListaSettings, panelMenuSettings,
         panelGameSettings, panelShopSettings, panelClassificaSettings,
-        panelAlertClassifica, panelAlertPersonaggio,panelInputNomeUtente,panelAlertInputNomeUtente,panelAlertNomePresente, panelAlertNoConnInsNome;
+        panelAlertClassifica, panelAlertPersonaggio,panelInputNomeUtente,panelAlertInputNomeUtente,panelAlertNomePresente, panelAlertNoConnInsNome,panelAlertUpdate;
     PlayerPrefsHandler playerPrefsHandler;
     Button buttonMusica, buttonEffetti;
     GameObject handlerMusica, handlerEffetti;
@@ -23,12 +23,18 @@ public class HomeScript : MonoBehaviour
     public GameObject[] players;
     List<User> listaOrdinata = new List<User>();
     bool listaPiena;
+    GameObject buyButton,acquistatoButton,restoreButton;
+    string versionName = "1.2.1";
 
 
 
     private void Awake()
     {
         playerPrefsHandler = new PlayerPrefsHandler();
+        buyButton = GameObject.Find("ButtonRemoveAds");
+        acquistatoButton = GameObject.Find("ButtonAcquistato");
+        restoreButton = GameObject.Find("ButtonRestore");
+
         panelAlertInputNomeUtente = GameObject.Find("PanelAlertInputNomeUtente");
         panelAlertInputNomeUtente.SetActive(false);
         panelInputNomeUtente = GameObject.Find("PanelInputNomeUtente");
@@ -37,6 +43,8 @@ public class HomeScript : MonoBehaviour
         panelAlertNomePresente.SetActive(false);
         panelAlertNoConnInsNome = GameObject.Find("PanelAlertNoConnInsNome");
         panelAlertNoConnInsNome.SetActive(false);
+        panelAlertUpdate = GameObject.Find("PanelAlertUpdate");
+        panelAlertUpdate.SetActive(false);
 
 
         if (AudioListener.pause)
@@ -55,6 +63,22 @@ public class HomeScript : MonoBehaviour
             {
                 playerPrefsHandler.SetPersonaggioAttuale("The Loocka");
             }
+
+            if (!playerPrefsHandler.GetVersionName().Equals(versionName))
+            {
+                panelAlertUpdate.SetActive(true);
+                panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text= "Versione " + versionName;
+                if (playerPrefsHandler.isSamsung())
+                {
+                    panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Usa Swipe Up per sparare invece del tocco sullo schermo.";
+
+                }
+                else
+                {
+                    panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Tocca lo schermo per sparare invece di usare Swipe Up.";
+
+                }
+            }
             //playerPrefsHandler.SetMonete(6000);
 
             //TEST TEST TEST TEST
@@ -70,6 +94,11 @@ public class HomeScript : MonoBehaviour
 
             //playerPrefsHandler.CreateFirstTimePref();
 
+        }
+
+        if (playerPrefsHandler.GetDeviceName().Length == 0)
+        {
+            playerPrefsHandler.SetDeviceName(SystemInfo.deviceName);
         }
 
         if (!playerPrefsHandler.GetIsMutedMusica())
@@ -190,7 +219,7 @@ public class HomeScript : MonoBehaviour
         {
 
 
-            if (inputField.text.ToString().Length > 0 && inputField.text.ToString().Length < 10)
+            if (inputField.text.ToString().Length > 0 && inputField.text.ToString().Length <= 10)
             {
 
                 bool nomePresente = false;
@@ -250,6 +279,11 @@ public class HomeScript : MonoBehaviour
 
     }
 
+    public void ChiudiAlertUpdate()
+    {
+        panelAlertUpdate.SetActive(false);
+        playerPrefsHandler.SetVersionName(versionName);
+    }
 
 
 
@@ -311,8 +345,16 @@ public class HomeScript : MonoBehaviour
             {
                 panelAlertClassifica.gameObject.SetActive(true);
             }
+            else if (!listaPiena)
+            {
+                panelAlertClassifica.gameObject.SetActive(true);
+                panelAlertClassifica.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "La classifica è ancora in caricamento. Per favore riprova.";
+            }
             else
+            {
                 AttivaClassificaSetting(true);
+
+            }
         }
         else
         {
@@ -387,6 +429,7 @@ public class HomeScript : MonoBehaviour
             }
             panelShopSettings.SetActive(false);
 
+
         }
         else
         {
@@ -395,6 +438,38 @@ public class HomeScript : MonoBehaviour
                 sourceClick.Play();
             }
             panelShopSettings.SetActive(true);
+            if (!playerPrefsHandler.GetRemoveAds())
+            {
+                buyButton.SetActive(true);
+                acquistatoButton.SetActive(false);
+                if (Application.platform == RuntimePlatform.Android)
+                {
+                    restoreButton.SetActive(false);
+
+                }
+                else
+                {
+                    restoreButton.GetComponent<Button>().interactable = true;
+                }
+
+            }
+            else
+            {
+                buyButton.SetActive(false);
+                acquistatoButton.SetActive(true);
+
+                if (Application.platform == RuntimePlatform.Android)
+                {
+                    restoreButton.SetActive(false);
+
+                }
+                else
+                {
+                    restoreButton.GetComponent<Button>().interactable = false;
+                }
+
+
+            }
             //OpenSubPanelGame(0);
 
 
@@ -491,6 +566,13 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(4).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+            if (playerPrefsHandler.isSamsung())
+            {
+                panelGameSettings.transform.GetChild(1).GetChild(3).GetChild(2).GetComponent<Text>().text = "Movimento: Swipe a destra e a sinitra per cambiare corsia della strada. Sparare: Swipe Up sullo schermo per attivare il lanciafiamme e sparare.";
+            }
+              
+
+
         }
         else if(index == 2)
         {
@@ -556,10 +638,12 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
 
 
-
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
+
+            panelMenuSettings.transform.GetChild(1).GetChild(1).GetChild(6).GetComponent<Text>().text = playerPrefsHandler.GetPlayerKey();
+
 
             handlerMusica = GameObject.Find("ButtonMusica");
             buttonMusica = handlerMusica.GetComponent<Button>();
@@ -610,14 +694,43 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             panelMenuSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
 
-
-
-
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
+
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(1).gameObject.SetActive(true);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(false);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(true);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(4).gameObject.SetActive(false);
+
+
+
         }
 
+    }
+
+    public void CambiaPageCredits(int i)
+    {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
+        if (i == 0)
+        {
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(1).gameObject.SetActive(true);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(false);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(true);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(4).gameObject.SetActive(false);
+
+
+        }
+        else if (i == 1)
+        {
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(1).gameObject.SetActive(false);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(true);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(false);
+            panelMenuSettings.transform.GetChild(1).GetChild(2).GetChild(4).gameObject.SetActive(true);
+        }
     }
 
 
@@ -632,7 +745,7 @@ public class HomeScript : MonoBehaviour
         {
             panelGameSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
             panelGameSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-            panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            //panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
 
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
@@ -641,7 +754,7 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
+            //panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
             attivaCatalogo();
             panelGameSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
             GameObject moneteCatalogo = panelGameSettings.transform.GetChild(1).GetChild(2).gameObject;
@@ -657,7 +770,7 @@ public class HomeScript : MonoBehaviour
         {
             panelGameSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             panelGameSettings.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>().color = new Color32(164, 164, 164, 255);
-            panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            //panelGameSettings.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
 
 
             panelGameSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
@@ -666,13 +779,14 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(5).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(6).gameObject.SetActive(false);
             panelGameSettings.transform.GetChild(1).GetChild(7).gameObject.SetActive(false);
-            panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
+            //panelGameSettings.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
 
             panelGameSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
 
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
         }
+        /*
         else if (indexSubPanel == 2)
         {
             panelGameSettings.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
@@ -691,12 +805,16 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelGameSettings.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
 
-        }
+        }*/
 
     }
 
     public void SbloccaGiocatore(string s)
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         GameObject daSbloccare = null;
         for (int i = 0; i < players.Length; i++)
         {
@@ -724,6 +842,10 @@ public class HomeScript : MonoBehaviour
 
     public void ChiudiAlertPersonaggio()
     {
+        if (sourceClick.enabled)
+        {
+            sourceClick.Play();
+        }
         panelAlertPersonaggio.gameObject.SetActive(false);
     }
 
@@ -815,6 +937,12 @@ public class HomeScript : MonoBehaviour
                     GameObject row = righe.transform.GetChild(i).gameObject;
                     row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
                     row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+                    if (listaOrdinata[i].nome.ToString().Equals(playerPrefsHandler.GetPlayerKey()))
+                    {
+                        row.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.red;
+                        row.transform.GetChild(1).gameObject.GetComponent<Text>().color = Color.red;
+                        row.transform.GetChild(2).gameObject.GetComponent<Text>().color = Color.red;
+                    }
                 }
 
             }
@@ -841,6 +969,12 @@ public class HomeScript : MonoBehaviour
                 GameObject row = righe2.transform.GetChild(i-10).gameObject;
                 row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
                 row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+                if (listaOrdinata[i].nome.ToString().Equals(playerPrefsHandler.GetPlayerKey()))
+                {
+                    row.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.red;
+                    row.transform.GetChild(1).gameObject.GetComponent<Text>().color = Color.red;
+                    row.transform.GetChild(2).gameObject.GetComponent<Text>().color = Color.red;
+                }
             }
 
         }
@@ -857,6 +991,12 @@ public class HomeScript : MonoBehaviour
                 GameObject row = righe3.transform.GetChild(i-20).gameObject;
                 row.transform.GetChild(0).gameObject.GetComponent<Text>().text = listaOrdinata[i].punti.ToString();
                 row.transform.GetChild(1).gameObject.GetComponent<Text>().text = listaOrdinata[i].nome.ToString();
+                if (listaOrdinata[i].nome.ToString().Equals(playerPrefsHandler.GetPlayerKey()))
+                {
+                    row.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.red;
+                    row.transform.GetChild(1).gameObject.GetComponent<Text>().color = Color.red;
+                    row.transform.GetChild(2).gameObject.GetComponent<Text>().color = Color.red;
+                }
             }
         }
 
