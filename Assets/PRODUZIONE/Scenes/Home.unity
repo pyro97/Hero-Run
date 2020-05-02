@@ -15085,6 +15085,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 396400661}
     m_Modifications:
+    - target: {fileID: 4709964656941591272, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
+        type: 3}
+      propertyPath: m_Name
+      value: TextSlide6
+      objectReference: {fileID: 0}
     - target: {fileID: 4709964656941591274, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
         type: 3}
       propertyPath: m_FontData.m_Alignment
@@ -15271,7 +15276,7 @@ PrefabInstance:
     - target: {fileID: 4709964657695022625, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99a2f29803eed41e69bd2cadfdcd62e4, type: 3}
@@ -23930,6 +23935,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 396400661}
     m_Modifications:
+    - target: {fileID: 4709964656941591272, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
+        type: 3}
+      propertyPath: m_Name
+      value: TextSlide5
+      objectReference: {fileID: 0}
     - target: {fileID: 4709964656941591274, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
         type: 3}
       propertyPath: m_FontData.m_Alignment
@@ -24110,7 +24120,7 @@ PrefabInstance:
     - target: {fileID: 4709964657695022625, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99a2f29803eed41e69bd2cadfdcd62e4, type: 3}
@@ -24167,6 +24177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697028602638879035, guid: 6b0fcea8413274a5abd011079cb2fd4f,
+        type: 3}
+      propertyPath: m_Name
+      value: TextSlide3
       objectReference: {fileID: 0}
     - target: {fileID: 7697028602821006311, guid: 6b0fcea8413274a5abd011079cb2fd4f,
         type: 3}
@@ -24292,7 +24307,7 @@ PrefabInstance:
     - target: {fileID: 7697028602943792959, guid: 6b0fcea8413274a5abd011079cb2fd4f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7697028603559073893, guid: 6b0fcea8413274a5abd011079cb2fd4f,
         type: 3}
@@ -24326,7 +24341,7 @@ PrefabInstance:
     - target: {fileID: 8069168594545218748, guid: 07c9636e8d5684895a52d4f52c97720f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8069168594545218751, guid: 07c9636e8d5684895a52d4f52c97720f,
         type: 3}
@@ -24506,6 +24521,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 463625900}
+    - target: {fileID: 8525187043330583513, guid: 41d4879ece9584d50927c26e228c5057,
+        type: 3}
+      propertyPath: m_Name
+      value: TextSlide4
+      objectReference: {fileID: 0}
     - target: {fileID: 8525187043330583514, guid: 41d4879ece9584d50927c26e228c5057,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -24555,7 +24575,7 @@ PrefabInstance:
     - target: {fileID: 8525187044226598424, guid: 41d4879ece9584d50927c26e228c5057,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8525187044226598425, guid: 41d4879ece9584d50927c26e228c5057,
         type: 3}

@@ -73,6 +73,7 @@ public class TutorialScript : MonoBehaviour
             panelTutorial.transform.GetChild(2).gameObject.SetActive(false);
             if (playerPrefsHandler.isSamsung())
             {
+                //TODO
                 panelTutorial.transform.GetChild(1).GetChild(2).GetComponent<Text>().text = "Movimento: Swipe a destra e a sinitra per cambiare corsia della strada. Sparare: Swipe Up sullo schermo per attivare il lanciafiamme e sparare.";
             }
         }
@@ -120,5 +121,10 @@ public class TutorialScript : MonoBehaviour
         newAudio.enabled = enab;
         newAudio.volume = vol;
         return newAudio;
+    }
+
+    void setEnglish()
+    {
+
     }
 }

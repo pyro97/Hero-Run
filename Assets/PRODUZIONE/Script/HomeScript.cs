@@ -30,6 +30,10 @@ public class HomeScript : MonoBehaviour
 
     private void Awake()
     {
+        if (Application.systemLanguage != SystemLanguage.Italian)
+        {
+            SetEnglish();
+        }
         playerPrefsHandler = new PlayerPrefsHandler();
         buyButton = GameObject.Find("ButtonRemoveAds");
         acquistatoButton = GameObject.Find("ButtonAcquistato");
@@ -67,15 +71,38 @@ public class HomeScript : MonoBehaviour
             if (!playerPrefsHandler.GetVersionName().Equals(versionName))
             {
                 panelAlertUpdate.SetActive(true);
-                panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text= "Versione " + versionName;
+                if (Application.systemLanguage == SystemLanguage.Italian)
+                {
+                    panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text= "Versione " + versionName;
+                }
+                else
+                {
+                    panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "Version " + versionName;
+                }
+                
                 if (playerPrefsHandler.isSamsung())
                 {
-                    panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Usa Swipe Up per sparare invece del tocco sullo schermo.";
+                    if (Application.systemLanguage == SystemLanguage.Italian)
+                    {
+                        panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Usa Swipe Up per sparare invece del tocco sullo schermo.";
+                    }
+                    else
+                    {
+                        panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Use Swipe Up to shoot instead of the touch on the screen.";
+                    }
 
                 }
                 else
                 {
-                    panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Tocca lo schermo per sparare invece di usare Swipe Up.";
+                    if (Application.systemLanguage == SystemLanguage.Italian)
+                    {
+                        panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Tocca lo schermo per sparare invece di usare Swipe Up.";
+                    }
+                    else
+                    {
+                        panelAlertUpdate.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text += "-Tap the screen to shoot instead of using Swipe Up.";
+                    }
+                    
 
                 }
             }
@@ -349,7 +376,15 @@ public class HomeScript : MonoBehaviour
             else if (!listaPiena)
             {
                 panelAlertClassifica.gameObject.SetActive(true);
-                panelAlertClassifica.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "La classifica è ancora in caricamento. Per favore riprova.";
+                if (Application.systemLanguage == SystemLanguage.Italian)
+                {
+                    panelAlertClassifica.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "La classifica è ancora in caricamento. Per favore riprova.";
+                }
+                else
+                {
+                    panelAlertClassifica.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = "The ranking is still loading. Please try again.";
+                }
+                
             }
             else
             {
@@ -569,7 +604,14 @@ public class HomeScript : MonoBehaviour
             panelGameSettings.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
             if (playerPrefsHandler.isSamsung())
             {
-                panelGameSettings.transform.GetChild(1).GetChild(3).GetChild(2).GetComponent<Text>().text = "Movimento: Swipe a destra e a sinitra per cambiare corsia della strada. Sparare: Swipe Up sullo schermo per attivare il lanciafiamme e sparare.";
+                if (Application.systemLanguage == SystemLanguage.Italian)
+                {
+                    panelGameSettings.transform.GetChild(1).GetChild(3).GetChild(2).GetComponent<Text>().text = "Movimento: Swipe a destra e a sinitra per cambiare corsia della strada. Sparare: Swipe Up sullo schermo per attivare il lanciafiamme e sparare.";
+                }
+                else
+                {
+                    panelGameSettings.transform.GetChild(1).GetChild(3).GetChild(2).GetComponent<Text>().text = "Movement: Swipe right and left to change lane of the road. Shoot: Swipe Up on the screen to activate the flamethrower and shoot.";
+                }
             }
               
 
@@ -625,10 +667,10 @@ public class HomeScript : MonoBehaviour
             panelMenuSettings.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
             panelMenuSettings.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
             panelMenuSettings.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
+            
             GameObject.Find("ScoreVal").GetComponent<Text>().text = playerPrefsHandler.GetRecordPersonale().ToString();
             GameObject.Find("NPartiteVal").GetComponent<Text>().text = playerPrefsHandler.GetNumPartiteTotali().ToString();
-            GameObject.Find("NCoinsVal").GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString();
-
+            GameObject.Find("NCoinsVal").GetComponent<Text>().text = playerPrefsHandler.GetMonete().ToString(); 
 
 
         }
@@ -1260,6 +1302,47 @@ public class HomeScript : MonoBehaviour
 
     }
 
+
+    void SetEnglish()
+    {
+        GameObject.Find("NPartiteTitle").GetComponent<Text>().text = Language.partiteTotali;
+        GameObject.Find("ScoreTitle").GetComponent<Text>().text = Language.scoreTitle;
+        GameObject.Find("TitlePanelStats").GetComponent<Text>().text = Language.titlePanelStats;
+        GameObject.Find("NCoinsTitle").GetComponent<Text>().text = Language.nCoinsTitle;
+        GameObject.Find("NPartiteTitle").GetComponent<Text>().text = Language.partiteTotali;
+        GameObject.Find("TitleMusic").GetComponent<Text>().text = Language.titleMusic;
+        GameObject.Find("TitleEffetti").GetComponent<Text>().text = Language.titleEffetti;
+        GameObject.Find("ComandiButton").transform.GetChild(0).GetComponent<Text>().text = Language.comandi;
+        GameObject.Find("TitlePanelPlayer").GetComponent<Text>().text = Language.titlePanelPlayer;
+        GameObject.Find("NPartiteTitle").GetComponent<Text>().text = Language.partiteTotali;
+        GameObject.Find("Select").transform.GetChild(0).GetComponent<Text>().text = Language.seleziona;
+        GameObject.Find("The Loocka").transform.GetChild(2).transform.GetChild(0).GetComponent<Text>().text = Language.sblocca;
+        GameObject.Find("Peppe").transform.GetChild(2).transform.GetChild(0).GetComponent<Text>().text = Language.sbloccaPeppe;
+        GameObject.Find("PanelComandiSlide1").transform.GetChild(0).GetComponent<Text>().text = Language.panelComandiSlideTextTitle;
+        GameObject.Find("TextSlide1").GetComponent<Text>().text = Language.panelComandiSlide1TextSlide1;
+        GameObject.Find("PanelComandiSlide2").transform.GetChild(0).GetComponent<Text>().text = Language.comandi;
+        GameObject.Find("TextSlide2").GetComponent<Text>().text = Language.panelComandiSlide2TextSlide2;
+        GameObject.Find("PanelComandiSlide3").transform.GetChild(0).GetComponent<Text>().text = Language.panelComandiSlide3TextTitle;
+        GameObject.Find("TextSlide3").GetComponent<Text>().text = Language.panelComandiSlide3TextSlide;
+        GameObject.Find("PanelComandiSlide4").transform.GetChild(0).GetComponent<Text>().text = Language.panelComandiSlide4TextTitle;
+        GameObject.Find("TextSlide4").GetComponent<Text>().text = Language.panelComandiSlide4TextSlide;
+        GameObject.Find("PanelComandiSlide5").transform.GetChild(0).GetComponent<Text>().text = Language.panelComandiSlide5TextTitle;
+        GameObject.Find("TextSlide5").GetComponent<Text>().text = Language.panelComandiSlide5TextSlide;
+        GameObject.Find("TextSlide6").GetComponent<Text>().text = Language.panelComandiSlide6TextSlide;
+        GameObject.Find("PanelShop1").transform.GetChild(3).GetComponent<Text>().text = Language.rimuoviPubblicità;
+        GameObject.Find("ButtonAcquistato").transform.GetChild(0).GetComponent<Text>().text = Language.buttonAcquistato;
+        GameObject.Find("ButtonRestore").transform.GetChild(0).GetComponent<Text>().text = Language.ripristinaAcquisti;
+        GameObject.Find("ButtonRemoveAds").transform.GetChild(0).GetComponent<Text>().text = Language.buttonRemoveAds;
+        GameObject.Find("TitlePanelClassifica").GetComponent<Text>().text = Language.titleClassifica;
+        GameObject.Find("PanelAlertClassifica").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertClassifica;
+        GameObject.Find("PanelAlertPersonaggio").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertPersonaggio;
+        GameObject.Find("PanelAlertInputNomeUtente").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertNick;
+        GameObject.Find("PanelInputNomeUtente").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.panelInput;
+        GameObject.Find("PanelAlertNomePresente").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertNomeInserito;
+        GameObject.Find("PanelAlertNoConnInsNome").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertConnesione;
+        GameObject.Find("PanelAlertPersonaggio").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertPersonaggio;
+        GameObject.Find("PanelAlertUpdate").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = Language.alertUpdate;
+    }
 
 
 }

@@ -230,6 +230,7 @@ public class MenuScript : MonoBehaviour
         if (Score.punteggio > bestRecord)
         {
             playerPrefs.SetRecordPersonale(Score.punteggio);
+            //TODO
             testoFinale.text = "Nuovo Record";
         }
         panelFine.gameObject.SetActive(true);
