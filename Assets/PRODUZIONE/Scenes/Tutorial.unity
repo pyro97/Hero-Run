@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d00f3d0b2afd4df190e98dcf555a2e4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fad0042860d254f06bfd2b5b100791fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2928,7 +2928,7 @@ GameObject:
   - component: {fileID: 1120879645}
   - component: {fileID: 1120879644}
   m_Layer: 5
-  m_Name: Salta
+  m_Name: Salta1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3554,7 +3554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c7733d33537f747eaaac26085174379c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bcaef1c61f30e43f28eb8d8ec394b5f0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3743,7 +3743,7 @@ GameObject:
   - component: {fileID: 1511086005}
   - component: {fileID: 1511086004}
   m_Layer: 5
-  m_Name: Salta
+  m_Name: Salta3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4079,7 +4079,7 @@ GameObject:
   - component: {fileID: 1562401233}
   - component: {fileID: 1562401232}
   m_Layer: 5
-  m_Name: Salta
+  m_Name: Salta0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4208,7 +4208,7 @@ GameObject:
   - component: {fileID: 1667810184}
   - component: {fileID: 1667810183}
   m_Layer: 5
-  m_Name: Salta
+  m_Name: Salta2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

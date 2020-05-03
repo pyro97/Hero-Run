@@ -3111,7 +3111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mortaPersona: 0
-  theEnemy: {fileID: 1042199097}
+  theEnemy: {fileID: 1832302954}
   personCheBalla: {fileID: 885343411}
   enemies: []
   police: {fileID: 77987267}
@@ -4723,6 +4723,12 @@ Transform:
   m_Father: {fileID: 937782444}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &608870870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5527213731472307782, guid: f5e129bb7b9544964882b64a9be6db7f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1291444989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &613857698
 GameObject:
   m_ObjectHideFlags: 0
@@ -8042,7 +8048,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a38896498c494b0e8f2ff6523c92454, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d6df778c048841b989bb8af75bb1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8380,7 +8386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12395,12 +12401,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5e129bb7b9544964882b64a9be6db7f, type: 3}
---- !u!1 &1378886516 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5527213731472307782, guid: f5e129bb7b9544964882b64a9be6db7f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1378886515}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1380428497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15832,7 +15832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100030, guid: 647a098ac19a9504ea02872319c753d7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400030, guid: 647a098ac19a9504ea02872319c753d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17186,7 +17186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusMask: {fileID: 1279693345}
-  bonusPaper: {fileID: 1378886516}
+  bonusPaper: {fileID: 608870870}
   bonus: []
   paper: 0
   mask: 0

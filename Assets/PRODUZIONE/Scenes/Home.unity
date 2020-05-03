@@ -5479,7 +5479,7 @@ GameObject:
   - component: {fileID: 525534704}
   - component: {fileID: 525534703}
   m_Layer: 5
-  m_Name: TitlePanelClassifica
+  m_Name: TitlePanelClassifica1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10402,7 +10402,7 @@ GameObject:
   - component: {fileID: 1005916444}
   - component: {fileID: 1005916443}
   m_Layer: 5
-  m_Name: TitlePanelClassifica
+  m_Name: TitlePanelClassifica2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15156,7 +15156,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8d00f3d0b2afd4df190e98dcf555a2e4,
+      objectReference: {fileID: 21300000, guid: fad0042860d254f06bfd2b5b100791fc,
         type: 3}
     - target: {fileID: 4709964657618503307, guid: 99a2f29803eed41e69bd2cadfdcd62e4,
         type: 3}
@@ -24135,7 +24135,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c7733d33537f747eaaac26085174379c,
+      objectReference: {fileID: 21300000, guid: bcaef1c61f30e43f28eb8d8ec394b5f0,
         type: 3}
     - target: {fileID: 7697028602638879032, guid: 6b0fcea8413274a5abd011079cb2fd4f,
         type: 3}

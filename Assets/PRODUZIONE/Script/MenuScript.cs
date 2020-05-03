@@ -30,6 +30,10 @@ public class MenuScript : MonoBehaviour
     {
         playerPrefs = new PlayerPrefsHandler();
 
+        if(Application.systemLanguage != SystemLanguage.Italian)
+        {
+            SetEnglish();
+        }
 
 
         if (playerPrefs.GetIsMutedEffetti())
@@ -231,7 +235,14 @@ public class MenuScript : MonoBehaviour
         {
             playerPrefs.SetRecordPersonale(Score.punteggio);
             //TODO
-            testoFinale.text = "Nuovo Record";
+            if (Application.systemLanguage != SystemLanguage.Italian)
+            {
+                testoFinale.text = "New Record";
+            }
+            else
+            {
+                testoFinale.text = "Nuovo Record";
+            }
         }
         panelFine.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
@@ -662,6 +673,17 @@ public class MenuScript : MonoBehaviour
         });
 
 
+    }
+
+    void SetEnglish()
+    {
+        GameObject.Find("Panel").transform.GetChild(1).GetComponent<Text>().text = Language.punteggio;
+        GameObject.Find("PanelFine").transform.GetChild(1).GetComponent<Text>().text = Language.punteggioFinale;
+        GameObject.Find("PanelFine").transform.GetChild(3).GetChild(0).GetComponent<Text>().text = Language.continua;
+        GameObject.Find("PanelAlert").transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = Language.panelAlert;
+        GameObject.Find("PanelAlertRicomincia").transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = Language.panelRicomincia;
+        GameObject.Find("PanelFirebase").transform.GetChild(0).GetComponent<Text>().text = Language.panelFirebase;
+        GameObject.Find("PanelFirebase").transform.GetChild(2).GetComponent<Text>().text = Language.loading;
     }
 
 
