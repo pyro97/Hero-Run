@@ -4,6 +4,7 @@ Endless runner game about a city governor who have to shot enemies along the roa
 <br>
 Google Play: https://cutt.ly/enOMGpv
 
-<iframe width="420" height="315"
-src="https://www.youtube.com/watch?v=QUZ-0S7D5YM&t=6s">
-</iframe>
+<br>
+<p align="center">
+  <img src="readme/herorun.gif" width="300">
+</p>
