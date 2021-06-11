@@ -6,5 +6,7 @@ Google Play: https://cutt.ly/enOMGpv
 
 <br>
 <p align="center">
-  <img src="readme/IMG_0924.MP4" width="300">
+  <video width="320" height="240" controls>
+  <source src="readme/IMG_0924.MP4" type="video/mp4">
+  </video>
 </p>
